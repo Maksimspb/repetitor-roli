@@ -145,6 +145,11 @@ let idx=0, sceneUnits=[], SCENES=[], SELECTION=null, hfTimer=null;
 
 // ---------- load ----------
 fetch('data/play.json').then(r=>r.json()).then(d=>{ PLAY=d; initSetup(); });
+// живой голос: индекс пред-рендеренного аудио (id реплики -> файл)
+let AUDIO_INDEX={};
+fetch('audio/index.json').then(r=>r.ok?r.json():{}).then(d=>{AUDIO_INDEX=d;}).catch(()=>{});
+const SILENCE='data:audio/wav;base64,UklGRnQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';
+const sharedAudio=new Audio();  // один элемент — разблокируется жестом на iOS
 // PWA: офлайн-режим (для машины)
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
@@ -266,8 +271,9 @@ function start(){
   $('#hint').classList.remove('hidden');
   $('#btnRestart').style.display='';
   $('#stage').innerHTML='';
-  // разблокировать звук на iOS (нужен жест)
+  // разблокировать звук на iOS (нужен жест): проиграть тишину этим же аудио-элементом
   speechSynthesis.cancel();
+  sharedAudio.src=SILENCE; sharedAudio.play().catch(()=>{});
   step();
 }
 
@@ -289,6 +295,7 @@ function markPast(){ document.querySelectorAll('#stage .bubble:not(.past)').forE
 
 function step(){
   if(hfTimer){ clearTimeout(hfTimer); hfTimer=null; }
+  stopAudio();
   // прошлые — приглушить
   const prev=$('#stage').lastElementChild;
   if(prev) prev.classList.add('past');
@@ -320,7 +327,7 @@ function step(){
     // ПАРТНЁР: показать + озвучить, затем авто-дальше
     const el=render(u,'partner', `<div class="who">${who}</div>${action}<div>${u.text}</div>`);
     el.classList.remove('past'); el.classList.add('active');
-    speak(u.text, ()=>{ idx++; step(); });
+    voicePartner(u, ()=>{ idx++; step(); });
     setControls('partner');
   } else if(HANDSFREE){
     // ТВОЯ реплика, режим без рук: пауза под тебя, потом сама дальше (без микрофона)
@@ -345,6 +352,22 @@ function step(){
     listenStart(el);
   }
 }
+
+// озвучка партнёра: живой голос (аудио) → иначе системный
+function voicePartner(u, onend){
+  stopAudio();
+  const src=AUDIO_INDEX[String(u.id)];
+  if(src){
+    sharedAudio.src=src;
+    sharedAudio.playbackRate=+$('#rate').value||1;
+    sharedAudio.onended=()=>onend&&onend();
+    sharedAudio.onerror=()=>speak(u.text,onend);
+    sharedAudio.play().catch(()=>speak(u.text,onend));
+  } else {
+    speak(u.text, onend);  // фолбэк: системный голос
+  }
+}
+function stopAudio(){ try{ sharedAudio.onended=null; sharedAudio.pause(); }catch(e){} }
 
 function speak(text, onend){
   if(!('speechSynthesis' in window)){ onend&&onend(); return; }
@@ -444,8 +467,8 @@ function setControls(mode, meEl){
   bar.innerHTML='';
   if(mode==='partner'){
     hint.innerHTML='Партнёр говорит… <span style="opacity:.6">слушай</span>';
-    const skip=btn('⏭ Пропустить','ghost',()=>{ speechSynthesis.cancel(); idx++; step(); });
-    const rep =btn('⟲ Ещё раз','ghost',()=>{ const u=sceneUnits[idx]; speak(u.text); });
+    const skip=btn('⏭ Пропустить','ghost',()=>{ speechSynthesis.cancel(); stopAudio(); idx++; step(); });
+    const rep =btn('⟲ Ещё раз','ghost',()=>{ voicePartner(sceneUnits[idx]); });
     bar.append(rep,skip);
   } else {
     hint.innerHTML='🎙 Говори свою реплику — приложение слушает. Закончил — <kbd>Дальше</kbd> (пробел)';

@@ -1,9 +1,11 @@
 // Service worker: офлайн-кеш приложения (партнёр по репликам работает без интернета).
-const CACHE = 'repetitor-v1';
+const CACHE = 'repetitor-v2';
 const ASSETS = [
-  './', './index.html', './data/play.json', './manifest.webmanifest',
+  './', './index.html', './data/play.json', './audio/index.json', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png'
 ];
+// mp3-реплики кешируются на лету при первом проигрывании сцены (network-first ниже),
+// поэтому прогнав сцену дома с интернетом, в машине услышишь её офлайн.
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

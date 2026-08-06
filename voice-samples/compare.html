@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сравнение голосов</title>
+<style>
+ body{background:#0e1116;color:#e8ecf1;font-family:-apple-system,sans-serif;max-width:680px;margin:0 auto;padding:20px}
+ h1{font-size:20px} h2{font-size:15px;color:#8b95a3;margin:26px 0 4px;font-weight:600}
+ .phrase{font-style:italic;color:#ffcf5b;margin-bottom:14px;line-height:1.5}
+ .card{background:#171b22;border:1px solid #2a313c;border-radius:14px;padding:14px 16px;margin:10px 0;
+   display:flex;align-items:center;gap:14px}
+ .card .nm{font-weight:600;min-width:150px}
+ .card .tag{font-size:12px;color:#8b95a3}
+ .metal{border-color:#3a2a2a} .neuro{border-color:#1c3a26}
+ audio{flex:1;max-width:260px}
+ .verdict{background:#171b22;border:1px solid #2a313c;border-radius:14px;padding:16px;margin-top:24px;font-size:14px;line-height:1.6}
+</style></head><body>
+<h1>🎙 Сравнение голосов — бесплатно</h1>
+<p class="tag" style="color:#8b95a3">Послушай одну и ту же реплику разными движками. Все — бесплатные.</p>
+
+<h2>Реплика 1 (Лыняев)</h2>
+<div class="phrase">«Не понимаю, не понимаю, что за фантазия гулять по росе, когда есть прекрасные дорожки!»</div>
+<div class="card metal"><span class="nm">macOS Milena</span><span class="tag">сейчас в приложении · «металл»</span><audio controls src="milena_1.m4a"></audio></div>
+<div class="card neuro"><span class="nm">Edge Svetlana</span><span class="tag">нейро · женский</span><audio controls src="svetlana_1.mp3"></audio></div>
+<div class="card neuro"><span class="nm">Edge Dmitry</span><span class="tag">нейро · мужской</span><audio controls src="dmitry_1.mp3"></audio></div>
+
+<h2>Реплика 2 (Лыняев → Глафире)</h2>
+<div class="phrase">«Вы только платье переменили, а скромность при себе оставили?»</div>
+<div class="card metal"><span class="nm">macOS Milena</span><span class="tag">сейчас в приложении · «металл»</span><audio controls src="milena_2.m4a"></audio></div>
+<div class="card neuro"><span class="nm">Edge Svetlana</span><span class="tag">нейро · женский</span><audio controls src="svetlana_2.mp3"></audio></div>
+<div class="card neuro"><span class="nm">Edge Dmitry</span><span class="tag">нейро · мужской</span><audio controls src="dmitry_2.mp3"></audio></div>
+
+<div class="verdict">
+<b>Что ты слышишь.</b> Milena — то, что в приложении сейчас (роботичная).
+Svetlana / Dmitry — это <b>Microsoft Neural TTS через пакет edge-tts: бесплатно, без ключа</b>.
+Разные голоса → можно свой на каждого персонажа.<br><br>
+<b>Нюанс:</b> edge-tts синтезирует онлайн. Чтобы работало <b>офлайн в машине</b> — озвучиваем
+все реплики пьесы заранее в аудиофайлы и кладём в приложение (тогда любой движок годится, даже медленный).
+Разбор всех вариантов и план — в отдельном сообщении.
+</div>
+</body></html>

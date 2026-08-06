@@ -174,6 +174,7 @@ def parse():
             inline_actions = re.findall(r"\(([^)]*)\)", m.group("text"))
             units.append({
                 "type": "line",
+                "id": len([u for u in units if u.get("type") == "line"]),  # стабильный id реплики
                 "speaker": canon,
                 "speaker_raw": raw,
                 "chorus": chorus,
