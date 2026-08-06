@@ -150,8 +150,20 @@ let AUDIO_INDEX={};
 fetch('audio/index.json').then(r=>r.ok?r.json():{}).then(d=>{AUDIO_INDEX=d;}).catch(()=>{});
 const SILENCE='data:audio/wav;base64,UklGRnQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';
 const sharedAudio=new Audio();  // один элемент — разблокируется жестом на iOS
-// PWA: офлайн-режим (для машины)
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+// PWA: офлайн-режим только на хостинге; на localhost SW не нужен (мешает деву) — снимаем.
+(function(){
+  if(!('serviceWorker' in navigator)) return;
+  const dev = location.hostname==='localhost' || location.hostname==='127.0.0.1';
+  if(dev){
+    navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())).catch(()=>{});
+    return;
+  }
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', ()=>{
+    if(hadController) location.reload();   // новый SW взял управление → обновить страницу
+  });
+  navigator.serviceWorker.register('sw.js').then(reg=>reg.update()).catch(()=>{});
+})();
 
 function initSetup(){
   $('#hdrSub').textContent = PLAY.meta.title;

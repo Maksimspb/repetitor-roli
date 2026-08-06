@@ -1,5 +1,5 @@
 // Service worker: офлайн-кеш приложения (партнёр по репликам работает без интернета).
-const CACHE = 'repetitor-v2';
+const CACHE = 'repetitor-v3';
 const ASSETS = [
   './', './index.html', './data/play.json', './audio/index.json', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png'
@@ -18,14 +18,27 @@ self.addEventListener('activate', e => {
   );
 });
 
-// network-first (свежие данные при сети) с откатом в кеш (работа офлайн/в машине)
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-  e.respondWith(
-    fetch(e.request).then(resp => {
-      const copy = resp.clone();
-      caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
-      return resp;
-    }).catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
-  );
+  const isAudio = new URL(e.request.url).pathname.endsWith('.mp3');
+
+  if (isAudio) {
+    // тяжёлые реплики: cache-first (не перекачивать; офлайн в машине)
+    e.respondWith(
+      caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
+        const copy = resp.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+        return resp;
+      }))
+    );
+  } else {
+    // приложение и данные: сеть в обход HTTP-кеша (всегда свежее), откат в кеш офлайн
+    e.respondWith(
+      fetch(e.request, { cache: 'reload' }).then(resp => {
+        const copy = resp.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+        return resp;
+      }).catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
+    );
+  }
 });
