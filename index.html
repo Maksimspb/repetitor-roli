@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Репетитор роли</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#171b22; --panel2:#1e242d; --line:#2a313c;
+    --ink:#e8ecf1; --dim:#8b95a3; --accent:#5b9dff; --me:#ffcf5b; --ok:#57c98a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,Segoe UI,Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:720px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+  header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;gap:12px;position:sticky;top:0;background:var(--bg);z-index:5}
+  header h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.2px}
+  header .sub{color:var(--dim);font-size:12px}
+  header .spacer{flex:1}
+  button{font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);
+    border-radius:12px;padding:11px 16px;cursor:pointer;transition:.12s}
+  button:active{transform:scale(.97)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#08101f;font-weight:600}
+  button.ghost{background:transparent}
+  select{font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);
+    border-radius:10px;padding:9px 12px}
+  /* ---- setup ---- */
+  .setup{padding:18px 16px;display:flex;flex-direction:column;gap:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:0 0 12px}
+  .roles{display:flex;flex-direction:column;gap:8px;max-height:44vh;overflow:auto}
+  .role{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);
+    border-radius:12px;background:var(--panel2);cursor:pointer}
+  .role.sel{border-color:var(--me);background:#241f12}
+  .role .nm{font-weight:600}
+  .role .ct{margin-left:auto;color:var(--dim);font-size:13px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .row label{color:var(--dim);font-size:13px;min-width:90px}
+  /* ---- rehearse ---- */
+  .stage{flex:1;display:flex;flex-direction:column;gap:14px;padding:16px;overflow:auto}
+  .divider{text-align:center;color:var(--dim);font-size:12px;text-transform:uppercase;
+    letter-spacing:1px;margin:6px 0;border-top:1px solid var(--line);padding-top:10px}
+  .bubble{border-radius:16px;padding:14px 16px;line-height:1.5;font-size:18px;
+    border:1px solid var(--line);background:var(--panel);animation:in .18s ease}
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .bubble .who{font-size:12px;color:var(--dim);margin-bottom:5px;font-weight:600;letter-spacing:.4px}
+  .bubble.partner .who{color:var(--accent)}
+  .bubble.me{background:#1c1a12;border-color:#3a3418}
+  .bubble.me .who{color:var(--me)}
+  .bubble.stage{background:transparent;border-style:dashed;color:var(--dim);font-style:italic;font-size:15px}
+  .action{color:var(--dim);font-style:italic;font-size:14px}
+  .cue{opacity:.55}
+  .past{opacity:.4}
+  .ok{color:var(--ok)}
+  .miss{color:#ff7a7a;text-decoration:underline dotted}
+  .extra{color:#c98a57}
+  .heard{color:var(--dim);font-style:italic;font-size:14px;margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px;min-height:20px}
+  .heard .lbl{font-style:normal;font-size:11px;letter-spacing:.4px;text-transform:uppercase}
+  .listening .lbl{color:#ff6b6b}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff5b5b;
+    margin-right:6px;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+  .scoreTag{font-size:12px;padding:2px 9px;border-radius:10px;margin-left:8px;font-weight:600}
+  .sc-hi{background:#1c3a26;color:var(--ok)} .sc-mid{background:#3a341c;color:var(--me)}
+  .sc-lo{background:#3a1c1c;color:#ff7a7a}
+  .sumrow{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel)}
+  .sumrow .said{color:var(--dim);font-size:13px;font-style:italic;margin-top:6px}
+  /* controls */
+  .bar{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+    padding:12px 16px;display:flex;gap:10px;align-items:center}
+  .bar .big{flex:1;padding:16px;font-size:16px}
+  .hidden{display:none!important}
+  .hint{color:var(--dim);font-size:13px;padding:0 16px 10px;text-align:center}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .pill{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:20px;padding:5px 11px;cursor:pointer}
+  .pill.on{color:var(--me);border-color:var(--me)}
+  kbd{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🎭 Репетитор роли</h1>
+    <div class="sub" id="hdrSub"></div>
+    <div class="spacer"></div>
+    <button class="ghost" id="btnRestart" style="display:none">⟲ Настройки</button>
+  </header>
+
+  <!-- SETUP -->
+  <section class="setup" id="setup">
+    <div class="card">
+      <h2>1. За кого играешь</h2>
+      <div class="roles" id="roleList"></div>
+    </div>
+    <div class="card">
+      <h2>2. Сцена</h2>
+      <div id="sceneHint" class="hint" style="text-align:left;padding:0">↑ Сначала выбери роль</div>
+      <div class="roles" id="sceneList"></div>
+    </div>
+    <div class="card">
+      <h2>3. Как показывать твои реплики</h2>
+      <div class="row">
+        <span class="pill on" data-reveal="hidden">Скрыто</span>
+        <span class="pill" data-reveal="firstletters">Первые буквы</span>
+        <span class="pill" data-reveal="full">Целиком</span>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <label>Голос партнёра</label>
+        <select id="voiceSel"></select>
+      </div>
+      <div id="voiceNote" style="color:var(--dim);font-size:12px;margin-top:8px"></div>
+      <div class="row" style="margin-top:10px">
+        <label>Скорость</label>
+        <input type="range" id="rate" min="0.6" max="1.4" step="0.05" value="1" style="flex:1">
+      </div>
+    </div>
+    <button class="primary" id="btnStart" style="padding:16px;font-size:16px">▶ Начать репетицию</button>
+  </section>
+
+  <!-- REHEARSE -->
+  <section class="stage hidden" id="stage"></section>
+  <div class="hint hidden" id="hint"></div>
+  <div class="bar hidden" id="bar"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let PLAY=null, ROLE=null, REVEAL='hidden', VOICE=null;
+let idx=0, sceneUnits=[], SCENES=[], SELECTION=null;
+
+// ---------- load ----------
+fetch('data/play.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{ PLAY=d; initSetup(); });
+
+function initSetup(){
+  $('#hdrSub').textContent = PLAY.meta.title;
+  // roles
+  const rl=$('#roleList');
+  PLAY.meta.roles.filter(r=>r.lines>=3).forEach(r=>{
+    const el=document.createElement('div'); el.className='role';
+    el.innerHTML=`<span class="nm">${r.name}</span><span class="ct">${r.lines} реплик</span>`;
+    el.onclick=()=>{ document.querySelectorAll('.role').forEach(x=>x.classList.remove('sel'));
+      el.classList.add('sel'); ROLE=r.name; renderScenes(); };
+    rl.appendChild(el);
+  });
+  // индекс всех явлений: unit-индекс начала и конца (до следующего явления)
+  let curAct='';
+  const sceneRaw=[];
+  PLAY.units.forEach((u,i)=>{
+    if(u.type==='act') curAct=u.title;
+    if(u.type==='scene') sceneRaw.push({u, i, act:curAct});
+  });
+  sceneRaw.forEach((s,k)=>{
+    s.end = k+1<sceneRaw.length ? sceneRaw[k+1].i : PLAY.units.length;
+    s.actShort = s.act.replace('Действие ','Д.');
+    s.scShort  = s.u.title.replace('Явление ','явл. ');
+  });
+  SCENES=sceneRaw;
+  // reveal pills
+  document.querySelectorAll('.pill[data-reveal]').forEach(p=>{
+    p.onclick=()=>{ document.querySelectorAll('.pill[data-reveal]').forEach(x=>x.classList.remove('on'));
+      p.classList.add('on'); REVEAL=p.dataset.reveal; };
+  });
+  loadVoices();
+  $('#btnStart').onclick=start;
+  $('#btnRestart').onclick=()=>location.reload();
+}
+
+// список сцен, где есть выбранная роль
+function renderScenes(){
+  const box=$('#sceneList'), hint=$('#sceneHint');
+  box.innerHTML=''; SELECTION=null;
+  const mine=SCENES.filter(s=>s.u.participants && s.u.participants.includes(ROLE));
+  hint.textContent=`${ROLE} — в ${mine.length} явл. из ${SCENES.length}. Выбери сцену:`;
+
+  // «все мои сцены подряд»
+  const all=document.createElement('div'); all.className='role';
+  const totalMine=mine.reduce((n,s)=>n+(s.u.per_role[ROLE]||0),0);
+  all.innerHTML=`<span class="nm">▶ Все мои сцены подряд</span><span class="ct">${totalMine} реплик</span>`;
+  all.onclick=()=>selectScenes(all, mine.map(s=>[s.i,s.end]));
+  box.appendChild(all);
+
+  mine.forEach(s=>{
+    const others=s.u.participants.filter(p=>p!==ROLE).slice(0,4).join(', ')||'—';
+    const el=document.createElement('div'); el.className='role';
+    el.style.flexDirection='column'; el.style.alignItems='stretch'; el.style.gap='4px';
+    el.innerHTML=
+      `<div style="display:flex;gap:8px"><span class="nm">${s.actShort} · ${s.scShort}</span>`+
+      `<span class="ct">${s.u.per_role[ROLE]} твоих</span></div>`+
+      `<div style="color:var(--dim);font-size:13px">с: ${others}</div>`+
+      `<div style="color:var(--dim);font-size:12px;font-style:italic">«${(s.u.preview||'').slice(0,64)}…»</div>`;
+    el.onclick=()=>selectScenes(el, [[s.i,s.end]]);
+    box.appendChild(el);
+  });
+}
+function selectScenes(el, ranges){
+  document.querySelectorAll('#sceneList .role').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel'); SELECTION=ranges;
+}
+
+// ---------- voices ----------
+// ранг качества: чем выше, тем живее (Siri/Premium/Enhanced > базовый)
+function voiceRank(v){
+  const n=v.name.toLowerCase();
+  if(/siri/.test(n)) return 4;
+  if(/premium/.test(n)) return 3;
+  if(/enhanced|улучшенн/.test(n)) return 2;
+  return 1; // базовый (Milena compact) — «металлический»
+}
+function loadVoices(){
+  const sel=$('#voiceSel');
+  function fill(){
+    const vs=speechSynthesis.getVoices().filter(v=>/ru/i.test(v.lang))
+             .sort((a,b)=>voiceRank(b)-voiceRank(a));
+    sel.innerHTML='';
+    if(!vs.length){ sel.add(new Option('(русский голос не найден — включится системный)','')); }
+    vs.forEach(v=>{
+      const tag = voiceRank(v)>=2 ? ' ★ живой' : ' · базовый';
+      sel.add(new Option(`${v.name}${tag}`, v.name));
+    });
+    if(vs.length) sel.value=vs[0].name; // авто: лучший доступный
+    // подсказка, если стоит только базовый
+    const hasGood = vs.some(v=>voiceRank(v)>=2);
+    $('#voiceNote').textContent = hasGood
+      ? '✓ Найден живой голос'
+      : 'Стоит только базовый голос. Скачай Milena (Enhanced/Premium) в Системных настройках → перезапусти вкладку.';
+  }
+  fill();
+  speechSynthesis.onvoiceschanged=fill;
+}
+function pickVoice(){
+  const name=$('#voiceSel').value;
+  const all=speechSynthesis.getVoices();
+  return all.find(v=>v.name===name)||
+         all.filter(v=>/ru/i.test(v.lang)).sort((a,b)=>voiceRank(b)-voiceRank(a))[0]||null;
+}
+
+// ---------- start ----------
+function start(){
+  if(!ROLE){ alert('Выбери роль'); return; }
+  if(!SELECTION){ alert('Выбери сцену'); return; }
+  sceneUnits = [];
+  SELECTION.forEach(([a,b])=>{ sceneUnits.push(...PLAY.units.slice(a,b)); });
+  VOICE=pickVoice();
+  idx=0; RESULTS=[]; listenStop();
+  $('#setup').classList.add('hidden');
+  $('#stage').classList.remove('hidden');
+  $('#bar').classList.remove('hidden');
+  $('#hint').classList.remove('hidden');
+  $('#btnRestart').style.display='';
+  $('#stage').innerHTML='';
+  // разблокировать звук на iOS (нужен жест)
+  speechSynthesis.cancel();
+  step();
+}
+
+// первые буквы: «Господину Стропиле» -> «Г_______ С_______»
+function maskFirst(text){
+  return text.replace(/[А-ЯЁA-Zа-яёa-z]+/g, w => w[0]+'·'.repeat(Math.max(1,w.length-1)));
+}
+
+function render(u, cls, extra=''){
+  const el=document.createElement('div');
+  el.className='bubble '+cls;
+  el.innerHTML=extra;
+  $('#stage').appendChild(el);
+  el.scrollIntoView({behavior:'smooth', block:'end'});
+  return el;
+}
+function markPast(){ document.querySelectorAll('#stage .bubble:not(.past)').forEach(b=>{
+  if(!b.classList.contains('active')) return; b.classList.remove('active'); }); }
+
+function step(){
+  // прошлые — приглушить
+  const prev=$('#stage').lastElementChild;
+  if(prev) prev.classList.add('past');
+
+  if(idx>=sceneUnits.length){ finish(); return; }
+  const u=sceneUnits[idx];
+
+  if(u.type==='act'||u.type==='scene'){
+    const d=document.createElement('div'); d.className='divider';
+    d.textContent=(u.type==='act'?'▬ ':'')+u.title; $('#stage').appendChild(d);
+    d.scrollIntoView({behavior:'smooth',block:'end'});
+    idx++; return step();
+  }
+  if(u.type==='stage'||u.type==='song'){
+    const txt = u.type==='song' ? '♪ '+u.lines.join(' / ') : u.text;
+    const el=render(u,'stage',txt); el.classList.remove('past');
+    idx++;
+    setTimeout(step, 500); // ремарки — коротко показать и дальше
+    return;
+  }
+  if(u.type==='meta'){ idx++; return step(); }
+
+  // это реплика
+  const mine = (u.speaker===ROLE) || (u.chorus && u.speaker.includes(ROLE));
+  const who = u.speaker + (u.chorus?' (хором)':'');
+  const action = u.action ? `<div class="action">(${u.action})</div>` : '';
+
+  if(!mine){
+    // ПАРТНЁР: показать + озвучить, затем авто-дальше
+    const el=render(u,'partner', `<div class="who">${who}</div>${action}<div>${u.text}</div>`);
+    el.classList.remove('past'); el.classList.add('active');
+    speak(u.text, ()=>{ idx++; step(); });
+    setControls('partner');
+  } else {
+    // ТВОЯ реплика: скрыть по режиму, ждать
+    let body;
+    if(REVEAL==='full') body=u.text;
+    else if(REVEAL==='firstletters') body=`<span class="cue">${maskFirst(u.text)}</span>`;
+    else body=`<span class="cue">— твоя реплика —</span>`;
+    const el=render(u,'me active', `<div class="who">🎤 ${who} · ты</div>${action}<div class="mytext">${body}</div><div class="heard"></div>`);
+    el.classList.remove('past');
+    el._full=u.text; el._u=u;
+    setControls('me', el);
+    listenStart(el);
+  }
+}
+
+function speak(text, onend){
+  if(!('speechSynthesis' in window)){ onend&&onend(); return; }
+  speechSynthesis.cancel();
+  const clean=text.replace(/\([^)]*\)/g,' ').replace(/\s+/g,' ').trim();
+  const utt=new SpeechSynthesisUtterance(clean);
+  if(VOICE) utt.voice=VOICE;
+  utt.lang='ru-RU';
+  utt.rate=+$('#rate').value;
+  utt.onend=()=>onend&&onend();
+  utt.onerror=()=>onend&&onend();
+  speechSynthesis.speak(utt);
+}
+
+// ---------- распознавание речи (обратная связь + проверка) ----------
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recog=null, listening=false, curSaid='', curInterim='';
+let RESULTS=[];  // {speaker, orig, said, score, tokens:[{w,ok}]}
+
+function normWords(s){
+  return s.toLowerCase().replace(/ё/g,'е')
+    .replace(/\([^)]*\)/g,' ')                 // ремарки вон
+    .replace(/[^а-яa-z0-9\s]/gi,' ')           // пунктуация вон
+    .split(/\s+/).filter(Boolean);
+}
+// пословное выравнивание (LCS): какие слова оригинала произнесены
+function wordDiff(orig, said){
+  const O=normWords(orig), S=normWords(said);
+  const n=O.length, m=S.length;
+  const dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)
+    dp[i][j]= O[i]===S[j] ? dp[i+1][j+1]+1 : Math.max(dp[i+1][j],dp[i][j+1]);
+  const tokens=[]; let i=0,j=0,hit=0;
+  const origWords=orig.replace(/\([^)]*\)/g,' ').split(/\s+/).filter(Boolean);
+  let oi=0;
+  while(i<n){
+    // сопоставим нормализованный токен O[i] с исходным словом origWords[oi]
+    if(j<m && O[i]===S[j]){ tokens.push({w:origWords[oi]??O[i],ok:true}); hit++; i++;j++; }
+    else if(j<m && dp[i+1][j]>=dp[i][j+1]){ tokens.push({w:origWords[oi]??O[i],ok:false}); i++; }
+    else if(j<m){ j++; continue; }
+    else { tokens.push({w:origWords[oi]??O[i],ok:false}); i++; }
+    oi++;
+  }
+  const score = n? Math.round(hit/n*100):100;
+  return {tokens, score, said:S.join(' ')};
+}
+
+function listenStart(meEl){
+  curSaid=''; curInterim='';
+  const heard=meEl.querySelector('.heard');
+  if(!SR){ if(heard) heard.innerHTML='<span class="lbl">микрофон не поддерживается этим браузером — просто говори и жми Дальше</span>'; return; }
+  try{
+    recog=new SR(); recog.lang='ru-RU'; recog.interimResults=true; recog.continuous=true;
+    recog.onstart=()=>{ listening=true; meEl.classList.add('listening');
+      if(heard) heard.innerHTML='<span class="lbl"><span class="dot"></span>слушаю…</span>'; };
+    recog.onresult=e=>{
+      let fin='',intr='';
+      for(let k=e.resultIndex;k<e.results.length;k++){
+        const t=e.results[k][0].transcript;
+        if(e.results[k].isFinal) fin+=t+' '; else intr+=t;
+      }
+      if(fin) curSaid+=fin;
+      curInterim=intr;
+      if(heard) heard.innerHTML='<span class="lbl"><span class="dot"></span>слышу:</span> '+
+        (curSaid+curInterim || '…');
+    };
+    recog.onerror=ev=>{ if(heard&&ev.error==='not-allowed')
+      heard.innerHTML='<span class="lbl">нет доступа к микрофону — разреши в браузере</span>'; };
+    recog.onend=()=>{ if(listening){ try{recog.start();}catch(e){} } }; // не обрывать посреди реплики
+    recog.start();
+  }catch(e){ if(heard) heard.innerHTML='<span class="lbl">распознавание недоступно</span>'; }
+}
+function listenStop(){
+  listening=false;
+  if(recog){ try{recog.onend=null; recog.stop();}catch(e){} recog=null; }
+  return (curSaid+' '+curInterim).trim();
+}
+function finalizeMe(meEl, u){
+  const said=listenStop();
+  const d=wordDiff(u.text, said);
+  RESULTS.push({speaker:u.speaker, orig:u.text, said:d.said, score:d.score, tokens:d.tokens});
+  // раскрасить оригинал в самой реплике
+  const mt=meEl.querySelector('.mytext');
+  if(mt) mt.innerHTML=d.tokens.map(t=>`<span class="${t.ok?'ok':'miss'}">${t.w}</span>`).join(' ');
+  const cls=d.score>=85?'sc-hi':d.score>=60?'sc-mid':'sc-lo';
+  const who=meEl.querySelector('.who');
+  if(who) who.innerHTML+=` <span class="scoreTag ${cls}">${d.score}%</span>`;
+  const heard=meEl.querySelector('.heard');
+  if(heard) heard.innerHTML = said
+    ? `<span class="lbl">ты сказал:</span> ${said}`
+    : `<span class="lbl">речь не распознана</span>`;
+}
+
+// ---------- controls ----------
+function setControls(mode, meEl){
+  const bar=$('#bar'), hint=$('#hint');
+  bar.innerHTML='';
+  if(mode==='partner'){
+    hint.innerHTML='Партнёр говорит… <span style="opacity:.6">слушай</span>';
+    const skip=btn('⏭ Пропустить','ghost',()=>{ speechSynthesis.cancel(); idx++; step(); });
+    const rep =btn('⟲ Ещё раз','ghost',()=>{ const u=sceneUnits[idx]; speak(u.text); });
+    bar.append(rep,skip);
+  } else {
+    hint.innerHTML='🎙 Говори свою реплику — приложение слушает. Закончил — <kbd>Дальше</kbd> (пробел)';
+    const reveal=btn('👁 Показать','ghost',()=>{
+      const t=meEl.querySelector('.mytext'); if(t) t.textContent=meEl._full;
+    });
+    const next=btn('Дальше ▶','primary big',()=>{
+      finalizeMe(meEl, meEl._u); meEl.classList.remove('active'); idx++; step(); });
+    bar.append(reveal,next);
+  }
+}
+function btn(label,cls,fn){ const b=document.createElement('button'); b.className=cls; b.textContent=label; b.onclick=fn; return b; }
+
+function finish(){
+  listenStop();
+  $('#hint').textContent='';
+  $('#bar').innerHTML='';
+  const stage=$('#stage');
+  const div=document.createElement('div'); div.className='divider'; div.textContent='✓ Сцена пройдена';
+  stage.appendChild(div);
+
+  if(RESULTS.length){
+    const avg=Math.round(RESULTS.reduce((s,r)=>s+r.score,0)/RESULTS.length);
+    const acls=avg>=85?'sc-hi':avg>=60?'sc-mid':'sc-lo';
+    const head=document.createElement('div'); head.className='bubble';
+    head.innerHTML=`<div class="who">ИТОГ ПО ТВОИМ РЕПЛИКАМ</div>`+
+      `<div style="font-size:22px">Точность: <span class="scoreTag ${acls}">${avg}%</span></div>`+
+      `<div style="color:var(--dim);font-size:13px;margin-top:6px">${RESULTS.length} реплик · `+
+      `${RESULTS.filter(r=>r.score>=85).length} уверенно · `+
+      `${RESULTS.filter(r=>r.score<60).length} провалено</div>`;
+    stage.appendChild(head);
+    // худшие сверху
+    [...RESULTS].sort((a,b)=>a.score-b.score).forEach(r=>{
+      const cls=r.score>=85?'sc-hi':r.score>=60?'sc-mid':'sc-lo';
+      const row=document.createElement('div'); row.className='sumrow';
+      row.innerHTML=
+        `<div><span class="scoreTag ${cls}">${r.score}%</span> `+
+        r.tokens.map(t=>`<span class="${t.ok?'ok':'miss'}">${t.w}</span>`).join(' ')+`</div>`+
+        (r.said?`<div class="said">услышано: ${r.said}</div>`:`<div class="said">речь не распознана</div>`);
+      stage.appendChild(row);
+    });
+    div.scrollIntoView({behavior:'smooth'});
+  } else {
+    const el=render({},'stage','Молодец. (Реплик для оценки не было, либо микрофон недоступен.)');
+    el.classList.remove('past');
+  }
+  $('#bar').append(
+    btn('⟲ Ещё раз','ghost',()=>{ idx=0; RESULTS=[]; $('#stage').innerHTML=''; step(); }),
+    btn('⚙ Настройки','ghost',()=>location.reload()));
+}
+
+// пробел / стрелка = Дальше на твоей реплике
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.code==='ArrowRight'){
+    const primary=$('#bar').querySelector('.primary');
+    if(primary){ e.preventDefault(); primary.click(); }
+  }
+});
+</script>
+</body>
+</html>
