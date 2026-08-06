@@ -2,8 +2,15 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Репетитор роли</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e1116">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Роль">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <style>
   :root{
     --bg:#0e1116; --panel:#171b22; --panel2:#1e242d; --line:#2a313c;
@@ -107,6 +114,12 @@
         <span class="pill" data-reveal="full">Целиком</span>
       </div>
       <div class="row" style="margin-top:14px">
+        <span class="pill" id="handsfree">🚗 Без рук (для машины)</span>
+      </div>
+      <div id="hfNote" style="color:var(--dim);font-size:12px;margin-top:6px">
+        Партнёр играет всю сцену сам, делает паузу под твою реплику. Телефон не трогаешь, микрофон не нужен — работает офлайн.
+      </div>
+      <div class="row" style="margin-top:14px">
         <label>Голос партнёра</label>
         <select id="voiceSel"></select>
       </div>
@@ -127,11 +140,13 @@
 
 <script>
 const $ = s => document.querySelector(s);
-let PLAY=null, ROLE=null, REVEAL='hidden', VOICE=null;
-let idx=0, sceneUnits=[], SCENES=[], SELECTION=null;
+let PLAY=null, ROLE=null, REVEAL='hidden', VOICE=null, HANDSFREE=false;
+let idx=0, sceneUnits=[], SCENES=[], SELECTION=null, hfTimer=null;
 
 // ---------- load ----------
-fetch('data/play.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{ PLAY=d; initSetup(); });
+fetch('data/play.json').then(r=>r.json()).then(d=>{ PLAY=d; initSetup(); });
+// PWA: офлайн-режим (для машины)
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
 function initSetup(){
   $('#hdrSub').textContent = PLAY.meta.title;
@@ -163,6 +178,7 @@ function initSetup(){
       p.classList.add('on'); REVEAL=p.dataset.reveal; };
   });
   loadVoices();
+  $('#handsfree').onclick=e=>{ HANDSFREE=!HANDSFREE; e.target.classList.toggle('on',HANDSFREE); };
   $('#btnStart').onclick=start;
   $('#btnRestart').onclick=()=>location.reload();
 }
@@ -272,6 +288,7 @@ function markPast(){ document.querySelectorAll('#stage .bubble:not(.past)').forE
   if(!b.classList.contains('active')) return; b.classList.remove('active'); }); }
 
 function step(){
+  if(hfTimer){ clearTimeout(hfTimer); hfTimer=null; }
   // прошлые — приглушить
   const prev=$('#stage').lastElementChild;
   if(prev) prev.classList.add('past');
@@ -305,8 +322,18 @@ function step(){
     el.classList.remove('past'); el.classList.add('active');
     speak(u.text, ()=>{ idx++; step(); });
     setControls('partner');
+  } else if(HANDSFREE){
+    // ТВОЯ реплика, режим без рук: пауза под тебя, потом сама дальше (без микрофона)
+    const el=render(u,'me active', `<div class="who">🎤 ${who} · ты</div>${action}<div class="mytext"><span class="cue">— твоя реплика —</span></div>`);
+    el.classList.remove('past');
+    const words=(u.text.match(/\S+/g)||[]).length;
+    const pause=Math.max(2500, Math.min(14000, words*550));
+    $('#hint').innerHTML='🎤 Твоя реплика — говори. Партнёр подождёт…';
+    $('#bar').innerHTML=''; $('#bar').append(
+      btn('⏭ Дальше сейчас','primary big',()=>{ idx++; step(); }));
+    hfTimer=setTimeout(()=>{ idx++; step(); }, pause);
   } else {
-    // ТВОЯ реплика: скрыть по режиму, ждать
+    // ТВОЯ реплика: скрыть по режиму, слушать микрофон
     let body;
     if(REVEAL==='full') body=u.text;
     else if(REVEAL==='firstletters') body=`<span class="cue">${maskFirst(u.text)}</span>`;
