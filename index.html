@@ -237,13 +237,25 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1';
+const BUILD='2026-08-07-6';     // видно в настройках и в журнале: что реально крутится на устройстве
+const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
   role:null, reveal:'hidden', handsfree:false, voice:'', rate:1, stageSize:18, settle:320,
   asrUrl:'', ondevice:false
 }, LS.get(K_PREFS,{}));
 let PROG = LS.get(K_PROG,{});          // ключ роль::сцена -> запись прогресса
 let LINEBEST = LS.get(K_LINE,{});      // id реплики -> лучший %
+/* Журнал микрофона — общий на все движки и переживает закрытие приложения:
+   поломка случается на телефоне, а смотрим мы её потом и на другом компьютере. */
+const MICLOG = LS.get(K_LOG,[]);
+let _logT=null;
+function micNote(ev){
+  MICLOG.push({t:Date.now(), ev});
+  while(MICLOG.length>300) MICLOG.shift();
+  if(!_logT) _logT=setTimeout(()=>{ _logT=null; LS.set(K_LOG,MICLOG); }, 1000);
+}
+micNote('=== запуск, сборка '+BUILD+' ===');
+
 const savePrefs=()=>LS.set(K_PREFS,PREFS);
 const saveProg =()=>LS.set(K_PROG,PROG);
 const saveBest =()=>LS.set(K_LINE,LINEBEST);
@@ -299,12 +311,7 @@ const MicWeb = {
   said:'', interim:'', retries:0, lastAct:0, gotAny:false, el:null,
   tStart:null, tIdle:null, onUpdate:null,
   dying:Promise.resolve(),      // пока не резолвится — прошлая сессия ещё держит микрофон
-  log:[],
-
-  note(ev){                     // журнал для разбора: что реально делал движок
-    this.log.push({t:Date.now(), ev});
-    if(this.log.length>200) this.log.shift();
-  },
+  note(ev){ micNote('web: '+ev); },
   reason(){
     if(!SR) return 'unsupported';
     if(window.isSecureContext===false) return 'insecure';
@@ -506,8 +513,7 @@ function asrBase(){
 const MicWhisper = {
   el:null, state:'off', msg:'', said:'', interim:'', onUpdate:null,
   stream:null, rec:null, chunks:[], ac:null, an:null, raf:0, mime:'',
-  log:[],                                     // тот же журнал, что у браузерного движка
-  note(ev){ this.log.push({t:Date.now(), ev}); if(this.log.length>200) this.log.shift(); },
+  note(ev){ micNote('server: '+ev); },
 
   reason(){
     if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder)) return 'unsupported';
@@ -640,6 +646,7 @@ function resamplePCM(data, srcRate, dstRate){
 const MicWasm = {
   el:null, state:'off', msg:'', said:'', interim:'', onUpdate:null,
   stream:null, ac:null, src:null, proc:null, sink:null, pcm:[],
+  note(ev){ micNote('wasm: '+ev); },
   reason(){
     if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)) return 'unsupported';
     if(window.isSecureContext===false) return 'insecure';
@@ -1030,6 +1037,7 @@ function optionsCard(){
         ? 'Открыто по http — браузер не даст микрофон. Нужен https или localhost.'
         : 'Этот браузер не умеет распознавать речь. Работает режим «без рук».')+'</span>';
   st.className='note'+(Mic.available()?'':' warn');
+  st.innerHTML+='<br>Сборка <b>'+BUILD+'</b> — сверь с той, что прислали, если что-то ведёт себя странно.';
   f5.append(mc,st); body.appendChild(f5);
 
   d.appendChild(body);
@@ -1208,7 +1216,7 @@ async function step(){
   else if(PREFS.reveal==='firstletters') body='<span class="cue">'+esc(maskFirst(u.text))+'</span>';
   else body='<span class="cue">— твоя реплика —</span>';
   const best=LINEBEST[u.id];
-  const recTag = best!=null ? '<span class="rec">рекорд '+best+'%</span>' : '';
+  const recTag = best ? '<span class="rec">рекорд '+best+'%</span>' : '';
   const b=render('me active','<div class="who">🎤 '+who+' · ты'+recTag+'</div>'+action+
     '<div class="mytext">'+body+'</div><div class="heard"></div>');
   b.classList.remove('past');
@@ -1315,8 +1323,11 @@ function finalizeMe(bubble, u, said){
   const d=wordDiff(u.text, said);
   RUN.results.push({id:u.id, speaker:u.speaker, orig:u.text, said:d.said, score:d.score});
 
+  // не записывать рекорд, если микрофон не услышал вообще ничего:
+  // это отказ техники, а не результат — иначе на реплике повиснет «рекорд 0%»
   const prevBest = LINEBEST[u.id];
-  const isRecord = prevBest==null || d.score>prevBest;
+  const heardAnything = !!String(said||'').trim();
+  const isRecord = heardAnything && (prevBest==null || d.score>prevBest);
   if(isRecord){ LINEBEST[u.id]=d.score; saveBest(); }
 
   const mt=bubble.querySelector('.mytext');
@@ -1477,7 +1488,7 @@ function mcSet(row,ic,text){
 function renderMicCheck(){
   screen('miccheck');
   $('#hdrTitle').textContent='Проверка микрофона';
-  $('#hdrSub').textContent='7 шагов — как на самом деле ведёт себя устройство';
+  $('#hdrSub').textContent='7 шагов · сборка '+BUILD;
   const box=$('#miccheck'); box.innerHTML='';
   const card=el('div','card','<h2>Диагностика</h2>');
   const checks=el('div','checks'); card.appendChild(checks); box.appendChild(card);
@@ -1492,6 +1503,14 @@ function renderMicCheck(){
   runMicCheck(checks);
 }
 
+function selectAll(node){
+  try{
+    const r=document.createRange(); r.selectNodeContents(node);
+    const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    node.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(e){}
+}
+
 /* журнал микрофона: что движок делал на самом деле — для разбора, если снова сорвётся */
 function micLogCard(){
   const d=el('details','opts');
@@ -1501,18 +1520,39 @@ function micLogCard(){
   pre.style.cssText='font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;'+
     'line-height:1.55;max-height:42vh;overflow:auto;color:var(--ink);font-size:12px';
   const dump=()=>{
-    if(!Mic.log.length) return 'Пусто. Журнал заполняется во время репетиции.';
-    const t0=Mic.log[0].t;
-    return Mic.log.map(x=>String(x.t-t0).padStart(6)+' мс  '+x.ev).join('\n');
+    const head=[
+      'сборка: '+BUILD,
+      'адрес: '+location.origin,
+      'движок: '+(Mic===MicWeb?'браузерный Web Speech':Mic===MicWhisper?'сервер Whisper':'Whisper в браузере'),
+      'пауза перед стартом: '+PREFS.settle+' мс',
+      'защищённый контекст: '+(window.isSecureContext!==false),
+      'браузер: '+navigator.userAgent,
+      ''
+    ].join('\n');
+    if(!MICLOG.length) return head+'Журнал пуст — он заполняется во время репетиции.';
+    const t0=MICLOG[0].t;
+    return head+MICLOG.map(x=>String(Math.round((x.t-t0)/100)/10).padStart(7)+' с  '+x.ev).join('\n');
   };
-  const refresh=()=>{ sum.textContent='📋 Журнал микрофона · событий: '+Mic.log.length;
+  const refresh=()=>{ sum.textContent='📋 Журнал микрофона · событий: '+MICLOG.length;
     pre.textContent=dump(); };
+  // на телефоне удобнее «Поделиться» — журнал уходит прямо в мессенджер
+  const acts=el('div','chips');
+  if(navigator.share){
+    const sh=el('button','chip','📤 Отправить журнал');
+    sh.onclick=()=>{ navigator.share({title:'Журнал микрофона', text:dump()}).catch(()=>{}); };
+    acts.appendChild(sh);
+  }
   const copy=el('button','chip','Скопировать журнал');
-  copy.onclick=async()=>{
-    try{ await navigator.clipboard.writeText(dump()); toast('Журнал скопирован'); }
-    catch(e){ toast('Скопировать не вышло — выдели текст вручную'); }
+  copy.onclick=()=>{
+    const text=dump();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text)
+        .then(()=>toast('Журнал скопирован'))
+        .catch(()=>{ selectAll(pre); toast('Выдели текст и скопируй вручную'); });
+    } else { selectAll(pre); toast('Выдели текст и скопируй вручную'); }
   };
-  body.append(pre,copy); d.appendChild(body);
+  acts.appendChild(copy);
+  body.append(pre,acts); d.appendChild(body);
   d.ontoggle=()=>{ if(d.open) refresh(); };
   refresh();
   return d;
