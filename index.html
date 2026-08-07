@@ -239,7 +239,8 @@ const LS = {
 };
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1';
 const PREFS = Object.assign({
-  role:null, reveal:'hidden', handsfree:false, voice:'', rate:1, stageSize:18, settle:320
+  role:null, reveal:'hidden', handsfree:false, voice:'', rate:1, stageSize:18, settle:320,
+  asrUrl:'', ondevice:false
 }, LS.get(K_PREFS,{}));
 let PROG = LS.get(K_PROG,{});          // ключ роль::сцена -> запись прогресса
 let LINEBEST = LS.get(K_LINE,{});      // id реплики -> лучший %
@@ -492,7 +493,16 @@ function bumpSettle(){
    Та же поверхность методов, что у MicWeb, чтобы быть drop-in заменой.
    Надёжнее браузерного распознавания: не засыпает, не отваливается.
    ====================================================================== */
-const ASR_BASE = 'http://'+(location.hostname||'localhost')+':8788';
+/* Адрес сервера распознавания. По умолчанию — этот же хост, порт 8788 (Мак за столом).
+   Со страницы по https обращаться к http нельзя (смешанное содержимое), поэтому
+   для телефона в настройках можно вписать https-адрес туннеля к своему Маку —
+   это единственный способ получить на телефоне точность Whisper. */
+function asrBase(){
+  const custom=(PREFS.asrUrl||'').trim().replace(/\/+$/,'');
+  if(custom) return custom;
+  if(location.protocol==='https:') return null;   // http-бэкенд отсюда недостижим
+  return 'http://'+(location.hostname||'localhost')+':8788';
+}
 const MicWhisper = {
   el:null, state:'off', msg:'', said:'', interim:'', onUpdate:null,
   stream:null, rec:null, chunks:[], ac:null, an:null, raf:0, mime:'',
@@ -569,7 +579,7 @@ const MicWhisper = {
     this.set('busy','распознаю…'); paintHeard();
     try{
       const blob=new Blob(chunks,{type:this.mime||'audio/webm'});
-      const r=await fetch(ASR_BASE+'/asr',{method:'POST',headers:{'Content-Type':blob.type},body:blob});
+      const r=await fetch(asrBase()+'/asr',{method:'POST',headers:{'Content-Type':blob.type},body:blob});
       if(!r.ok) throw new Error('HTTP '+r.status);
       const j=await r.json();
       this.said=(j.text||'').trim();
@@ -594,7 +604,10 @@ const MicWhisper = {
    без сервера, офлайн. Запись PCM через Web Audio → модель прямо в браузере.
    Модель качается один раз (~базовая, мультиязычная) и кешируется.
    ====================================================================== */
-const WASM_MODEL = 'Xenova/whisper-base';
+// Замерено на этой пьесе: q8 не создаёт сессию ни у одной модели whisper
+// («Missing required scale …weight_merged_0_scale»). Работает только эта связка.
+const WASM_MODEL = 'onnx-community/whisper-base';
+const WASM_DTYPE = {encoder_model:'fp32', decoder_model_merged:'q4'};
 const WASM_LIB = 'https://esm.sh/@huggingface/transformers@4.2.0';
 let _wasmPipe=null, _wasmLoading=null, _wasmProg='';
 async function ensureWasmModel(){
@@ -604,7 +617,7 @@ async function ensureWasmModel(){
     const TF=await import(/* @vite-ignore */ WASM_LIB);
     if(TF.env){ TF.env.allowLocalModels=false; }
     const pipe=await TF.pipeline('automatic-speech-recognition', WASM_MODEL, {
-      dtype:'q8',
+      dtype:WASM_DTYPE,
       progress_callback:(p)=>{
         if(p && p.status==='progress' && p.total){
           _wasmProg=Math.round(p.progress||(p.loaded/p.total*100))+'%';
@@ -687,27 +700,47 @@ const MicWasm = {
       const pipe=await ensureWasmModel();
       const out=await pipe(audio, {language:'russian', task:'transcribe', chunk_length_s:30});
       this.said=((out&&out.text)||'').trim();
-    }catch(e){ this.said=''; this.set('bad','распознавание не загрузилось'); return this.said; }
+    }catch(e){
+      // не оставлять пользователя без распознавания: вернуться на браузерное
+      this.said=''; this.set('bad','распознавание не загрузилось');
+      if(Mic===MicWasm){ Mic=MicWeb; toast('Whisper в браузере отвалился — вернулся на браузерное'); }
+      return this.said;
+    }
     this.set('off');
     return this.said;
   }
 };
 
-// Выбор движка распознавания: сервер Whisper (Мак) → Whisper в браузере (телефон) → Web Speech
+/* Выбор движка. Правило одно: движок берём, только когда он доказал, что живой.
+   До этого и вместо этого — MicWeb, который работает везде, включая телефон.
+
+   Whisper в браузере (MicWasm) сознательно НЕ выбирается сам. Замеры на этой пьесе:
+   квантизация q8 не создаёт сессию ни у одной модели, рабочая связка
+   fp32-энкодер + q4-декодер даёт 63% попадания по словам на чистой студийной речи
+   и 1.8× от реального времени на десктопе (на телефоне кратно хуже). Для тренажёра,
+   который считает попадание в слова, такой счётчик врёт больше, чем помогает. */
 let Mic = MicWeb;
 async function initASR(){
-  // 1) локальный сервер faster-whisper (самый быстрый и точный) — если доступен
-  if(MicWhisper.available()){
+  // 1) сервер faster-whisper: свой Мак или https-туннель к нему из настроек
+  const base=asrBase();
+  if(base && MicWhisper.available()){
     try{
-      const r=await fetch(ASR_BASE+'/asr/health',{cache:'no-store'});
+      const r=await fetch(base+'/asr/health',{cache:'no-store'});
       if(r.ok){ const j=await r.json(); if(j && j.ok){ Mic=MicWhisper; if($('#micChip'))paintMic();
         toast('Whisper (сервер) подключён'); return; } }
     }catch(e){}
   }
-  // 2) Whisper прямо в браузере (телефон, без сервера, офлайн после первой загрузки)
-  if(MicWasm.available()){ Mic=MicWasm; if($('#micChip'))paintMic();
-    toast('Распознавание: Whisper в браузере'); return; }
-  // 3) крайний случай — браузерный Web Speech
+  // 2) Whisper в браузере — только если пользователь включил его сам И модель реально поднялась
+  if(PREFS.ondevice && MicWasm.available()){
+    ensureWasmModel().then(()=>{
+      Mic=MicWasm; if($('#micChip')) paintMic();
+      toast('Whisper в браузере готов');
+    }).catch(e=>{
+      Mic=MicWeb; MicWeb.note('wasm-load-fail:'+(e&&e.message||e));
+      toast('Whisper в браузере не загрузился — работает браузерное распознавание');
+    });
+  }
+  // 3) до тех пор и во всех остальных случаях — браузерный Web Speech
   Mic=MicWeb;
 }
 
@@ -958,6 +991,34 @@ function optionsCard(){
   rng.step='0.05'; rng.value=PREFS.rate;
   rng.oninput=()=>{ PREFS.rate=+rng.value; savePrefs(); };
   f4.appendChild(rng); body.appendChild(f4);
+
+  /* Точное распознавание на телефоне. Со страницы по https до http-бэкенда
+     не достучаться, поэтому сюда вписывается https-адрес туннеля к своему Маку. */
+  const f4b=el('div','field','<label>Сервер распознавания (Whisper)</label>');
+  const inp=el('input'); inp.type='url'; inp.placeholder='авто — этот же компьютер, :8788';
+  inp.value=PREFS.asrUrl||'';
+  inp.style.cssText='font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);'+
+    'border-radius:10px;padding:11px 12px;min-height:var(--tap);width:100%';
+  inp.onchange=()=>{ PREFS.asrUrl=inp.value.trim(); savePrefs(); initASR(); };
+  const inpNote=el('div','note',
+    location.protocol==='https:'
+      ? 'Страница открыта по https, поэтому обычный http-адрес Мака отсюда недоступен. '+
+        'Чтобы получить точность Whisper на телефоне, подними на Маке туннель '+
+        '(<code>cloudflared tunnel --url http://localhost:8788</code>) и вставь сюда его https-адрес.'
+      : 'Пусто — берётся этот же компьютер, порт 8788. Можно вписать адрес другого.');
+  f4b.append(inp,inpNote); body.appendChild(f4b);
+
+  const f4c=el('div','field');
+  const od=el('button','chip'+(PREFS.ondevice?' on':''),'🧪 Whisper в браузере (эксперимент)');
+  od.onclick=()=>{ PREFS.ondevice=!PREFS.ondevice; savePrefs();
+    od.classList.toggle('on',PREFS.ondevice);
+    toast(PREFS.ondevice?'Включено — модель начнёт грузиться':'Выключено'); initASR(); };
+  const odNote=el('div','note',
+    'Распознаёт прямо на устройстве, без сервера и без интернета. По замерам на этой пьесе: '+
+    'попадание по словам около 63% даже на чистой студийной речи, а реплика распознаётся '+
+    'дольше, чем звучит. Как оценка выученности почти бесполезно — включай только из любопытства. '+
+    'Первое включение скачивает модель (сотни МБ).');
+  f4c.append(od,odNote); body.appendChild(f4c);
 
   const f5=el('div','field');
   const mc=el('button','chip','🎙 Проверить микрофон');
