@@ -237,11 +237,11 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const BUILD='2026-08-07-6';     // видно в настройках и в журнале: что реально крутится на устройстве
+const BUILD='2026-08-07-7';     // видно в настройках и в журнале: что реально крутится на устройстве
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
   role:null, reveal:'hidden', handsfree:false, voice:'', rate:1, stageSize:18, settle:320,
-  asrUrl:'', ondevice:false
+  asrUrl:'', ondevice:false, ptt:'auto'
 }, LS.get(K_PREFS,{}));
 let PROG = LS.get(K_PROG,{});          // ключ роль::сцена -> запись прогресса
 let LINEBEST = LS.get(K_LINE,{});      // id реплики -> лучший %
@@ -255,6 +255,8 @@ function micNote(ev){
   if(!_logT) _logT=setTimeout(()=>{ _logT=null; LS.set(K_LOG,MICLOG); }, 1000);
 }
 micNote('=== запуск, сборка '+BUILD+' ===');
+// пауза перед стартом раньше росла и на глухих сессиях — диагноз был неверный, сбрасываем
+if(!PREFS.v6){ PREFS.settle=320; PREFS.v6=1; LS.set(K_PREFS,PREFS); }
 
 const savePrefs=()=>LS.set(K_PREFS,PREFS);
 const saveProg =()=>LS.set(K_PROG,PROG);
@@ -328,10 +330,11 @@ const MicWeb = {
     this.note(graceful?'stop':'abort');
     return new Promise(res=>{
       let done=false;
-      const fin=why=>{ if(done) return; done=true; this.note('ended:'+why); res(); };
+      const fin=why=>{ if(done) return; done=true;
+        this.note('ended:'+why+' · услышано слов: '+this.text().split(/\s+/).filter(Boolean).length); res(); };
       try{
         rec.onend=()=>fin('onend');
-        rec.onerror=()=>fin('onerror');
+        rec.onerror=ev=>fin('onerror:'+((ev&&ev.error)||'?'));
         if(graceful) rec.stop(); else rec.abort();
       }catch(e){ fin('throw'); }
       // движок молчит — добить abort-ом, потом сдаться по абсолютному пределу
@@ -364,13 +367,30 @@ const MicWeb = {
     this._start();
   },
 
+  /* Запуск строго внутри касания, без единого await.
+     Safari на iPhone отдаёт распознавание охотно только тогда, когда сессию
+     начал жест пользователя: любой await до rec.start() рвёт эту связь,
+     сессия заводится (onstart есть), но результатов не приносит. */
+  engageNow(bubble){
+    this.el = bubble || this.el;
+    const mine = ++this.turn;
+    this.said=''; this.interim=''; this.retries=0; this.gotAny=false;
+    const bad=this.reason();
+    if(bad){ this.set(bad); return; }
+    if(this.rec) this._bury(false);      // редко: старая сессия ещё висит
+    this.want=true;
+    this.note('engage-now (жест)');
+    this._start();
+    return mine;
+  },
+
   _start(){
     if(!this.want) return;
     const gen = ++this.gen;
     let rec;
     try{ rec=new SR(); }catch(e){ this.set('bad','движок распознавания не создался'); return; }
     rec.lang='ru-RU'; rec.interimResults=true; rec.continuous=true; rec.maxAlternatives=1;
-    this.rec=rec; this.lastAct=Date.now();
+    this.rec=rec; this.lastAct=Date.now(); this.startedAt=Date.now(); this.startedOk=false;
     this.note('start');
 
     clearTimeout(this.tStart);
@@ -378,13 +398,17 @@ const MicWeb = {
 
     rec.onstart = () => { if(gen!==this.gen) return;
       clearTimeout(this.tStart); this.retries=0; this.lastAct=Date.now();
+      this.startedOk=true;
       this.note('onstart'); this.set('live'); this._watch(); };
 
     rec.onaudiostart = () => { if(gen===this.gen){ this.lastAct=Date.now(); this.note('audiostart'); } };
 
     rec.onresult = e => {
       if(gen!==this.gen) return;
-      this.lastAct=Date.now(); this.gotAny=true;
+      this.lastAct=Date.now();
+      if(!this.gotAny) this.note('первый результат через '+
+        Math.round((Date.now()-this.startedAt)/100)/10+' с');
+      this.gotAny=true;
       let fin='', intr='';
       for(let k=e.resultIndex;k<e.results.length;k++){
         const t=e.results[k][0].transcript;
@@ -483,12 +507,31 @@ const MicWeb = {
     this.gen++;
     try{ rec.abort(); }catch(e){}        // текст забран — незачем ждать мягкого закрытия
     this.set('off');
+    // сессия завелась, но не принесла ни слова — это не тишина, это глухота движка
+    if(this.startedOk && !this.gotAny) micDeaf(); else if(t) micHeard();
     return t;
   }
 };
 
-/* пауза перед стартом микрофона растёт, если устройство не успевает
-   переключить аудиомаршрут (типично для Bluetooth-наушников) */
+/* Две разные болезни, которые раньше лечились одинаково и потому не лечились.
+   Сессия не заводится → устройство не успевает переключить аудиомаршрут → пауза.
+   Сессия завелась, но не слышит ни слова → движку не хватает жеста пользователя
+   (так ведёт себя Safari на iPhone) → «нажми и говори». */
+let DEAF=0;
+function micHeard(){ DEAF=0; }
+function micDeaf(){
+  DEAF++;
+  MicWeb.note('глухая сессия #'+DEAF);
+  // порог 3, а не 2: молчаливая реплика бывает и когда просто забыл текст,
+  // отличить «движок глухой» от «человек молчит» по потоку результатов нельзя
+  if(DEAF>=3 && PREFS.ptt==='auto'){
+    PREFS.ptt='on'; savePrefs();
+    toast('Микрофон заводится, но не слышит — включаю режим «нажми и говори»');
+    if(RUN) setControlsForCurrent();
+  }
+}
+function pttOn(){ return PREFS.ptt==='on'; }
+
 function bumpSettle(){
   const next = PREFS.settle<500?500 : PREFS.settle<900?900 : 1400;
   if(next!==PREFS.settle){ PREFS.settle=next; savePrefs();
@@ -619,6 +662,7 @@ let _wasmPipe=null, _wasmLoading=null, _wasmProg='';
 async function ensureWasmModel(){
   if(_wasmPipe) return _wasmPipe;
   if(_wasmLoading) return _wasmLoading;
+  micNote('wasm: начал качать модель (мешает облачному распознаванию)');
   _wasmLoading=(async()=>{
     const TF=await import(/* @vite-ignore */ WASM_LIB);
     if(TF.env){ TF.env.allowLocalModels=false; }
@@ -1019,13 +1063,31 @@ function optionsCard(){
   const od=el('button','chip'+(PREFS.ondevice?' on':''),'🧪 Whisper в браузере (эксперимент)');
   od.onclick=()=>{ PREFS.ondevice=!PREFS.ondevice; savePrefs();
     od.classList.toggle('on',PREFS.ondevice);
-    toast(PREFS.ondevice?'Включено — модель начнёт грузиться':'Выключено'); initASR(); };
+    toast(PREFS.ondevice
+      ? 'Качаю модель. Не начинай репетицию, пока не закончится: закачка съедает сеть, а браузерное распознавание облачное'
+      : 'Выключено');
+    initASR(); };
   const odNote=el('div','note',
     'Распознаёт прямо на устройстве, без сервера и без интернета. По замерам на этой пьесе: '+
     'попадание по словам около 63% даже на чистой студийной речи, а реплика распознаётся '+
     'дольше, чем звучит. Как оценка выученности почти бесполезно — включай только из любопытства. '+
     'Первое включение скачивает модель (сотни МБ).');
   f4c.append(od,odNote); body.appendChild(f4c);
+
+  const f4d=el('div','field','<label>Как включается микрофон</label>');
+  const pttRow=el('div','chips');
+  [['auto','Сам'],['on','Нажми и говори'],['off','Только сам']].forEach(([v,t])=>{
+    const b=el('button','chip'+(PREFS.ptt===v?' on':''),t);
+    b.onclick=()=>{ PREFS.ptt=v; savePrefs();
+      pttRow.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); b.classList.add('on'); };
+    pttRow.appendChild(b);
+  });
+  const pttNote=el('div','note',
+    'Safari на iPhone отдаёт распознавание надёжно только той сессии, которую начал '+
+    'палец: микрофон включается, но слов не приносит. «Нажми и говори» стартует его '+
+    'прямо в касании — лишнее нажатие на реплику, зато слышит. «Сам» переключится '+
+    'на этот режим автоматически, если две реплики подряд окажутся глухими.');
+  f4d.append(pttRow,pttNote); body.appendChild(f4d);
 
   const f5=el('div','field');
   const mc=el('button','chip','🎙 Проверить микрофон');
@@ -1222,7 +1284,7 @@ async function step(){
   b.classList.remove('past');
   b._u=u; b._full=u.text;
   setControls('me',b);
-  await Mic.engage(b);
+  if(!pttOn()) await Mic.engage(b);      // в режиме «нажми и говори» стартует само касание
   paintHeard();
 }
 
@@ -1371,6 +1433,26 @@ function setControls(mode, bubble){
       btn('⏭ Пропустить','ghost wide',()=>{ speechSynthesis.cancel(); stopAudio(); advance(); })
     );
   } else {
+    const reveal=btn('👁','ghost',()=>{
+      const t=bubble.querySelector('.mytext'); if(t) t.textContent=bubble._full;
+    });
+    reveal.setAttribute('aria-label','Показать текст реплики');
+
+    // «нажми и говори»: микрофон стартует прямо в обработчике касания
+    if(pttOn() && !bubble._talking){
+      hint.innerHTML='Нажми «Говорить», скажи реплику, потом «Дальше»';
+      const talk=el('button','primary big'); talk.textContent='🎤 Говорить';
+      talk.onclick=()=>{
+        bubble._talking=true;
+        Mic.engageNow(bubble);            // синхронно, пока жест «горячий»
+        setControls('me',bubble);
+        paintHeard();
+      };
+      bar.append(micChip(), reveal, talk);
+      paintMic();
+      return;
+    }
+
     hint.innerHTML='🎙 Говори свою реплику'+(HAS_KB
       ? '. Закончил — <kbd>Дальше</kbd> или пробел' : ' и жми «Дальше»');
     const next=el('button','primary big'); next.textContent='Дальше ▶';
@@ -1380,22 +1462,17 @@ function setControls(mode, bubble){
       next.disabled=true; next.textContent='…';
       const said=await Mic.finish();
       if(!RUN || token!==runToken) return;      // вышли из сцены, пока ждали хвост
-      // две глухие реплики подряд — не совпадение: устройству не хватает паузы
-      if(Mic===MicWeb && Mic.available()){    // пауза перед стартом есть только у браузерного
-        if(said) RUN.mute=0;
-        else if((RUN.mute=(RUN.mute||0)+1)>=2){ RUN.mute=0; bumpSettle(); }
-      }
       finalizeMe(bubble, bubble._u, said);
       bubble.classList.remove('active');
       RUN.idx++; saveRun(false); step();
     };
-    const reveal=btn('👁','ghost',()=>{
-      const t=bubble.querySelector('.mytext'); if(t) t.textContent=bubble._full;
-    });
-    reveal.setAttribute('aria-label','Показать текст реплики');
     bar.append(micChip(), reveal, next);
     paintMic();
   }
+}
+function setControlsForCurrent(){
+  const b=$('#stage .bubble.me.active');
+  if(b) setControls('me', b);
 }
 
 /* ==================================================================
