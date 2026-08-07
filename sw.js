@@ -1,5 +1,5 @@
 // Service worker: офлайн-кеш приложения (партнёр по репликам работает без интернета).
-const CACHE = 'repetitor-v4';
+const CACHE = 'repetitor-v5';
 const ASSETS = [
   './', './index.html', './data/play.json', './audio/index.json', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png'
@@ -20,10 +20,12 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-  const isAudio = new URL(e.request.url).pathname.endsWith('.mp3');
+  const url = new URL(e.request.url);
+  const crossOrigin = url.origin !== location.origin;   // esm.sh, huggingface — модель Whisper
+  const isAudio = url.pathname.endsWith('.mp3');
 
-  if (isAudio) {
-    // тяжёлые реплики: cache-first (не перекачивать; офлайн в машине)
+  if (isAudio || crossOrigin) {
+    // тяжёлое (реплики, библиотека и модель распознавания): cache-first — офлайн, без перекачки
     e.respondWith(
       caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
         const copy = resp.clone();

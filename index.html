@@ -589,15 +589,126 @@ const MicWhisper = {
   }
 };
 
-// по умолчанию — браузерный движок; initASR() переключит на Whisper, если бэкенд жив
+/* ======================================================================
+   Whisper В БРАУЗЕРЕ (transformers.js / ONNX-WASM) — работает на телефоне,
+   без сервера, офлайн. Запись PCM через Web Audio → модель прямо в браузере.
+   Модель качается один раз (~базовая, мультиязычная) и кешируется.
+   ====================================================================== */
+const WASM_MODEL = 'Xenova/whisper-base';
+const WASM_LIB = 'https://esm.sh/@huggingface/transformers@4.2.0';
+let _wasmPipe=null, _wasmLoading=null, _wasmProg='';
+async function ensureWasmModel(){
+  if(_wasmPipe) return _wasmPipe;
+  if(_wasmLoading) return _wasmLoading;
+  _wasmLoading=(async()=>{
+    const TF=await import(/* @vite-ignore */ WASM_LIB);
+    if(TF.env){ TF.env.allowLocalModels=false; }
+    const pipe=await TF.pipeline('automatic-speech-recognition', WASM_MODEL, {
+      dtype:'q8',
+      progress_callback:(p)=>{
+        if(p && p.status==='progress' && p.total){
+          _wasmProg=Math.round(p.progress||(p.loaded/p.total*100))+'%';
+        } else if(p && p.status==='ready'){ _wasmProg=''; }
+        if(Mic===MicWasm) paintHeard();
+      }
+    });
+    _wasmPipe=pipe; _wasmLoading=null; _wasmProg=''; return pipe;
+  })();
+  return _wasmLoading;
+}
+function resamplePCM(data, srcRate, dstRate){
+  if(srcRate===dstRate) return data;
+  const ratio=srcRate/dstRate, n=Math.max(1,Math.round(data.length/ratio)), out=new Float32Array(n);
+  for(let i=0;i<n;i++){ const idx=i*ratio, i0=Math.floor(idx), i1=Math.min(i0+1,data.length-1);
+    out[i]=data[i0]*(1-(idx-i0))+data[i1]*(idx-i0); }
+  return out;
+}
+
+const MicWasm = {
+  el:null, state:'off', msg:'', said:'', interim:'', onUpdate:null,
+  stream:null, ac:null, src:null, proc:null, sink:null, pcm:[],
+  reason(){
+    if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)) return 'unsupported';
+    if(window.isSecureContext===false) return 'insecure';
+    if(typeof WebAssembly==='undefined') return 'unsupported';
+    return null;
+  },
+  available(){ return !this.reason(); },
+  text(){
+    if(this.state==='busy') return _wasmProg ? 'загружаю модель распознавания '+_wasmProg : 'распознаю…';
+    return this.said;
+  },
+  set(state,msg){ this.state=state; this.msg=msg||''; paintMic(); },
+
+  async _getStream(){
+    if(this.stream && this.stream.active) return this.stream;
+    this.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    return this.stream;
+  },
+  async engage(bubble){
+    this.el=bubble||this.el; this.said=''; this.pcm=[];
+    const bad=this.reason(); if(bad){ this.set(bad); return; }
+    this.set('starting');
+    let stream; try{ stream=await this._getStream(); }catch(e){ this.set('denied'); return; }
+    try{
+      if(!this.ac) this.ac=new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ac.state==='suspended') await this.ac.resume();
+      this.src=this.ac.createMediaStreamSource(stream);
+      this.proc=this.ac.createScriptProcessor(4096,1,1);
+      this.sink=this.ac.createGain(); this.sink.gain.value=0;   // без эха в динамик
+      this.proc.onaudioprocess=e=>{
+        const d=e.inputBuffer.getChannelData(0);
+        this.pcm.push(new Float32Array(d));
+        let peak=0; for(let i=0;i<d.length;i+=64){ const v=Math.abs(d[i]); if(v>peak)peak=v; }
+        if(peak>0.02) hotMic();
+      };
+      this.src.connect(this.proc); this.proc.connect(this.sink); this.sink.connect(this.ac.destination);
+    }catch(e){ this.set('bad','запись не запустилась'); return; }
+    // прогреть модель заранее (фоном), чтобы к finish была готова
+    ensureWasmModel().catch(()=>{});
+    this.set('live'); paintHeard();
+  },
+  _stopCapture(){
+    try{ this.proc&&(this.proc.onaudioprocess=null); this.src&&this.src.disconnect();
+      this.proc&&this.proc.disconnect(); this.sink&&this.sink.disconnect(); }catch(e){}
+    this.src=this.proc=this.sink=null;
+  },
+  async release(){ this._stopCapture(); this.pcm=[]; this.set('off'); },
+  async finish(){
+    this._stopCapture();
+    const parts=this.pcm; this.pcm=[];
+    const srcRate=this.ac?this.ac.sampleRate:48000;
+    if(!parts.length){ this.set('off'); return ''; }
+    this.set('busy'); paintHeard();
+    try{
+      let len=0; parts.forEach(p=>len+=p.length);
+      const flat=new Float32Array(len); let o=0; parts.forEach(p=>{ flat.set(p,o); o+=p.length; });
+      const audio=resamplePCM(flat, srcRate, 16000);
+      const pipe=await ensureWasmModel();
+      const out=await pipe(audio, {language:'russian', task:'transcribe', chunk_length_s:30});
+      this.said=((out&&out.text)||'').trim();
+    }catch(e){ this.said=''; this.set('bad','распознавание не загрузилось'); return this.said; }
+    this.set('off');
+    return this.said;
+  }
+};
+
+// Выбор движка распознавания: сервер Whisper (Мак) → Whisper в браузере (телефон) → Web Speech
 let Mic = MicWeb;
 async function initASR(){
-  if(!MicWhisper.available()) return;          // нет микрофона/незащищённый контекст
-  try{
-    const r=await fetch(ASR_BASE+'/asr/health',{cache:'no-store'});
-    if(r.ok){ const j=await r.json(); if(j && j.ok){ Mic=MicWhisper; if($('#micChip')) paintMic();
-      toast('Точное распознавание (Whisper) подключено'); } }
-  }catch(e){ /* бэкенда нет — остаёмся на браузерном */ }
+  // 1) локальный сервер faster-whisper (самый быстрый и точный) — если доступен
+  if(MicWhisper.available()){
+    try{
+      const r=await fetch(ASR_BASE+'/asr/health',{cache:'no-store'});
+      if(r.ok){ const j=await r.json(); if(j && j.ok){ Mic=MicWhisper; if($('#micChip'))paintMic();
+        toast('Whisper (сервер) подключён'); return; } }
+    }catch(e){}
+  }
+  // 2) Whisper прямо в браузере (телефон, без сервера, офлайн после первой загрузки)
+  if(MicWasm.available()){ Mic=MicWasm; if($('#micChip'))paintMic();
+    toast('Распознавание: Whisper в браузере'); return; }
+  // 3) крайний случай — браузерный Web Speech
+  Mic=MicWeb;
 }
 
 const MIC_UI = {
