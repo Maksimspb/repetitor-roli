@@ -17,3 +17,5 @@ scratchpad/
 # data/play.json пересобирается из play.docx командой `python3 parse.py`,
 # но держим его в репо, чтобы приложение работало сразу после клона.
 .venv-tts/
+.venv-asr/
+/tmp/

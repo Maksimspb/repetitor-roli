@@ -263,6 +263,7 @@ sharedAudio.preload='auto';
 
 /* ---------- загрузка данных ---------- */
 fetch('data/play.json').then(r=>r.json()).then(d=>{ PLAY=d; buildScenes(); renderSetup(); });
+setTimeout(initASR, 0);  // после инициализации Mic/MicWhisper: подключить Whisper, если бэкенд жив
 fetch('audio/index.json').then(r=>r.ok?r.json():{}).then(d=>{AUDIO_INDEX=d;}).catch(()=>{});
 
 /* ---------- PWA ---------- */
@@ -292,7 +293,7 @@ const BACKOFF = [200,400,800,1400,2200,3000,4000,5000];
 // состояния, которые нельзя молча заменить на «выкл»: это диагноз для пользователя
 const TERMINAL = {denied:1, insecure:1, unsupported:1, bad:1};
 
-const Mic = {
+const MicWeb = {
   rec:null, gen:0, turn:0, want:false, state:'off', msg:'',
   said:'', interim:'', retries:0, lastAct:0, gotAny:false, el:null,
   tStart:null, tIdle:null, onUpdate:null,
@@ -486,11 +487,125 @@ function bumpSettle(){
     toast('Микрофон срывался — увеличил паузу перед стартом до '+next+' мс'); }
 }
 
+/* ======================================================================
+   Whisper-движок: запись реплики (MediaRecorder) → локальный бэкенд → текст.
+   Та же поверхность методов, что у MicWeb, чтобы быть drop-in заменой.
+   Надёжнее браузерного распознавания: не засыпает, не отваливается.
+   ====================================================================== */
+const ASR_BASE = 'http://'+(location.hostname||'localhost')+':8788';
+const MicWhisper = {
+  el:null, state:'off', msg:'', said:'', interim:'', onUpdate:null,
+  stream:null, rec:null, chunks:[], ac:null, an:null, raf:0, mime:'',
+  log:[],                                     // тот же журнал, что у браузерного движка
+  note(ev){ this.log.push({t:Date.now(), ev}); if(this.log.length>200) this.log.shift(); },
+
+  reason(){
+    if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder)) return 'unsupported';
+    if(window.isSecureContext===false) return 'insecure';
+    return null;
+  },
+  available(){ return !this.reason(); },
+  text(){ return this.said; },
+  set(state,msg){ this.state=state; this.msg=msg||''; paintMic(); },
+
+  async _getStream(){
+    if(this.stream && this.stream.active) return this.stream;
+    this.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    try{
+      this.ac = new (window.AudioContext||window.webkitAudioContext)();
+      const src=this.ac.createMediaStreamSource(this.stream);
+      this.an=this.ac.createAnalyser(); this.an.fftSize=512; src.connect(this.an);
+    }catch(e){}
+    return this.stream;
+  },
+  _meter(){                                   // визуальная обратная связь «слышу тебя»
+    if(!this.an || this.state!=='live'){ this.raf=0; return; }
+    const buf=new Uint8Array(this.an.fftSize); this.an.getByteTimeDomainData(buf);
+    let peak=0; for(let i=0;i<buf.length;i++){ const v=Math.abs(buf[i]-128); if(v>peak)peak=v; }
+    if(peak>7) hotMic();
+    this.raf=requestAnimationFrame(()=>this._meter());
+  },
+
+  async engage(bubble){
+    this.el=bubble||this.el; this.said=''; this.interim='';
+    this.note('engage');
+    const bad=this.reason(); if(bad){ this.note('reason:'+bad); this.set(bad); return; }
+    this.set('starting');
+    let stream; try{ stream=await this._getStream(); }
+    catch(e){ this.set('denied'); return; }
+    if(this.ac && this.ac.state==='suspended'){ try{ await this.ac.resume(); }catch(e){} }
+    this.chunks=[];
+    this.mime = (window.MediaRecorder && MediaRecorder.isTypeSupported)
+      ? (MediaRecorder.isTypeSupported('audio/webm')?'audio/webm'
+        : MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'')
+      : '';
+    try{ this.rec = this.mime ? new MediaRecorder(stream,{mimeType:this.mime}) : new MediaRecorder(stream); }
+    catch(e){ this.set('bad','запись не запустилась'); return; }
+    this.rec.ondataavailable=e=>{ if(e.data && e.data.size) this.chunks.push(e.data); };
+    try{ this.rec.start(); }catch(e){ this.set('bad','запись не стартовала'); return; }
+    this.set('live'); this._meter(); paintHeard();
+  },
+
+  _stopRec(){
+    if(this.raf){ cancelAnimationFrame(this.raf); this.raf=0; }
+    return new Promise(res=>{
+      const r=this.rec;
+      if(!r || r.state==='inactive'){ res(); return; }
+      r.onstop=()=>res();
+      try{ r.stop(); }catch(e){ res(); }
+      setTimeout(res,1500);
+    });
+  },
+  async release(){                             // отпустить без распознавания (перед партнёром)
+    this.note('release');
+    await this._stopRec(); this.rec=null; this.chunks=[]; this.set('off');
+    // поток НЕ закрываем: повторный getUserMedia = новый prompt и BT-переключение
+  },
+  async finish(){                              // закончить реплику → распознать → вернуть текст
+    this.note('finish');
+    await this._stopRec();
+    const chunks=this.chunks; this.chunks=[]; this.rec=null;
+    if(!chunks.length){ this.note('no-audio'); this.set('off'); return ''; }
+    this.set('busy','распознаю…'); paintHeard();
+    try{
+      const blob=new Blob(chunks,{type:this.mime||'audio/webm'});
+      const r=await fetch(ASR_BASE+'/asr',{method:'POST',headers:{'Content-Type':blob.type},body:blob});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const j=await r.json();
+      this.said=(j.text||'').trim();
+      this.note('asr:'+this.said.split(/\s+/).filter(Boolean).length+' слов');
+    }catch(e){
+      // бэкенд умер посреди репетиции — иначе все следующие реплики молча получат ноль
+      this.said=''; this.note('backend-fail:'+(e.message||e));
+      this.set('bad','бэкенд Whisper недоступен');
+      if(Mic===MicWhisper){
+        Mic=MicWeb;
+        toast('Whisper отвалился — вернулся на браузерное распознавание');
+      }
+      return this.said;
+    }
+    this.set('off');
+    return this.said;
+  }
+};
+
+// по умолчанию — браузерный движок; initASR() переключит на Whisper, если бэкенд жив
+let Mic = MicWeb;
+async function initASR(){
+  if(!MicWhisper.available()) return;          // нет микрофона/незащищённый контекст
+  try{
+    const r=await fetch(ASR_BASE+'/asr/health',{cache:'no-store'});
+    if(r.ok){ const j=await r.json(); if(j && j.ok){ Mic=MicWhisper; if($('#micChip')) paintMic();
+      toast('Точное распознавание (Whisper) подключено'); } }
+  }catch(e){ /* бэкенда нет — остаёмся на браузерном */ }
+}
+
 const MIC_UI = {
   off:       ['',        'микрофон выкл'],
   starting:  ['starting','включаю микрофон…'],
   retry:     ['retry',   'переподключаю микрофон…'],
   live:      ['live',    'слушаю'],
+  busy:      ['live',    'распознаю…'],
   denied:    ['bad',     'нет доступа к микрофону'],
   insecure:  ['bad',     'микрофон недоступен по http'],
   unsupported:['bad',    'браузер не распознаёт речь'],
@@ -1083,7 +1198,7 @@ function setControls(mode, bubble){
       const said=await Mic.finish();
       if(!RUN || token!==runToken) return;      // вышли из сцены, пока ждали хвост
       // две глухие реплики подряд — не совпадение: устройству не хватает паузы
-      if(Mic.available()){
+      if(Mic===MicWeb && Mic.available()){    // пауза перед стартом есть только у браузерного
         if(said) RUN.mute=0;
         else if((RUN.mute=(RUN.mute||0)+1)>=2){ RUN.mute=0; bumpSettle(); }
       }
