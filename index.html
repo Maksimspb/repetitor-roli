@@ -237,11 +237,14 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const BUILD='2026-08-07-7';     // видно в настройках и в журнале: что реально крутится на устройстве
+const BUILD='2026-08-11-8';     // видно в настройках и в журнале: что реально крутится на устройстве
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
-  role:null, reveal:'hidden', handsfree:false, voice:'', rate:1, stageSize:18, settle:320,
-  asrUrl:'', ondevice:false, ptt:'auto'
+  role:null, reveal:'hidden', voice:'', rate:1, stageSize:18, settle:320,
+  asrUrl:'', ondevice:false, ptt:'auto',
+  // 'self' — самопроверка без микрофона (по умолчанию: распознавание на телефоне
+  // ненадёжно), 'mic' — с распознаванием, 'hands' — без рук, для машины
+  mode:'self', voicePartner:false
 }, LS.get(K_PREFS,{}));
 let PROG = LS.get(K_PROG,{});          // ключ роль::сцена -> запись прогресса
 let LINEBEST = LS.get(K_LINE,{});      // id реплики -> лучший %
@@ -257,6 +260,12 @@ function micNote(ev){
 micNote('=== запуск, сборка '+BUILD+' ===');
 // пауза перед стартом раньше росла и на глухих сессиях — диагноз был неверный, сбрасываем
 if(!PREFS.v6){ PREFS.settle=320; PREFS.v6=1; LS.set(K_PREFS,PREFS); }
+// прежний тумблер «без рук» стал одним из трёх режимов
+if(PREFS.handsfree!==undefined){
+  if(PREFS.handsfree){ PREFS.mode='hands'; PREFS.voicePartner=true; }
+  delete PREFS.handsfree; LS.set(K_PREFS,PREFS);
+}
+const voicingOn = () => PREFS.mode==='hands' || PREFS.voicePartner;
 
 const savePrefs=()=>LS.set(K_PREFS,PREFS);
 const saveProg =()=>LS.set(K_PROG,PROG);
@@ -1025,12 +1034,46 @@ function optionsCard(){
   });
   f1.appendChild(r1); body.appendChild(f1);
 
-  const f2=el('div','field');
-  const hf=el('button','chip'+(PREFS.handsfree?' on':''),'🚗 Без рук (для машины)');
-  const hfNote=el('div','note','Партнёр играет сцену сам и делает паузу под твою реплику. '+
-    'Телефон трогать не надо, микрофон не нужен — работает офлайн.');
-  hf.onclick=()=>{ PREFS.handsfree=!PREFS.handsfree; savePrefs(); hf.classList.toggle('on',PREFS.handsfree); };
-  f2.append(hf,hfNote); body.appendChild(f2);
+  const f2=el('div','field','<label>Как репетируем</label>');
+  const modes=el('div','chips');
+  const MODES=[
+    ['self','📖 Самопроверка','Реплики партнёра читаешь сам, на своей — пауза: вспоминаешь, '+
+      'говоришь вслух или про себя, потом смотришь текст и честно отмечаешь, попал или нет. '+
+      'Микрофон не нужен, работает везде и офлайн.'],
+    ['mic','🎙 С микрофоном','Приложение слушает и само сверяет слова. На iPhone распознавание '+
+      'ненадёжно: заводится, но часто не слышит. На компьютере работает лучше.'],
+    ['hands','🚗 Без рук (для машины)','Партнёр играет сцену сам и делает паузу под твою реплику. '+
+      'Телефон трогать не надо.']
+  ];
+  const modeNote=el('div','note');
+  const paintMode=()=>{
+    modes.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('on',MODES[i][0]===PREFS.mode));
+    modeNote.textContent=(MODES.find(m=>m[0]===PREFS.mode)||MODES[0])[2];
+  };
+  MODES.forEach(([v,t])=>{
+    const b=el('button','chip',t);
+    b.onclick=()=>{ PREFS.mode=v; savePrefs(); paintMode(); paintVoice(); };
+    modes.appendChild(b);
+  });
+  f2.append(modes,modeNote); body.appendChild(f2);
+
+  const f2b=el('div','field');
+  const vp=el('button','chip','🔊 Озвучивать партнёра');
+  const vpNote=el('div','note');
+  const paintVoice=()=>{
+    const forced = PREFS.mode==='hands';
+    vp.classList.toggle('on', voicingOn());
+    vp.disabled = forced;
+    vpNote.textContent = forced
+      ? 'В режиме «без рук» партнёр озвучивается всегда — в этом весь смысл.'
+      : (PREFS.voicePartner
+          ? 'Реплики партнёра проговариваются живым голосом, ход передаётся сам.'
+          : 'Реплики партнёра показываются текстом, ход передаёшь кнопкой. Тише и быстрее.');
+  };
+  vp.onclick=()=>{ if(PREFS.mode==='hands') return;
+    PREFS.voicePartner=!PREFS.voicePartner; savePrefs(); paintVoice(); };
+  f2b.append(vp,vpNote); body.appendChild(f2b);
+  paintMode(); paintVoice();
 
   const f3=el('div','field','<label>Голос партнёра</label>');
   const sel=el('select'); sel.id='voiceSel';
@@ -1154,7 +1197,7 @@ function startRun(fromPos){
     ranges:SELECTION.ranges, units, myLines,
     idx: resuming?Math.min(fromPos,units.length):0,
     results: resuming?(saved.results||[]).slice():[],
-    handsfree:PREFS.handsfree
+    mode:PREFS.mode
   };
   runToken++;
   VOICE=pickVoice();
@@ -1253,13 +1296,28 @@ async function step(){
     const b=render('partner','<div class="who">'+who+'</div>'+action+'<div>'+esc(u.text)+'</div>');
     b.classList.remove('past');
     setControls('partner');
-    await Mic.release();                       // отпустить микрофон до звука: BT-маршрут
-    if(token!==runToken) return;
-    voicePartner(u, ()=>{ if(token!==runToken) return; RUN.idx++; saveRun(false); step(); });
+    if(RUN.mode==='mic'){
+      await Mic.release();                     // отпустить микрофон до звука: BT-маршрут
+      if(token!==runToken) return;
+    }
+    // без озвучки реплику партнёра читаешь сам — ход отдаётся кнопкой, а не таймером
+    if(voicingOn()) voicePartner(u, ()=>{ if(token!==runToken) return; RUN.idx++; saveRun(false); step(); });
     return;
   }
 
-  if(RUN.handsfree){
+  /* самопроверка: пауза на вспоминание, потом честная оценка себе */
+  if(RUN.mode==='self'){
+    const best=LINEBEST[u.id];
+    const recTag = best ? '<span class="rec">рекорд '+best+'%</span>' : '';
+    const b=render('me active','<div class="who">'+who+' · ты'+recTag+'</div>'+action+
+      '<div class="mytext"><span class="cue">— вспомни свою реплику —</span></div>');
+    b.classList.remove('past');
+    b._u=u; b._full=u.text;
+    setControls('self',b);
+    return;
+  }
+
+  if(RUN.mode==='hands'){
     const b=render('me active','<div class="who">🎤 '+who+' · ты</div>'+action+
       '<div class="mytext"><span class="cue">— твоя реплика —</span></div>');
     b.classList.remove('past');
@@ -1381,6 +1439,22 @@ function wordDiff(orig, said){
 const tokHtml = t => t.map(x=>'<span class="'+(x.ok?'ok':'miss')+'">'+esc(x.w)+'</span>').join(' ');
 const scoreCls = s => s>=85?'sc-hi':s>=60?'sc-mid':'sc-lo';
 
+const SELF_LABEL = {0:'забыл', 60:'почти', 100:'точно'};
+
+function finalizeSelf(bubble, u, score){
+  RUN.results.push({id:u.id, speaker:u.speaker, orig:u.text, said:'', score, self:true});
+  const prevBest = LINEBEST[u.id];
+  const isRecord = prevBest==null || score>prevBest;
+  if(isRecord){ LINEBEST[u.id]=score; saveBest(); }
+  const who=bubble.querySelector('.who');
+  if(who){
+    const rec=who.querySelector('.rec'); if(rec) rec.remove();
+    who.insertAdjacentHTML('beforeend',
+      ' <span class="scoreTag '+scoreCls(score)+'">'+SELF_LABEL[score]+'</span>'+
+      (isRecord && prevBest!=null && score>prevBest ? '<span class="rec new">лучше прежнего</span>' : ''));
+  }
+}
+
 function finalizeMe(bubble, u, said){
   const d=wordDiff(u.text, said);
   RUN.results.push({id:u.id, speaker:u.speaker, orig:u.text, said:d.said, score:d.score});
@@ -1424,14 +1498,49 @@ function setControls(mode, bubble){
   const bar=$('#bar'), hint=$('#hint');
   bar.innerHTML='';
   if(mode==='partner'){
-    hint.innerHTML='Партнёр говорит — слушай';
     const token=runToken;
     const advance=()=>{ if(!RUN||token!==runToken) return; RUN.idx++; saveRun(false); step(); };
-    bar.append(
-      btn('⟲ Ещё раз','ghost',()=>{ if(!RUN||token!==runToken) return;
-        const u=RUN.units[RUN.idx]; if(u) voicePartner(u,advance); }),
-      btn('⏭ Пропустить','ghost wide',()=>{ speechSynthesis.cancel(); stopAudio(); advance(); })
-    );
+    if(voicingOn()){
+      hint.innerHTML='Партнёр говорит — слушай';
+      bar.append(
+        btn('⟲ Ещё раз','ghost',()=>{ if(!RUN||token!==runToken) return;
+          const u=RUN.units[RUN.idx]; if(u) voicePartner(u,advance); }),
+        btn('⏭ Пропустить','ghost wide',()=>{ speechSynthesis.cancel(); stopAudio(); advance(); })
+      );
+    } else {
+      hint.innerHTML='Реплика партнёра — прочти и дальше';
+      bar.append(btn('Дальше ▶','primary big',advance));
+    }
+  } else if(mode==='self'){
+    /* Самопроверка. Сначала пауза на вспоминание, потом текст и честная оценка.
+       Никакого микрофона: на телефоне он всё равно ненадёжен, а связку
+       «реплика → ответ» это тренирует не хуже. */
+    const token=runToken;
+    if(!bubble._shown){
+      hint.innerHTML='Вспомни свою реплику и скажи её — вслух или про себя';
+      const show=el('button','primary big'); show.textContent='Проверить себя';
+      show.onclick=()=>{
+        bubble._shown=true;
+        const t=bubble.querySelector('.mytext');
+        if(t) t.textContent=bubble._full;
+        setControls('self',bubble);
+        bubble.scrollIntoView({behavior:'smooth',block:'center'});
+      };
+      bar.append(show);
+    } else {
+      hint.innerHTML='Насколько попал?';
+      const grade=(score,label,cls)=>btn(label,cls,()=>{
+        if(!RUN||token!==runToken) return;
+        finalizeSelf(bubble, bubble._u, score);
+        bubble.classList.remove('active');
+        RUN.idx++; saveRun(false); step();
+      });
+      bar.append(
+        grade(0,'Забыл','ghost wide'),
+        grade(60,'Почти','ghost wide'),
+        grade(100,'Точно','primary wide')
+      );
+    }
   } else {
     const reveal=btn('👁','ghost',()=>{
       const t=bubble.querySelector('.mytext'); if(t) t.textContent=bubble._full;
@@ -1497,18 +1606,32 @@ async function finish(){
     const rec = prevBest==null ? 'первый полный проход'
               : avg>prevBest ? 'новый рекорд — было '+prevBest+'%'
               : 'твой рекорд по этой сцене: '+prevBest+'%';
+    const self = RUN.mode==='self';
+    const counts = self
+      ? RUN.results.filter(r=>r.score===100).length+' точно · '+
+        RUN.results.filter(r=>r.score===60).length+' почти · '+
+        RUN.results.filter(r=>r.score===0).length+' забыл'
+      : RUN.results.filter(r=>r.score>=85).length+' уверенно · '+
+        RUN.results.filter(r=>r.score<60).length+' провалено';
     const head=el('div','total',
-      '<div style="color:var(--dim);font-size:13px">Точность по твоим репликам</div>'+
+      '<div style="color:var(--dim);font-size:13px">'+
+        (self?'Насколько знаешь текст':'Точность по твоим репликам')+'</div>'+
       '<div class="big"><span class="'+(avg>=85?'ok':avg>=60?'':'miss')+'">'+avg+'%</span></div>'+
       '<div style="color:var(--dim);font-size:13px;margin-top:8px">'+
-        RUN.results.length+' реплик · '+RUN.results.filter(r=>r.score>=85).length+' уверенно · '+
-        RUN.results.filter(r=>r.score<60).length+' провалено</div>'+
+        RUN.results.length+' реплик · '+counts+'</div>'+
       '<div style="margin-top:8px;font-size:13px" class="'+(prevBest!=null&&avg>prevBest?'ok':'')+'">'+rec+'</div>');
     stage.appendChild(head);
 
+    // худшие сверху — это и есть список того, что надо доучить
     [...RUN.results].sort((a,b)=>a.score-b.score).forEach(r=>{
-      const d=wordDiff(r.orig,r.said);
       const best=LINEBEST[r.id];
+      if(r.self){
+        stage.appendChild(el('div','sumrow',
+          '<div><span class="scoreTag '+scoreCls(r.score)+'">'+SELF_LABEL[r.score]+'</span> '+
+          esc(r.orig)+'</div>'));
+        return;
+      }
+      const d=wordDiff(r.orig,r.said);
       stage.appendChild(el('div','sumrow',
         '<div><span class="scoreTag '+scoreCls(r.score)+'">'+r.score+'%</span> '+
         (best!=null&&best!==r.score?'<span class="rec">рекорд '+best+'%</span> ':'')+
@@ -1517,7 +1640,7 @@ async function finish(){
                :'<div class="said">речь не распознана</div>')));
     });
   } else {
-    const b=render('remark','Сцена пройдена. Реплик для оценки не было — либо шёл режим «без рук», либо микрофон не работал.');
+    const b=render('remark','Сцена пройдена. Оценивать было нечего — в режиме «без рук» отметки не ставятся.');
     b.classList.remove('past');
   }
   stage.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1863,7 +1986,7 @@ document.addEventListener('visibilitychange',()=>{
   if(document.visibilityState==='visible'){
     requestWakeLock();
     const b=Mic.el;
-    if(!RUN.handsfree && b && b.classList.contains('active') && $('#micChip')) Mic.engage(b);
+    if(RUN.mode==='mic' && b && b.classList.contains('active') && $('#micChip')) Mic.engage(b);
   } else {
     saveRun(false);
     Mic.release();

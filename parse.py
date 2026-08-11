@@ -79,6 +79,50 @@ SPEAKER_RE = re.compile(
 # несколько говорящих: «Павлин и Влас хором», «Павлин, Влас»
 CHORUS_SPLIT = re.compile(r"\s+и\s+|,\s*|\s+хором", re.I)
 
+# В исходном docx часть реплик слиплась в один абзац:
+#   «…мерси! (Целует у нее руку.)  Мурзавецкая . Поди спать!»
+# Настоящую склейку от простого упоминания фамилии в тексте
+# («Наш общий знакомый, Мурзавецкий. Проводите меня») отличает разделитель:
+# пробел ПЕРЕД точкой либо двоеточие — так набран этот файл.
+_NAMES = "|".join(re.escape(v) for v in sorted(
+    {v.capitalize() for v in VAR2CANON} | set(CANON), key=len, reverse=True))
+GLUE_RE = re.compile(
+    r"(?<=[\s\)\.\!\?…»])"                       # склейка идёт после конца прошлой фразы
+    r"(?:" + _NAMES + r")(?:\s+и\s+(?:" + _NAMES + r"))?"
+    r"(?:\s*\([^)]*\))?"                         # необязательная ремарка: «Имя (тихо) .»
+    r"(?:\s+\.\s+|\s*:\s+)"                      # ← признак склейки
+    r"(?=[А-ЯЁ])"
+)
+
+
+def split_glued(p: str):
+    """Разбить абзац, в котором слиплись несколько реплик разных персонажей.
+
+    Режем только то, что само является репликой. Иначе под нож попадают
+    ремарки и списки участников явления, где имена стоят рядом по делу:
+    «Входит Анфуса . Анфиса.» или «Лыняев , Глафира , Анфуса . Анфиса.»
+    """
+    m = SPEAKER_RE.match(p or "")
+    if not m:
+        return [p]
+    name = m.group("name").strip()
+    if is_stage_start(name) or resolve_speaker(name)[0] is None:
+        return [p]
+    head = m.end("sep")                       # дальше начинается текст самой реплики
+    cuts = [g.start() for g in GLUE_RE.finditer(p) if g.start() >= head]
+    if not cuts:
+        return [p]
+    parts, prev = [], 0
+    for c in cuts:
+        chunk = p[prev:c].strip()
+        if chunk:
+            parts.append(chunk)
+        prev = c
+    tail = p[prev:].strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
 
 def norm(s: str) -> str:
     return unicodedata.normalize("NFC", s).strip()
@@ -118,6 +162,8 @@ def parse():
     doc = Document(DOCX)
     paras = [norm(p.text) for p in doc.paragraphs]
     paras = [p for p in paras if p]
+    # расклеить абзацы, в которых несколько реплик подряд оказались в одной строке
+    paras = [q for p in paras for q in split_glued(p)]
 
     units = []
     act = None
