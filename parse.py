@@ -106,6 +106,25 @@ GLUE_RE = re.compile(
 )
 
 
+# Реплики, у которых в docx потеряна подпись: абзац начинается сразу с ремарки,
+# и по тексту говорящего не вывести. Единственный случай на всю пьесу — по смыслу
+# сцены это Мурзавецкая (она вызвала Лыняева поручением, он ей и отвечает).
+# Установлено исполнителем роли, а не догадкой парсера.
+MANUAL_SPEAKER = {
+    "(Лыняеву.)  А кабы не поручение": "Мурзавецкая",
+}
+
+
+def manual_line(p: str):
+    """Вернуть (speaker, action, text) для реплики с потерянной подписью."""
+    for prefix, who in MANUAL_SPEAKER.items():
+        if p.startswith(prefix):
+            m = re.match(r"^\s*\(([^)]*)\)\s*(.*)$", p, re.S)
+            action = m.group(1).strip().rstrip(".") if m else ""
+            return who, action, (m.group(2).strip() if m else p)
+    return None, "", p
+
+
 def split_glued(p: str):
     """Разбить абзац, в котором слиплись несколько реплик разных персонажей.
 
@@ -213,6 +232,18 @@ def parse():
         if SCENE.match(p):
             scene = p
             units.append({"type": "scene", "title": p, "act": act})
+            continue
+
+        who, m_action, m_text = manual_line(p)
+        if who:
+            units.append({
+                "type": "line",
+                "id": len([u for u in units if u.get("type") == "line"]),
+                "speaker": who, "speaker_raw": who, "chorus": False,
+                "action": m_action,
+                "inline_actions": re.findall(r"\(([^)]*)\)", m_text),
+                "text": m_text, "act": act, "scene": scene,
+            })
             continue
 
         m = SPEAKER_RE.match(p)
