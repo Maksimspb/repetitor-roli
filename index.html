@@ -117,6 +117,11 @@
   .bubble.me{background:#1c1a12;border-color:#3a3418}
   .bubble.me .who{color:var(--me)}
   .bubble.me.active{border-color:#6b5c22;box-shadow:0 0 0 1px #6b5c2255}
+  /* суфлёр: чужие реплики уходят на второй план, свои читаются издалека */
+  .bubble.faded{opacity:.62}
+  .bubble.mineline{background:#241f10;border-color:#5c4d18}
+  .bubble.mineline .who{color:var(--me)}
+  .bubble.mineline.here{border-color:var(--me);box-shadow:0 0 0 2px #ffcf5b3d}
   .bubble.remark{background:transparent;border-style:dashed;color:var(--dim);
     font-style:italic;font-size:15px}
   .bubble.recap{border-style:dashed;background:transparent}
@@ -237,14 +242,14 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const BUILD='2026-08-11-8';     // видно в настройках и в журнале: что реально крутится на устройстве
+const BUILD='2026-08-14-9';     // видно в настройках и в журнале: что реально крутится на устройстве
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
   role:null, reveal:'hidden', voice:'', rate:1, stageSize:18, settle:320,
   asrUrl:'', ondevice:false, ptt:'auto',
-  // 'self' — самопроверка без микрофона (по умолчанию: распознавание на телефоне
-  // ненадёжно), 'mic' — с распознаванием, 'hands' — без рук, для машины
-  mode:'self', voicePartner:false
+  // два глобальных режима: 'learn' — заучивание за столом, 'stage' — подсказка на сцене.
+  // check — как разбирается твоя реплика при заучивании: сам / микрофоном / без рук
+  mode:'learn', check:'self', voicePartner:false
 }, LS.get(K_PREFS,{}));
 let PROG = LS.get(K_PROG,{});          // ключ роль::сцена -> запись прогресса
 let LINEBEST = LS.get(K_LINE,{});      // id реплики -> лучший %
@@ -265,7 +270,11 @@ if(PREFS.handsfree!==undefined){
   if(PREFS.handsfree){ PREFS.mode='hands'; PREFS.voicePartner=true; }
   delete PREFS.handsfree; LS.set(K_PREFS,PREFS);
 }
-const voicingOn = () => PREFS.mode==='hands' || PREFS.voicePartner;
+// прежние три режима стали «заучиванием» с разным способом проверки
+if(['self','mic','hands'].includes(PREFS.mode)){
+  PREFS.check=PREFS.mode; PREFS.mode='learn'; LS.set(K_PREFS,PREFS);
+}
+const voicingOn = () => PREFS.check==='hands' || PREFS.voicePartner;
 
 const savePrefs=()=>LS.set(K_PREFS,PREFS);
 const saveProg =()=>LS.set(K_PROG,PROG);
@@ -992,6 +1001,11 @@ function setupBar(){
   bar.innerHTML='';
   if(!PREFS.role){ hint.textContent='Выбери роль — покажу только её сцены'; return; }
   if(!SELECTION){ hint.textContent='Выбери сцену'; return; }
+  if(PREFS.mode==='stage'){
+    hint.textContent=SELECTION.label+' — вся сцена целиком, твои реплики подсвечены';
+    bar.append(btn('🎭 Открыть сцену','primary big',()=>startRun(0)));
+    return;
+  }
   const p=getProg(PREFS.role,SELECTION.sceneId);
   if(p && !p.done && p.pos>0){
     hint.innerHTML='«'+esc(SELECTION.label)+'» не закончена: '+p.doneLines+' из '+p.myLines+' твоих реплик';
@@ -1034,45 +1048,65 @@ function optionsCard(){
   });
   f1.appendChild(r1); body.appendChild(f1);
 
-  const f2=el('div','field','<label>Как репетируем</label>');
+  /* Два глобальных режима: учить за столом или подсматривать на сцене.
+     Всё остальное — настройки внутри заучивания. */
+  const f2=el('div','field','<label>Зачем открыл</label>');
   const modes=el('div','chips');
   const MODES=[
-    ['self','📖 Самопроверка','Реплики партнёра читаешь сам, на своей — пауза: вспоминаешь, '+
-      'говоришь вслух или про себя, потом смотришь текст и честно отмечаешь, попал или нет. '+
-      'Микрофон не нужен, работает везде и офлайн.'],
-    ['mic','🎙 С микрофоном','Приложение слушает и само сверяет слова. На iPhone распознавание '+
-      'ненадёжно: заводится, но часто не слышит. На компьютере работает лучше.'],
-    ['hands','🚗 Без рук (для машины)','Партнёр играет сцену сам и делает паузу под твою реплику. '+
-      'Телефон трогать не надо.']
+    ['learn','📖 Учить роль','Идём по сцене шаг за шагом. На твоей реплике пауза: '+
+      'вспоминаешь, говоришь вслух или про себя, потом сверяешься с текстом.'],
+    ['stage','🎭 Подсказка на сцене','Вся сцена сразу, целиком. Твои реплики подсвечены, '+
+      'между ними прыгаешь кнопками — забыл на репетиции, нашёл за секунду. '+
+      'Ничего не оценивается, прогресс не пишется.']
   ];
   const modeNote=el('div','note');
+  const learnBox=el('div','field');
   const paintMode=()=>{
     modes.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('on',MODES[i][0]===PREFS.mode));
     modeNote.textContent=(MODES.find(m=>m[0]===PREFS.mode)||MODES[0])[2];
+    learnBox.classList.toggle('hidden', PREFS.mode!=='learn');
   };
   MODES.forEach(([v,t])=>{
     const b=el('button','chip',t);
-    b.onclick=()=>{ PREFS.mode=v; savePrefs(); paintMode(); paintVoice(); };
+    b.onclick=()=>{ PREFS.mode=v; savePrefs(); paintMode(); };
     modes.appendChild(b);
   });
   f2.append(modes,modeNote); body.appendChild(f2);
 
-  const f2b=el('div','field');
+  /* --- настройки заучивания --- */
   const vp=el('button','chip','🔊 Озвучивать партнёра');
   const vpNote=el('div','note');
+  const checks=el('div','chips'); checks.style.marginTop='14px';
+  const CHECKS=[
+    ['self','Сам себя проверяю','Открываешь текст и честно отмечаешь: точно, почти или забыл.'],
+    ['mic','🎙 Микрофоном','Приложение слушает и сверяет слова само. На iPhone распознавание '+
+      'ненадёжно — заводится, но часто не слышит; на компьютере работает.'],
+    ['hands','🚗 Без рук','Партнёр играет сам и держит паузу под твою реплику. Для машины: '+
+      'телефон трогать не надо, отметок нет.']
+  ];
+  const checkNote=el('div','note');
   const paintVoice=()=>{
-    const forced = PREFS.mode==='hands';
+    const forced = PREFS.check==='hands';
     vp.classList.toggle('on', voicingOn());
     vp.disabled = forced;
     vpNote.textContent = forced
-      ? 'В режиме «без рук» партнёр озвучивается всегда — в этом весь смысл.'
+      ? 'Без рук партнёр озвучивается всегда — в этом весь смысл.'
       : (PREFS.voicePartner
-          ? 'Реплики партнёра проговариваются живым голосом, ход передаётся сам.'
-          : 'Реплики партнёра показываются текстом, ход передаёшь кнопкой. Тише и быстрее.');
+          ? 'Партнёр проговаривает реплики живым голосом, ход передаётся сам. Учишь на слух.'
+          : 'Реплики партнёра показываются текстом, ход передаёшь кнопкой. Тихо и быстро.');
+    checks.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('on',CHECKS[i][0]===PREFS.check));
+    checkNote.textContent=(CHECKS.find(c=>c[0]===PREFS.check)||CHECKS[0])[2];
   };
-  vp.onclick=()=>{ if(PREFS.mode==='hands') return;
+  vp.onclick=()=>{ if(PREFS.check==='hands') return;
     PREFS.voicePartner=!PREFS.voicePartner; savePrefs(); paintVoice(); };
-  f2b.append(vp,vpNote); body.appendChild(f2b);
+  CHECKS.forEach(([v,t])=>{
+    const b=el('button','chip',t);
+    b.onclick=()=>{ PREFS.check=v; savePrefs(); paintVoice(); };
+    checks.appendChild(b);
+  });
+  learnBox.append(vp,vpNote,el('label','','Как разбирать твою реплику'),checks,checkNote);
+  learnBox.style.gap='8px';
+  body.appendChild(learnBox);
   paintMode(); paintVoice();
 
   const f3=el('div','field','<label>Голос партнёра</label>');
@@ -1197,7 +1231,7 @@ function startRun(fromPos){
     ranges:SELECTION.ranges, units, myLines,
     idx: resuming?Math.min(fromPos,units.length):0,
     results: resuming?(saved.results||[]).slice():[],
-    mode:PREFS.mode
+    mode:PREFS.mode, check:PREFS.check
   };
   runToken++;
   VOICE=pickVoice();
@@ -1212,11 +1246,76 @@ function startRun(fromPos){
   sharedAudio.src=SILENCE; sharedAudio.play().catch(()=>{});   // разблокировать звук жестом
   requestWakeLock();
 
+  if(RUN.mode==='stage'){ renderPrompter(); return; }   // суфлёр: без шагов и без оценок
+
   if(resuming){
     renderRecap();
     toast('Продолжаем с того места, где остановились');
   }
   step();
+}
+
+/* ==================================================================
+   ПОДСКАЗКА НА СЦЕНЕ
+   Вся сцена сразу, твои реплики контрастно выделены, между ними —
+   прыжки кнопками. Забыл на репетиции — нашёл за секунду.
+   Ничего не оценивается и в прогресс не пишется: это суфлёр, не тренажёр.
+   ================================================================== */
+let PROMPT_LINES=[], PROMPT_AT=-1;
+
+function renderPrompter(){
+  const stage=$('#stage');
+  stage.innerHTML='';
+  PROMPT_LINES=[]; PROMPT_AT=-1;
+
+  RUN.units.forEach(u=>{
+    if(u.type==='act'||u.type==='scene'){
+      stage.appendChild(el('div','divider',(u.type==='act'?'▬ ':'')+esc(u.title))); return;
+    }
+    if(u.type==='meta') return;
+    if(u.type==='stage'||u.type==='song'){
+      const txt = u.type==='song' ? '♪ '+u.lines.join(' / ') : u.text;
+      stage.appendChild(el('div','bubble remark',esc(txt))); return;
+    }
+    const mine=isMine(u,RUN.role);
+    const who=esc(u.speaker)+(u.chorus?' (хором)':'');
+    const action=u.action?'<div class="action">('+esc(u.action)+')</div>':'';
+    const b=el('div','bubble '+(mine?'me mineline':'partner faded'),
+      '<div class="who">'+who+(mine?' · ты':'')+'</div>'+action+'<div>'+esc(u.text)+'</div>');
+    stage.appendChild(b);
+    if(mine) PROMPT_LINES.push(b);
+  });
+
+  $('#hdrSub').textContent=RUN.role+' · твоих реплик '+PROMPT_LINES.length;
+  $('#trackFill').style.width='0%';
+  promptBar();
+  if(PROMPT_LINES.length) jumpTo(0);
+}
+
+function jumpTo(i){
+  if(!PROMPT_LINES.length) return;
+  PROMPT_AT=(i+PROMPT_LINES.length)%PROMPT_LINES.length;
+  const b=PROMPT_LINES[PROMPT_AT];
+  PROMPT_LINES.forEach(x=>x.classList.remove('here'));
+  b.classList.add('here');
+  b.scrollIntoView({behavior:'smooth',block:'center'});
+  $('#trackFill').style.width=Math.round((PROMPT_AT+1)/PROMPT_LINES.length*100)+'%';
+  const c=$('#promptAt'); if(c) c.textContent=(PROMPT_AT+1)+' / '+PROMPT_LINES.length;
+}
+
+function promptBar(){
+  const bar=$('#bar'), hint=$('#hint');
+  hint.textContent = PROMPT_LINES.length
+    ? 'Твои реплики подсвечены — прыгай между ними'
+    : 'В этой сцене у тебя нет реплик';
+  bar.innerHTML='';
+  const prev=btn('↑','ghost',()=>jumpTo(PROMPT_AT-1));
+  prev.setAttribute('aria-label','Предыдущая моя реплика');
+  const next=btn('↓','primary big',()=>jumpTo(PROMPT_AT+1));
+  next.setAttribute('aria-label','Следующая моя реплика');
+  const at=el('div','mic'); at.id='promptAt'; at.style.cursor='default';
+  at.textContent=PROMPT_LINES.length?'1 / '+PROMPT_LINES.length:'—';
+  bar.append(prev, at, next);
 }
 
 /* короткий контекст перед возобновлением: что было сказано до паузы */
@@ -1238,6 +1337,7 @@ function renderRecap(){
 
 function saveRun(done){
   if(!RUN) return;
+  if(RUN.mode==='stage') return;         // суфлёр ничего не оценивает и не пишет в прогресс
   if(RUN.finished && !done) return;      // сцена уже закрыта: не затирать «пройдено»
   if(done) RUN.finished=true;
   const key=progKey(RUN.role,RUN.sceneId);
@@ -1296,7 +1396,7 @@ async function step(){
     const b=render('partner','<div class="who">'+who+'</div>'+action+'<div>'+esc(u.text)+'</div>');
     b.classList.remove('past');
     setControls('partner');
-    if(RUN.mode==='mic'){
+    if(RUN.check==='mic'){
       await Mic.release();                     // отпустить микрофон до звука: BT-маршрут
       if(token!==runToken) return;
     }
@@ -1306,7 +1406,7 @@ async function step(){
   }
 
   /* самопроверка: пауза на вспоминание, потом честная оценка себе */
-  if(RUN.mode==='self'){
+  if(RUN.check==='self'){
     const best=LINEBEST[u.id];
     const recTag = best ? '<span class="rec">рекорд '+best+'%</span>' : '';
     const b=render('me active','<div class="who">'+who+' · ты'+recTag+'</div>'+action+
@@ -1317,7 +1417,7 @@ async function step(){
     return;
   }
 
-  if(RUN.mode==='hands'){
+  if(RUN.check==='hands'){
     const b=render('me active','<div class="who">🎤 '+who+' · ты</div>'+action+
       '<div class="mytext"><span class="cue">— твоя реплика —</span></div>');
     b.classList.remove('past');
@@ -1606,7 +1706,7 @@ async function finish(){
     const rec = prevBest==null ? 'первый полный проход'
               : avg>prevBest ? 'новый рекорд — было '+prevBest+'%'
               : 'твой рекорд по этой сцене: '+prevBest+'%';
-    const self = RUN.mode==='self';
+    const self = RUN.check==='self';
     const counts = self
       ? RUN.results.filter(r=>r.score===100).length+' точно · '+
         RUN.results.filter(r=>r.score===60).length+' почти · '+
@@ -1986,7 +2086,7 @@ document.addEventListener('visibilitychange',()=>{
   if(document.visibilityState==='visible'){
     requestWakeLock();
     const b=Mic.el;
-    if(RUN.mode==='mic' && b && b.classList.contains('active') && $('#micChip')) Mic.engage(b);
+    if(RUN.check==='mic' && b && b.classList.contains('active') && $('#micChip')) Mic.engage(b);
   } else {
     saveRun(false);
     Mic.release();

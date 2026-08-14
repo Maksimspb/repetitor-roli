@@ -20,11 +20,11 @@
     "lines": 97
    },
    {
-    "name": "Глафира",
-    "lines": 95
+    "name": "Чугунов",
+    "lines": 94
    },
    {
-    "name": "Чугунов",
+    "name": "Глафира 1",
     "lines": 94
    },
    {
@@ -46,6 +46,10 @@
    {
     "name": "Влас",
     "lines": 18
+   },
+   {
+    "name": "Глафира 2",
+    "lines": 14
    },
    {
     "name": "Маляр",
@@ -85,7 +89,7 @@
    }
   ],
   "total_units": 1225,
-  "total_lines": 983
+  "total_lines": 997
  },
  "units": [
   {
@@ -1287,12 +1291,12 @@
    "act": "Действие первое",
    "participants": [
     "Мурзавецкий",
-    "Глафира",
+    "Глафира 1",
     "Павлин"
    ],
    "per_role": {
     "Мурзавецкий": 6,
-    "Глафира": 4,
+    "Глафира 1": 4,
     "Павлин": 1
    },
    "n_lines": 11,
@@ -1319,7 +1323,7 @@
   {
    "type": "line",
    "id": 82,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -1343,7 +1347,7 @@
   {
    "type": "line",
    "id": 84,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -1367,7 +1371,7 @@
   {
    "type": "line",
    "id": 86,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -1391,7 +1395,7 @@
   {
    "type": "line",
    "id": 88,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -2626,12 +2630,12 @@
     "Влас"
    ],
    "per_role": {
-    "Анфуса": 21,
+    "Анфуса": 22,
     "Лыняев": 14,
     "Мурзавецкая": 19,
     "Влас": 1
    },
-   "n_lines": 55,
+   "n_lines": 56,
    "preview": "Анфуса: Топится, топится в огороде баня, женится, женится мой миленок Ваня, не топись, не "
   },
   {
@@ -3324,13 +3328,25 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Что ж он у вас делает? Анфуса и Анфиса. Опа, опа, жареные раки, приходи ко мне домой, я живу в бараке",
+   "text": "Что ж он у вас делает?",
    "act": "Действие первое",
    "scene": "Явление десятое"
   },
   {
    "type": "line",
    "id": 229,
+   "speaker": "Анфуса",
+   "speaker_raw": "Анфуса и Анфиса",
+   "chorus": true,
+   "action": "",
+   "inline_actions": [],
+   "text": "Опа, опа, жареные раки, приходи ко мне домой, я живу в бараке",
+   "act": "Действие первое",
+   "scene": "Явление десятое"
+  },
+  {
+   "type": "line",
+   "id": 230,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3342,7 +3358,7 @@
   },
   {
    "type": "line",
-   "id": 230,
+   "id": 231,
    "speaker": "Влас",
    "speaker_raw": "Влас",
    "chorus": false,
@@ -3385,7 +3401,7 @@
   },
   {
    "type": "line",
-   "id": 231,
+   "id": 232,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3397,7 +3413,7 @@
   },
   {
    "type": "line",
-   "id": 232,
+   "id": 233,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3409,7 +3425,7 @@
   },
   {
    "type": "line",
-   "id": 233,
+   "id": 234,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3421,7 +3437,7 @@
   },
   {
    "type": "line",
-   "id": 234,
+   "id": 235,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3433,7 +3449,7 @@
   },
   {
    "type": "line",
-   "id": 235,
+   "id": 236,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса и Анфуса",
    "chorus": true,
@@ -3445,7 +3461,7 @@
   },
   {
    "type": "line",
-   "id": 236,
+   "id": 237,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3457,7 +3473,7 @@
   },
   {
    "type": "line",
-   "id": 237,
+   "id": 238,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3469,7 +3485,7 @@
   },
   {
    "type": "line",
-   "id": 238,
+   "id": 239,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3481,7 +3497,7 @@
   },
   {
    "type": "line",
-   "id": 239,
+   "id": 240,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3493,7 +3509,7 @@
   },
   {
    "type": "line",
-   "id": 240,
+   "id": 241,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса и Анфуса",
    "chorus": true,
@@ -3505,7 +3521,7 @@
   },
   {
    "type": "line",
-   "id": 241,
+   "id": 242,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3517,7 +3533,7 @@
   },
   {
    "type": "line",
-   "id": 242,
+   "id": 243,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3529,7 +3545,7 @@
   },
   {
    "type": "line",
-   "id": 243,
+   "id": 244,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3541,7 +3557,7 @@
   },
   {
    "type": "line",
-   "id": 244,
+   "id": 245,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3553,7 +3569,7 @@
   },
   {
    "type": "line",
-   "id": 245,
+   "id": 246,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3567,7 +3583,7 @@
   },
   {
    "type": "line",
-   "id": 246,
+   "id": 247,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3579,7 +3595,7 @@
   },
   {
    "type": "line",
-   "id": 247,
+   "id": 248,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3593,7 +3609,7 @@
   },
   {
    "type": "line",
-   "id": 248,
+   "id": 249,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса и Анфуса",
    "chorus": true,
@@ -3605,7 +3621,7 @@
   },
   {
    "type": "line",
-   "id": 249,
+   "id": 250,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3617,7 +3633,7 @@
   },
   {
    "type": "line",
-   "id": 250,
+   "id": 251,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3629,7 +3645,7 @@
   },
   {
    "type": "line",
-   "id": 251,
+   "id": 252,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3647,7 +3663,7 @@
   },
   {
    "type": "line",
-   "id": 252,
+   "id": 253,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3659,7 +3675,7 @@
   },
   {
    "type": "line",
-   "id": 253,
+   "id": 254,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3671,7 +3687,7 @@
   },
   {
    "type": "line",
-   "id": 254,
+   "id": 255,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3683,7 +3699,7 @@
   },
   {
    "type": "line",
-   "id": 255,
+   "id": 256,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3695,7 +3711,7 @@
   },
   {
    "type": "line",
-   "id": 256,
+   "id": 257,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3707,7 +3723,7 @@
   },
   {
    "type": "line",
-   "id": 257,
+   "id": 258,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3719,7 +3735,7 @@
   },
   {
    "type": "line",
-   "id": 258,
+   "id": 259,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3731,7 +3747,7 @@
   },
   {
    "type": "line",
-   "id": 259,
+   "id": 260,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3743,7 +3759,7 @@
   },
   {
    "type": "line",
-   "id": 260,
+   "id": 261,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса и Анфуса",
    "chorus": true,
@@ -3755,7 +3771,7 @@
   },
   {
    "type": "line",
-   "id": 261,
+   "id": 262,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -3767,7 +3783,7 @@
   },
   {
    "type": "line",
-   "id": 262,
+   "id": 263,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -3779,7 +3795,7 @@
   },
   {
    "type": "line",
-   "id": 263,
+   "id": 264,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3791,7 +3807,7 @@
   },
   {
    "type": "line",
-   "id": 264,
+   "id": 265,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3803,7 +3819,7 @@
   },
   {
    "type": "line",
-   "id": 265,
+   "id": 266,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -3815,7 +3831,7 @@
   },
   {
    "type": "line",
-   "id": 266,
+   "id": 267,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3836,7 +3852,7 @@
   },
   {
    "type": "line",
-   "id": 267,
+   "id": 268,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -3858,18 +3874,18 @@
    "act": "Действие первое",
    "participants": [
     "Мурзавецкая",
-    "Глафира"
+    "Глафира 1"
    ],
    "per_role": {
     "Мурзавецкая": 4,
-    "Глафира": 3
+    "Глафира 1": 3
    },
    "n_lines": 7,
    "preview": "Мурзавецкая: Глафира, я хочу дать тебе послушание."
   },
   {
    "type": "line",
-   "id": 268,
+   "id": 269,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3881,8 +3897,8 @@
   },
   {
    "type": "line",
-   "id": 269,
-   "speaker": "Глафира",
+   "id": 270,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -3893,7 +3909,7 @@
   },
   {
    "type": "line",
-   "id": 270,
+   "id": 271,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3905,8 +3921,8 @@
   },
   {
    "type": "line",
-   "id": 271,
-   "speaker": "Глафира",
+   "id": 272,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -3917,7 +3933,7 @@
   },
   {
    "type": "line",
-   "id": 272,
+   "id": 273,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3935,8 +3951,8 @@
   },
   {
    "type": "line",
-   "id": 273,
-   "speaker": "Глафира",
+   "id": 274,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -3947,7 +3963,7 @@
   },
   {
    "type": "line",
-   "id": 274,
+   "id": 275,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -3999,7 +4015,7 @@
   },
   {
    "type": "line",
-   "id": 275,
+   "id": 276,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4011,7 +4027,7 @@
   },
   {
    "type": "line",
-   "id": 276,
+   "id": 277,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4023,7 +4039,7 @@
   },
   {
    "type": "line",
-   "id": 277,
+   "id": 278,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4041,7 +4057,7 @@
   },
   {
    "type": "line",
-   "id": 278,
+   "id": 279,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4053,7 +4069,7 @@
   },
   {
    "type": "line",
-   "id": 279,
+   "id": 280,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4065,7 +4081,7 @@
   },
   {
    "type": "line",
-   "id": 280,
+   "id": 281,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4077,7 +4093,7 @@
   },
   {
    "type": "line",
-   "id": 281,
+   "id": 282,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4089,7 +4105,7 @@
   },
   {
    "type": "line",
-   "id": 282,
+   "id": 283,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4107,7 +4123,7 @@
   },
   {
    "type": "line",
-   "id": 283,
+   "id": 284,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4119,7 +4135,7 @@
   },
   {
    "type": "line",
-   "id": 284,
+   "id": 285,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4137,7 +4153,7 @@
   },
   {
    "type": "line",
-   "id": 285,
+   "id": 286,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4161,7 +4177,7 @@
   },
   {
    "type": "line",
-   "id": 286,
+   "id": 287,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4175,7 +4191,7 @@
   },
   {
    "type": "line",
-   "id": 287,
+   "id": 288,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4187,7 +4203,7 @@
   },
   {
    "type": "line",
-   "id": 288,
+   "id": 289,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4199,7 +4215,7 @@
   },
   {
    "type": "line",
-   "id": 289,
+   "id": 290,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4211,7 +4227,7 @@
   },
   {
    "type": "line",
-   "id": 290,
+   "id": 291,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4223,7 +4239,7 @@
   },
   {
    "type": "line",
-   "id": 291,
+   "id": 292,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4235,7 +4251,7 @@
   },
   {
    "type": "line",
-   "id": 292,
+   "id": 293,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4247,7 +4263,7 @@
   },
   {
    "type": "line",
-   "id": 293,
+   "id": 294,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4259,7 +4275,7 @@
   },
   {
    "type": "line",
-   "id": 294,
+   "id": 295,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -4273,7 +4289,7 @@
   },
   {
    "type": "line",
-   "id": 295,
+   "id": 296,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4314,7 +4330,7 @@
   },
   {
    "type": "line",
-   "id": 296,
+   "id": 297,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4326,7 +4342,7 @@
   },
   {
    "type": "line",
-   "id": 297,
+   "id": 298,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4340,7 +4356,7 @@
   },
   {
    "type": "line",
-   "id": 298,
+   "id": 299,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4352,7 +4368,7 @@
   },
   {
    "type": "line",
-   "id": 299,
+   "id": 300,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4364,7 +4380,7 @@
   },
   {
    "type": "line",
-   "id": 300,
+   "id": 301,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4376,7 +4392,7 @@
   },
   {
    "type": "line",
-   "id": 301,
+   "id": 302,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4388,7 +4404,7 @@
   },
   {
    "type": "line",
-   "id": 302,
+   "id": 303,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4400,7 +4416,7 @@
   },
   {
    "type": "line",
-   "id": 303,
+   "id": 304,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4412,7 +4428,7 @@
   },
   {
    "type": "line",
-   "id": 304,
+   "id": 305,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4424,7 +4440,7 @@
   },
   {
    "type": "line",
-   "id": 305,
+   "id": 306,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4436,7 +4452,7 @@
   },
   {
    "type": "line",
-   "id": 306,
+   "id": 307,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4450,7 +4466,7 @@
   },
   {
    "type": "line",
-   "id": 307,
+   "id": 308,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4462,7 +4478,7 @@
   },
   {
    "type": "line",
-   "id": 308,
+   "id": 309,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4474,7 +4490,7 @@
   },
   {
    "type": "line",
-   "id": 309,
+   "id": 310,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4486,7 +4502,7 @@
   },
   {
    "type": "line",
-   "id": 310,
+   "id": 311,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4498,7 +4514,7 @@
   },
   {
    "type": "line",
-   "id": 311,
+   "id": 312,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4510,7 +4526,7 @@
   },
   {
    "type": "line",
-   "id": 312,
+   "id": 313,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4522,7 +4538,7 @@
   },
   {
    "type": "line",
-   "id": 313,
+   "id": 314,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4534,7 +4550,7 @@
   },
   {
    "type": "line",
-   "id": 314,
+   "id": 315,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4546,7 +4562,7 @@
   },
   {
    "type": "line",
-   "id": 315,
+   "id": 316,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4558,7 +4574,7 @@
   },
   {
    "type": "line",
-   "id": 316,
+   "id": 317,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4570,7 +4586,7 @@
   },
   {
    "type": "line",
-   "id": 317,
+   "id": 318,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4582,7 +4598,7 @@
   },
   {
    "type": "line",
-   "id": 318,
+   "id": 319,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4594,7 +4610,7 @@
   },
   {
    "type": "line",
-   "id": 319,
+   "id": 320,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4606,7 +4622,7 @@
   },
   {
    "type": "line",
-   "id": 320,
+   "id": 321,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4618,7 +4634,7 @@
   },
   {
    "type": "line",
-   "id": 321,
+   "id": 322,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4630,7 +4646,7 @@
   },
   {
    "type": "line",
-   "id": 322,
+   "id": 323,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4642,7 +4658,7 @@
   },
   {
    "type": "line",
-   "id": 323,
+   "id": 324,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4654,7 +4670,7 @@
   },
   {
    "type": "line",
-   "id": 324,
+   "id": 325,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4666,7 +4682,7 @@
   },
   {
    "type": "line",
-   "id": 325,
+   "id": 326,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4678,7 +4694,7 @@
   },
   {
    "type": "line",
-   "id": 326,
+   "id": 327,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4690,7 +4706,7 @@
   },
   {
    "type": "line",
-   "id": 327,
+   "id": 328,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -4702,7 +4718,7 @@
   },
   {
    "type": "line",
-   "id": 328,
+   "id": 329,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4714,7 +4730,7 @@
   },
   {
    "type": "line",
-   "id": 329,
+   "id": 330,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -4726,7 +4742,7 @@
   },
   {
    "type": "line",
-   "id": 330,
+   "id": 331,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -4767,7 +4783,7 @@
   },
   {
    "type": "line",
-   "id": 331,
+   "id": 332,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4779,7 +4795,7 @@
   },
   {
    "type": "line",
-   "id": 332,
+   "id": 333,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4791,7 +4807,7 @@
   },
   {
    "type": "line",
-   "id": 333,
+   "id": 334,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4805,7 +4821,7 @@
   },
   {
    "type": "line",
-   "id": 334,
+   "id": 335,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -4817,7 +4833,7 @@
   },
   {
    "type": "line",
-   "id": 335,
+   "id": 336,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -4829,7 +4845,7 @@
   },
   {
    "type": "line",
-   "id": 336,
+   "id": 337,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4841,7 +4857,7 @@
   },
   {
    "type": "line",
-   "id": 337,
+   "id": 338,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4853,7 +4869,7 @@
   },
   {
    "type": "line",
-   "id": 338,
+   "id": 339,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4865,7 +4881,7 @@
   },
   {
    "type": "line",
-   "id": 339,
+   "id": 340,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -4910,7 +4926,7 @@
   },
   {
    "type": "line",
-   "id": 340,
+   "id": 341,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4922,7 +4938,7 @@
   },
   {
    "type": "line",
-   "id": 341,
+   "id": 342,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -4934,7 +4950,7 @@
   },
   {
    "type": "line",
-   "id": 342,
+   "id": 343,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4946,7 +4962,7 @@
   },
   {
    "type": "line",
-   "id": 343,
+   "id": 344,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -4958,7 +4974,7 @@
   },
   {
    "type": "line",
-   "id": 344,
+   "id": 345,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4970,7 +4986,7 @@
   },
   {
    "type": "line",
-   "id": 345,
+   "id": 346,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -4982,7 +4998,7 @@
   },
   {
    "type": "line",
-   "id": 346,
+   "id": 347,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -4994,7 +5010,7 @@
   },
   {
    "type": "line",
-   "id": 347,
+   "id": 348,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5008,7 +5024,7 @@
   },
   {
    "type": "line",
-   "id": 348,
+   "id": 349,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -5026,7 +5042,7 @@
   },
   {
    "type": "line",
-   "id": 349,
+   "id": 350,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5038,7 +5054,7 @@
   },
   {
    "type": "line",
-   "id": 350,
+   "id": 351,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -5052,7 +5068,7 @@
   },
   {
    "type": "line",
-   "id": 351,
+   "id": 352,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -5064,7 +5080,7 @@
   },
   {
    "type": "line",
-   "id": 352,
+   "id": 353,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -5099,7 +5115,7 @@
   },
   {
    "type": "line",
-   "id": 353,
+   "id": 354,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5111,7 +5127,7 @@
   },
   {
    "type": "line",
-   "id": 354,
+   "id": 355,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5123,7 +5139,7 @@
   },
   {
    "type": "line",
-   "id": 355,
+   "id": 356,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5135,7 +5151,7 @@
   },
   {
    "type": "line",
-   "id": 356,
+   "id": 357,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5147,7 +5163,7 @@
   },
   {
    "type": "line",
-   "id": 357,
+   "id": 358,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5159,7 +5175,7 @@
   },
   {
    "type": "line",
-   "id": 358,
+   "id": 359,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5171,7 +5187,7 @@
   },
   {
    "type": "line",
-   "id": 359,
+   "id": 360,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5183,7 +5199,7 @@
   },
   {
    "type": "line",
-   "id": 360,
+   "id": 361,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5195,7 +5211,7 @@
   },
   {
    "type": "line",
-   "id": 361,
+   "id": 362,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5207,7 +5223,7 @@
   },
   {
    "type": "line",
-   "id": 362,
+   "id": 363,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5219,7 +5235,7 @@
   },
   {
    "type": "line",
-   "id": 363,
+   "id": 364,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5231,7 +5247,7 @@
   },
   {
    "type": "line",
-   "id": 364,
+   "id": 365,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5243,7 +5259,7 @@
   },
   {
    "type": "line",
-   "id": 365,
+   "id": 366,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5255,7 +5271,7 @@
   },
   {
    "type": "line",
-   "id": 366,
+   "id": 367,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5267,7 +5283,7 @@
   },
   {
    "type": "line",
-   "id": 367,
+   "id": 368,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5281,7 +5297,7 @@
   },
   {
    "type": "line",
-   "id": 368,
+   "id": 369,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -5300,13 +5316,15 @@
    "act": "Действие второе",
    "participants": [
     "Купавина",
-    "Глафира"
+    "Глафира 1",
+    "Глафира 2"
    ],
    "per_role": {
     "Купавина": 23,
-    "Глафира": 25
+    "Глафира 1": 24,
+    "Глафира 2": 2
    },
-   "n_lines": 48,
+   "n_lines": 49,
    "preview": "Купавина: Наконец-то я залучила вас к себе."
   },
   {
@@ -5317,7 +5335,7 @@
   },
   {
    "type": "line",
-   "id": 369,
+   "id": 370,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5329,8 +5347,8 @@
   },
   {
    "type": "line",
-   "id": 370,
-   "speaker": "Глафира",
+   "id": 371,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5343,7 +5361,7 @@
   },
   {
    "type": "line",
-   "id": 371,
+   "id": 372,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5355,8 +5373,8 @@
   },
   {
    "type": "line",
-   "id": 372,
-   "speaker": "Глафира",
+   "id": 373,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5367,7 +5385,7 @@
   },
   {
    "type": "line",
-   "id": 373,
+   "id": 374,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5379,8 +5397,8 @@
   },
   {
    "type": "line",
-   "id": 374,
-   "speaker": "Глафира",
+   "id": 375,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5391,7 +5409,7 @@
   },
   {
    "type": "line",
-   "id": 375,
+   "id": 376,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5403,8 +5421,8 @@
   },
   {
    "type": "line",
-   "id": 376,
-   "speaker": "Глафира",
+   "id": 377,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5415,7 +5433,7 @@
   },
   {
    "type": "line",
-   "id": 377,
+   "id": 378,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5427,8 +5445,8 @@
   },
   {
    "type": "line",
-   "id": 378,
-   "speaker": "Глафира",
+   "id": 379,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5439,7 +5457,7 @@
   },
   {
    "type": "line",
-   "id": 379,
+   "id": 380,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5451,8 +5469,8 @@
   },
   {
    "type": "line",
-   "id": 380,
-   "speaker": "Глафира",
+   "id": 381,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5463,7 +5481,7 @@
   },
   {
    "type": "line",
-   "id": 381,
+   "id": 382,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5475,8 +5493,8 @@
   },
   {
    "type": "line",
-   "id": 382,
-   "speaker": "Глафира",
+   "id": 383,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5487,7 +5505,7 @@
   },
   {
    "type": "line",
-   "id": 383,
+   "id": 384,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5499,8 +5517,8 @@
   },
   {
    "type": "line",
-   "id": 384,
-   "speaker": "Глафира",
+   "id": 385,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5511,7 +5529,7 @@
   },
   {
    "type": "line",
-   "id": 385,
+   "id": 386,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5523,8 +5541,8 @@
   },
   {
    "type": "line",
-   "id": 386,
-   "speaker": "Глафира",
+   "id": 387,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5535,7 +5553,7 @@
   },
   {
    "type": "line",
-   "id": 387,
+   "id": 388,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5547,8 +5565,8 @@
   },
   {
    "type": "line",
-   "id": 388,
-   "speaker": "Глафира",
+   "id": 389,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "живо",
@@ -5559,7 +5577,7 @@
   },
   {
    "type": "line",
-   "id": 389,
+   "id": 390,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5571,8 +5589,8 @@
   },
   {
    "type": "line",
-   "id": 390,
-   "speaker": "Глафира",
+   "id": 391,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5583,7 +5601,7 @@
   },
   {
    "type": "line",
-   "id": 391,
+   "id": 392,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5595,8 +5613,8 @@
   },
   {
    "type": "line",
-   "id": 392,
-   "speaker": "Глафира",
+   "id": 393,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5607,7 +5625,7 @@
   },
   {
    "type": "line",
-   "id": 393,
+   "id": 394,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5619,8 +5637,8 @@
   },
   {
    "type": "line",
-   "id": 394,
-   "speaker": "Глафира",
+   "id": 395,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5631,7 +5649,7 @@
   },
   {
    "type": "line",
-   "id": 395,
+   "id": 396,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5643,8 +5661,8 @@
   },
   {
    "type": "line",
-   "id": 396,
-   "speaker": "Глафира",
+   "id": 397,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5655,7 +5673,7 @@
   },
   {
    "type": "line",
-   "id": 397,
+   "id": 398,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5667,8 +5685,8 @@
   },
   {
    "type": "line",
-   "id": 398,
-   "speaker": "Глафира",
+   "id": 399,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5679,7 +5697,7 @@
   },
   {
    "type": "line",
-   "id": 399,
+   "id": 400,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5691,8 +5709,8 @@
   },
   {
    "type": "line",
-   "id": 400,
-   "speaker": "Глафира",
+   "id": 401,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5702,15 +5720,21 @@
    "scene": "Явление шестое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2: моя сестра замужем за молодым человеком, очень ловким; он вдруг составил себе большое состояние. Нас окружали только люди богатые: адвокаты, банкиры, акционеры. Мы с сестрой жили в каком-то чаду: катанье по Невскому, в бархате, в соболях; роскошные обеды дома или в ресторанах, всегда в обществе; опера, французский театр, а чаще всего Буфф; пикники, маскарады…",
+   "type": "line",
+   "id": 402,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "моя сестра замужем за молодым человеком, очень ловким; он вдруг составил себе большое состояние. Нас окружали только люди богатые: адвокаты, банкиры, акционеры. Мы с сестрой жили в каком-то чаду: катанье по Невскому, в бархате, в соболях; роскошные обеды дома или в ресторанах, всегда в обществе; опера, французский театр, а чаще всего Буфф; пикники, маскарады…",
    "act": "Действие второе",
    "scene": "Явление шестое"
   },
   {
    "type": "line",
-   "id": 401,
-   "speaker": "Глафира",
+   "id": 403,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5721,7 +5745,7 @@
   },
   {
    "type": "line",
-   "id": 402,
+   "id": 404,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5733,8 +5757,8 @@
   },
   {
    "type": "line",
-   "id": 403,
-   "speaker": "Глафира",
+   "id": 405,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5744,15 +5768,21 @@
    "scene": "Явление шестое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2.Сестра о чем-то плакала, стали всё распродавать, меня отправили к Меропе Давыдовне, а сами скрылись куда-то, исчезли, кажется, за границу. Конечно, я сама виновата, очень виновата: мне надо было там ловить жениха, – это было очень легко; а я закружилась, завертелась, как глупая девчонка;",
+   "type": "line",
+   "id": 406,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Сестра о чем-то плакала, стали всё распродавать, меня отправили к Меропе Давыдовне, а сами скрылись куда-то, исчезли, кажется, за границу. Конечно, я сама виновата, очень виновата: мне надо было там ловить жениха, – это было очень легко; а я закружилась, завертелась, как глупая девчонка;",
    "act": "Действие второе",
    "scene": "Явление шестое"
   },
   {
    "type": "line",
-   "id": 404,
-   "speaker": "Глафира",
+   "id": 407,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5763,7 +5793,7 @@
   },
   {
    "type": "line",
-   "id": 405,
+   "id": 408,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5775,8 +5805,8 @@
   },
   {
    "type": "line",
-   "id": 406,
-   "speaker": "Глафира",
+   "id": 409,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5787,7 +5817,7 @@
   },
   {
    "type": "line",
-   "id": 407,
+   "id": 410,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5799,8 +5829,8 @@
   },
   {
    "type": "line",
-   "id": 408,
-   "speaker": "Глафира",
+   "id": 411,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5813,7 +5843,7 @@
   },
   {
    "type": "line",
-   "id": 409,
+   "id": 412,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5825,8 +5855,8 @@
   },
   {
    "type": "line",
-   "id": 410,
-   "speaker": "Глафира",
+   "id": 413,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5837,7 +5867,7 @@
   },
   {
    "type": "line",
-   "id": 411,
+   "id": 414,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5849,8 +5879,8 @@
   },
   {
    "type": "line",
-   "id": 412,
-   "speaker": "Глафира",
+   "id": 415,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5861,31 +5891,19 @@
   },
   {
    "type": "line",
-   "id": 413,
+   "id": 416,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Приглашать его не нужно: он в саду, спрятался от Меропы Давыдовны",
+   "text": "Приглашать его не нужно: он в саду, спрятался от Меропы Давыдовны Глафира . Вот и прекрасно! Вели подать шампанского, мне давно хочется. .И дай мне надеть что-нибудь поприличней! Все это на мне так гадко.",
    "act": "Действие второе",
    "scene": "Явление шестое"
   },
   {
    "type": "line",
-   "id": 414,
-   "speaker": "Глафира",
-   "speaker_raw": "Глафира",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Вот и прекрасно! Вели подать шампанского, мне давно хочется. .И дай мне надеть что-нибудь поприличней! Все это на мне так гадко.",
-   "act": "Действие второе",
-   "scene": "Явление шестое"
-  },
-  {
-   "type": "line",
-   "id": 415,
+   "id": 417,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5897,8 +5915,8 @@
   },
   {
    "type": "line",
-   "id": 416,
-   "speaker": "Глафира",
+   "id": 418,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5924,7 +5942,7 @@
   },
   {
    "type": "line",
-   "id": 417,
+   "id": 419,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5936,7 +5954,7 @@
   },
   {
    "type": "line",
-   "id": 418,
+   "id": 420,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -5960,15 +5978,15 @@
    "title": "Явление восьмое",
    "act": "Действие второе",
    "participants": [
-    "Глафира",
+    "Глафира 1",
     "Купавина"
    ],
    "per_role": {
-    "Глафира": 2,
+    "Глафира 1": 2,
     "Купавина": 1
    },
    "n_lines": 3,
-   "preview": "Глафира: Я все, и шелковые чулки нашла, и башмаки, и как все мне впору! Посмотри! (Подымае"
+   "preview": "Глафира 1: Я все, и шелковые чулки нашла, и башмаки, и как все мне впору! Посмотри! (Подым"
   },
   {
    "type": "stage",
@@ -5978,8 +5996,8 @@
   },
   {
    "type": "line",
-   "id": 419,
-   "speaker": "Глафира",
+   "id": 421,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -5992,7 +6010,7 @@
   },
   {
    "type": "line",
-   "id": 420,
+   "id": 422,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -6006,8 +6024,8 @@
   },
   {
    "type": "line",
-   "id": 421,
-   "speaker": "Глафира",
+   "id": 423,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -6051,7 +6069,7 @@
   },
   {
    "type": "line",
-   "id": 422,
+   "id": 424,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6063,7 +6081,7 @@
   },
   {
    "type": "line",
-   "id": 423,
+   "id": 425,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6075,7 +6093,7 @@
   },
   {
    "type": "line",
-   "id": 424,
+   "id": 426,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6087,7 +6105,7 @@
   },
   {
    "type": "line",
-   "id": 425,
+   "id": 427,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6099,7 +6117,7 @@
   },
   {
    "type": "line",
-   "id": 426,
+   "id": 428,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6111,7 +6129,7 @@
   },
   {
    "type": "line",
-   "id": 427,
+   "id": 429,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6123,7 +6141,7 @@
   },
   {
    "type": "line",
-   "id": 428,
+   "id": 430,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6137,7 +6155,7 @@
   },
   {
    "type": "line",
-   "id": 429,
+   "id": 431,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6149,7 +6167,7 @@
   },
   {
    "type": "line",
-   "id": 430,
+   "id": 432,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6161,7 +6179,7 @@
   },
   {
    "type": "line",
-   "id": 431,
+   "id": 433,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6173,7 +6191,7 @@
   },
   {
    "type": "line",
-   "id": 432,
+   "id": 434,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6185,7 +6203,7 @@
   },
   {
    "type": "line",
-   "id": 433,
+   "id": 435,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6197,7 +6215,7 @@
   },
   {
    "type": "line",
-   "id": 434,
+   "id": 436,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6209,7 +6227,7 @@
   },
   {
    "type": "line",
-   "id": 435,
+   "id": 437,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6221,7 +6239,7 @@
   },
   {
    "type": "line",
-   "id": 436,
+   "id": 438,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6233,7 +6251,7 @@
   },
   {
    "type": "line",
-   "id": 437,
+   "id": 439,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6245,7 +6263,7 @@
   },
   {
    "type": "line",
-   "id": 438,
+   "id": 440,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6257,7 +6275,7 @@
   },
   {
    "type": "line",
-   "id": 439,
+   "id": 441,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6269,7 +6287,7 @@
   },
   {
    "type": "line",
-   "id": 440,
+   "id": 442,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6281,7 +6299,7 @@
   },
   {
    "type": "line",
-   "id": 441,
+   "id": 443,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6293,7 +6311,7 @@
   },
   {
    "type": "line",
-   "id": 442,
+   "id": 444,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6305,7 +6323,7 @@
   },
   {
    "type": "line",
-   "id": 443,
+   "id": 445,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6317,7 +6335,7 @@
   },
   {
    "type": "line",
-   "id": 444,
+   "id": 446,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6329,7 +6347,7 @@
   },
   {
    "type": "line",
-   "id": 445,
+   "id": 447,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6341,7 +6359,7 @@
   },
   {
    "type": "line",
-   "id": 446,
+   "id": 448,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6353,7 +6371,7 @@
   },
   {
    "type": "line",
-   "id": 447,
+   "id": 449,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6365,7 +6383,7 @@
   },
   {
    "type": "line",
-   "id": 448,
+   "id": 450,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6377,7 +6395,7 @@
   },
   {
    "type": "line",
-   "id": 449,
+   "id": 451,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6389,7 +6407,7 @@
   },
   {
    "type": "line",
-   "id": 450,
+   "id": 452,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6401,7 +6419,7 @@
   },
   {
    "type": "line",
-   "id": 451,
+   "id": 453,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6413,7 +6431,7 @@
   },
   {
    "type": "line",
-   "id": 452,
+   "id": 454,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6425,7 +6443,7 @@
   },
   {
    "type": "line",
-   "id": 453,
+   "id": 455,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6437,7 +6455,7 @@
   },
   {
    "type": "line",
-   "id": 454,
+   "id": 456,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6449,7 +6467,7 @@
   },
   {
    "type": "line",
-   "id": 455,
+   "id": 457,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6461,7 +6479,7 @@
   },
   {
    "type": "line",
-   "id": 456,
+   "id": 458,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6473,7 +6491,7 @@
   },
   {
    "type": "line",
-   "id": 457,
+   "id": 459,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6491,7 +6509,7 @@
   },
   {
    "type": "line",
-   "id": 458,
+   "id": 460,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6503,7 +6521,7 @@
   },
   {
    "type": "line",
-   "id": 459,
+   "id": 461,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6521,7 +6539,7 @@
   },
   {
    "type": "line",
-   "id": 460,
+   "id": 462,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6535,7 +6553,7 @@
   },
   {
    "type": "line",
-   "id": 461,
+   "id": 463,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6549,7 +6567,7 @@
   },
   {
    "type": "line",
-   "id": 462,
+   "id": 464,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6567,7 +6585,7 @@
   },
   {
    "type": "line",
-   "id": 463,
+   "id": 465,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6579,7 +6597,7 @@
   },
   {
    "type": "line",
-   "id": 464,
+   "id": 466,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6591,7 +6609,7 @@
   },
   {
    "type": "line",
-   "id": 465,
+   "id": 467,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6603,7 +6621,7 @@
   },
   {
    "type": "line",
-   "id": 466,
+   "id": 468,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6615,7 +6633,7 @@
   },
   {
    "type": "line",
-   "id": 467,
+   "id": 469,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -6629,7 +6647,7 @@
   },
   {
    "type": "line",
-   "id": 468,
+   "id": 470,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -6655,13 +6673,13 @@
     "Лыняев",
     "Купавина",
     "Анфуса",
-    "Глафира"
+    "Глафира 1"
    ],
    "per_role": {
     "Лыняев": 2,
     "Купавина": 3,
     "Анфуса": 2,
-    "Глафира": 1
+    "Глафира 1": 1
    },
    "n_lines": 8,
    "preview": "Лыняев: Не понимаю, не понимаю, что за фантазия гулять по росе, когда можно очень покойно "
@@ -6674,7 +6692,7 @@
   },
   {
    "type": "line",
-   "id": 469,
+   "id": 471,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -6686,7 +6704,7 @@
   },
   {
    "type": "line",
-   "id": 470,
+   "id": 472,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -6698,7 +6716,7 @@
   },
   {
    "type": "line",
-   "id": 471,
+   "id": 473,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -6710,7 +6728,7 @@
   },
   {
    "type": "line",
-   "id": 472,
+   "id": 474,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -6722,7 +6740,7 @@
   },
   {
    "type": "line",
-   "id": 473,
+   "id": 475,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -6734,8 +6752,8 @@
   },
   {
    "type": "line",
-   "id": 474,
-   "speaker": "Глафира",
+   "id": 476,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -6746,7 +6764,7 @@
   },
   {
    "type": "line",
-   "id": 475,
+   "id": 477,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -6758,7 +6776,7 @@
   },
   {
    "type": "line",
-   "id": 476,
+   "id": 478,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -6780,11 +6798,11 @@
    "act": "Действие третье",
    "participants": [
     "Лыняев",
-    "Глафира"
+    "Глафира 1"
    ],
    "per_role": {
     "Лыняев": 11,
-    "Глафира": 11
+    "Глафира 1": 11
    },
    "n_lines": 22,
    "preview": "Лыняев: Вы только платье переменили, а скромность при себе оставили?"
@@ -6797,7 +6815,7 @@
   },
   {
    "type": "line",
-   "id": 477,
+   "id": 479,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -6809,37 +6827,13 @@
   },
   {
    "type": "line",
-   "id": 478,
-   "speaker": "Глафира",
+   "id": 480,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
    "text": "Вам излишняя скромность не нравится?",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 479,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Как не нравится! Что вы, помилуйте! Нет, это хорошо, это очень хорошо.",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 480,
-   "speaker": "Глафира",
-   "speaker_raw": "Глафира",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Может быть, и хорошо, да зато скучно. Был бы мужчина рядом, а вот  рядом с вами я ничего не боюсь.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
@@ -6851,14 +6845,38 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Не боитесь?",
+   "text": "Как не нравится! Что вы, помилуйте! Нет, это хорошо, это очень хорошо.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
   {
    "type": "line",
    "id": 482,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
+   "speaker_raw": "Глафира",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Может быть, и хорошо, да зато скучно. Был бы мужчина рядом, а вот  рядом с вами я ничего не боюсь.",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 483,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Не боитесь?",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 484,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -6869,7 +6887,7 @@
   },
   {
    "type": "line",
-   "id": 483,
+   "id": 485,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -6881,37 +6899,13 @@
   },
   {
    "type": "line",
-   "id": 484,
-   "speaker": "Глафира",
+   "id": 486,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
    "text": "Ну, полноте, какой вы любовник? Вы не обижайтесь, Михайло Борисыч! Вы очень хороший человек, вас все уважают; но любить вас невозможно. Вы уж и в летах, и ожирели, и, вероятно, дома в теплом халате ходите и в колпаке; ну, одним словом, вы стали похожи на милого, доброго папашу. И еще... вы очень милый человек.",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 485,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Мне нужно хорошего писца на некоторое время.",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 486,
-   "speaker": "Глафира",
-   "speaker_raw": "Глафира",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Не могу. Хоть и хорошо пишу, а в писцы к вам не пойду.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
@@ -6923,19 +6917,19 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Да нет же! У Меропы Давыдовны занимается письмоводством Чугунов, я его руку знаю; но иногда попадаются от нее бумаги, написанные отличным почерком.",
+   "text": "Мне нужно хорошего писца на некоторое время.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
   {
    "type": "line",
    "id": 488,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Так вам нужно точно такого писца?",
+   "text": "Не могу. Хоть и хорошо пишу, а в писцы к вам не пойду.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
@@ -6947,19 +6941,19 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Мне нужно знать, кто это пишет.",
+   "text": "Да нет же! У Меропы Давыдовны занимается письмоводством Чугунов, я его руку знаю; но иногда попадаются от нее бумаги, написанные отличным почерком.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
   {
    "type": "line",
    "id": 490,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Он вам очень нужен?",
+   "text": "Так вам нужно точно такого писца?",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
@@ -6971,14 +6965,38 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Очень.",
+   "text": "Мне нужно знать, кто это пишет.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
   {
    "type": "line",
    "id": 492,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
+   "speaker_raw": "Глафира",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Он вам очень нужен?",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 493,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Очень.",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 494,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -6989,7 +7007,7 @@
   },
   {
    "type": "line",
-   "id": 493,
+   "id": 495,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7001,37 +7019,13 @@
   },
   {
    "type": "line",
-   "id": 494,
-   "speaker": "Глафира",
+   "id": 496,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
    "text": "Только даром этого не сделаю.",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 495,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Требуйте от меня, что вам угодно, чего только вам угодно.",
-   "act": "Действие третье",
-   "scene": "Явление третье"
-  },
-  {
-   "type": "line",
-   "id": 496,
-   "speaker": "Глафира",
-   "speaker_raw": "Глафира",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Я попрошу небольшого.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
@@ -7043,14 +7037,38 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Все, все, что хотите.",
+   "text": "Требуйте от меня, что вам угодно, чего только вам угодно.",
    "act": "Действие третье",
    "scene": "Явление третье"
   },
   {
    "type": "line",
    "id": 498,
-   "speaker": "Глафира",
+   "speaker": "Глафира 1",
+   "speaker_raw": "Глафира",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Я попрошу небольшого.",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 499,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Все, все, что хотите.",
+   "act": "Действие третье",
+   "scene": "Явление третье"
+  },
+  {
+   "type": "line",
+   "id": 500,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -7092,7 +7110,7 @@
   },
   {
    "type": "line",
-   "id": 499,
+   "id": 501,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7104,7 +7122,7 @@
   },
   {
    "type": "line",
-   "id": 500,
+   "id": 502,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -7116,7 +7134,7 @@
   },
   {
    "type": "line",
-   "id": 501,
+   "id": 503,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7128,7 +7146,7 @@
   },
   {
    "type": "line",
-   "id": 502,
+   "id": 504,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -7140,7 +7158,7 @@
   },
   {
    "type": "line",
-   "id": 503,
+   "id": 505,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7152,7 +7170,7 @@
   },
   {
    "type": "line",
-   "id": 504,
+   "id": 506,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -7164,7 +7182,7 @@
   },
   {
    "type": "line",
-   "id": 505,
+   "id": 507,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7176,7 +7194,7 @@
   },
   {
    "type": "line",
-   "id": 506,
+   "id": 508,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7188,7 +7206,7 @@
   },
   {
    "type": "line",
-   "id": 507,
+   "id": 509,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7200,7 +7218,7 @@
   },
   {
    "type": "line",
-   "id": 508,
+   "id": 510,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -7239,7 +7257,7 @@
   },
   {
    "type": "line",
-   "id": 509,
+   "id": 511,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7254,7 +7272,7 @@
   },
   {
    "type": "line",
-   "id": 510,
+   "id": 512,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7266,7 +7284,7 @@
   },
   {
    "type": "line",
-   "id": 511,
+   "id": 513,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7278,7 +7296,7 @@
   },
   {
    "type": "line",
-   "id": 512,
+   "id": 514,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7290,7 +7308,7 @@
   },
   {
    "type": "line",
-   "id": 513,
+   "id": 515,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7304,7 +7322,7 @@
   },
   {
    "type": "line",
-   "id": 514,
+   "id": 516,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7316,7 +7334,7 @@
   },
   {
    "type": "line",
-   "id": 515,
+   "id": 517,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7328,7 +7346,7 @@
   },
   {
    "type": "line",
-   "id": 516,
+   "id": 518,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7340,7 +7358,7 @@
   },
   {
    "type": "line",
-   "id": 517,
+   "id": 519,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7358,7 +7376,7 @@
   },
   {
    "type": "line",
-   "id": 518,
+   "id": 520,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7370,7 +7388,7 @@
   },
   {
    "type": "line",
-   "id": 519,
+   "id": 521,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7382,7 +7400,7 @@
   },
   {
    "type": "line",
-   "id": 520,
+   "id": 522,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7394,7 +7412,7 @@
   },
   {
    "type": "line",
-   "id": 521,
+   "id": 523,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7406,7 +7424,7 @@
   },
   {
    "type": "line",
-   "id": 522,
+   "id": 524,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7418,7 +7436,7 @@
   },
   {
    "type": "line",
-   "id": 523,
+   "id": 525,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7436,7 +7454,7 @@
   },
   {
    "type": "line",
-   "id": 524,
+   "id": 526,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7448,7 +7466,7 @@
   },
   {
    "type": "line",
-   "id": 525,
+   "id": 527,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7462,7 +7480,7 @@
   },
   {
    "type": "line",
-   "id": 526,
+   "id": 528,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7474,7 +7492,7 @@
   },
   {
    "type": "line",
-   "id": 527,
+   "id": 529,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7486,7 +7504,7 @@
   },
   {
    "type": "line",
-   "id": 528,
+   "id": 530,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7498,7 +7516,7 @@
   },
   {
    "type": "line",
-   "id": 529,
+   "id": 531,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7510,7 +7528,7 @@
   },
   {
    "type": "line",
-   "id": 530,
+   "id": 532,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7522,7 +7540,7 @@
   },
   {
    "type": "line",
-   "id": 531,
+   "id": 533,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7534,7 +7552,7 @@
   },
   {
    "type": "line",
-   "id": 532,
+   "id": 534,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7546,7 +7564,7 @@
   },
   {
    "type": "line",
-   "id": 533,
+   "id": 535,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7558,7 +7576,7 @@
   },
   {
    "type": "line",
-   "id": 534,
+   "id": 536,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7570,7 +7588,7 @@
   },
   {
    "type": "line",
-   "id": 535,
+   "id": 537,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7611,7 +7629,7 @@
   },
   {
    "type": "line",
-   "id": 536,
+   "id": 538,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7623,7 +7641,7 @@
   },
   {
    "type": "line",
-   "id": 537,
+   "id": 539,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -7637,7 +7655,7 @@
   },
   {
    "type": "line",
-   "id": 538,
+   "id": 540,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7649,7 +7667,7 @@
   },
   {
    "type": "line",
-   "id": 539,
+   "id": 541,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -7663,7 +7681,7 @@
   },
   {
    "type": "line",
-   "id": 540,
+   "id": 542,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7675,7 +7693,7 @@
   },
   {
    "type": "line",
-   "id": 541,
+   "id": 543,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7687,7 +7705,7 @@
   },
   {
    "type": "line",
-   "id": 542,
+   "id": 544,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7699,7 +7717,7 @@
   },
   {
    "type": "line",
-   "id": 543,
+   "id": 545,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7711,7 +7729,7 @@
   },
   {
    "type": "line",
-   "id": 544,
+   "id": 546,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7723,7 +7741,7 @@
   },
   {
    "type": "line",
-   "id": 545,
+   "id": 547,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7735,7 +7753,7 @@
   },
   {
    "type": "line",
-   "id": 546,
+   "id": 548,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7749,7 +7767,7 @@
   },
   {
    "type": "line",
-   "id": 547,
+   "id": 549,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7761,7 +7779,7 @@
   },
   {
    "type": "line",
-   "id": 548,
+   "id": 550,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -7784,17 +7802,17 @@
    "title": "Явление седьмое",
    "act": "Действие третье",
    "participants": [
-    "Глафира",
+    "Глафира 1",
     "Горецкий",
     "Лыняев"
    ],
    "per_role": {
-    "Глафира": 7,
+    "Глафира 1": 7,
     "Горецкий": 15,
     "Лыняев": 11
    },
    "n_lines": 33,
-   "preview": "Глафира: Вот, рекомендую: Горецкий, Клавдий. (Горецкому.)  А это Михайло Борисыч Лыняев, н"
+   "preview": "Глафира 1: Вот, рекомендую: Горецкий, Клавдий. (Горецкому.)  А это Михайло Борисыч Лыняев,"
   },
   {
    "type": "stage",
@@ -7804,8 +7822,8 @@
   },
   {
    "type": "line",
-   "id": 549,
-   "speaker": "Глафира",
+   "id": 551,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -7818,7 +7836,7 @@
   },
   {
    "type": "line",
-   "id": 550,
+   "id": 552,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -7830,37 +7848,13 @@
   },
   {
    "type": "line",
-   "id": 551,
-   "speaker": "Глафира",
+   "id": 553,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
    "text": "Нет, зачем?",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 552,
-   "speaker": "Горецкий",
-   "speaker_raw": "Горецкий",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Как бы я для вас прибил кого-нибудь!",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 553,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Да ведь за это судить будут.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -7872,7 +7866,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "А пущай их судят.",
+   "text": "Как бы я для вас прибил кого-нибудь!",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -7884,7 +7878,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Да ведь посадят.",
+   "text": "Да ведь за это судить будут.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -7896,14 +7890,38 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "А посадят, так сидеть будем. Глафира Алексеевна, прикажите какую-нибудь подлость сделать!",
+   "text": "А пущай их судят.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
   {
    "type": "line",
    "id": 557,
-   "speaker": "Глафира",
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Да ведь посадят.",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 558,
+   "speaker": "Горецкий",
+   "speaker_raw": "Горецкий",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "А посадят, так сидеть будем. Глафира Алексеевна, прикажите какую-нибудь подлость сделать!",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 559,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -7914,7 +7932,7 @@
   },
   {
    "type": "line",
-   "id": 558,
+   "id": 560,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -7926,37 +7944,13 @@
   },
   {
    "type": "line",
-   "id": 559,
-   "speaker": "Глафира",
+   "id": 561,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
    "text": "Ну, вот я попрошу вас мне правду сказать, вы скажете?",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 560,
-   "speaker": "Горецкий",
-   "speaker_raw": "Горецкий",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Какую правду?",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 561,
-   "speaker": "Глафира",
-   "speaker_raw": "Глафира",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "А вот какую мы спросим.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -7968,19 +7962,19 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "все, что угодно.",
+   "text": "Какую правду?",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
   {
    "type": "line",
    "id": 563,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
+   "speaker": "Глафира 1",
+   "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "А если секрет?",
+   "text": "А вот какую мы спросим.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -7992,13 +7986,37 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Да хотя бы рассекрет. У меня своих секретов нет, а если какой чужой, так что мне за надобность беречь его. Я для Глафиры Алексеевны все на свете…",
+   "text": "все, что угодно.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
   {
    "type": "line",
    "id": 565,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "А если секрет?",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 566,
+   "speaker": "Горецкий",
+   "speaker_raw": "Горецкий",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Да хотя бы рассекрет. У меня своих секретов нет, а если какой чужой, так что мне за надобность беречь его. Я для Глафиры Алексеевны все на свете…",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 567,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8010,37 +8028,13 @@
   },
   {
    "type": "line",
-   "id": 566,
-   "speaker": "Глафира",
+   "id": 568,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "показывая письмо Горецкому",
    "inline_actions": [],
    "text": "Скажите, кто это писал?",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 567,
-   "speaker": "Горецкий",
-   "speaker_raw": "Горецкий",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Эх! Спросите что-нибудь другое!",
-   "act": "Действие третье",
-   "scene": "Явление седьмое"
-  },
-  {
-   "type": "line",
-   "id": 568,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "А говорили, что все на свете.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -8052,7 +8046,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Да мне что ж, пожалуй; только за это деньги заплочены.",
+   "text": "Эх! Спросите что-нибудь другое!",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -8064,7 +8058,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Сколько?",
+   "text": "А говорили, что все на свете.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -8076,7 +8070,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Десять рублей.",
+   "text": "Да мне что ж, пожалуй; только за это деньги заплочены.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -8088,7 +8082,7 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "А если я дам пятнадцать?",
+   "text": "Сколько?",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
@@ -8100,13 +8094,37 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "А если дадите, скажу.",
+   "text": "Десять рублей.",
    "act": "Действие третье",
    "scene": "Явление седьмое"
   },
   {
    "type": "line",
    "id": 574,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "А если я дам пятнадцать?",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 575,
+   "speaker": "Горецкий",
+   "speaker_raw": "Горецкий",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "А если дадите, скажу.",
+   "act": "Действие третье",
+   "scene": "Явление седьмое"
+  },
+  {
+   "type": "line",
+   "id": 576,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8120,7 +8138,7 @@
   },
   {
    "type": "line",
-   "id": 575,
+   "id": 577,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -8132,7 +8150,7 @@
   },
   {
    "type": "line",
-   "id": 576,
+   "id": 578,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8144,7 +8162,7 @@
   },
   {
    "type": "line",
-   "id": 577,
+   "id": 579,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -8156,8 +8174,8 @@
   },
   {
    "type": "line",
-   "id": 578,
-   "speaker": "Глафира",
+   "id": 580,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8168,7 +8186,7 @@
   },
   {
    "type": "line",
-   "id": 579,
+   "id": 581,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -8180,7 +8198,7 @@
   },
   {
    "type": "line",
-   "id": 580,
+   "id": 582,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8192,7 +8210,7 @@
   },
   {
    "type": "line",
-   "id": 581,
+   "id": 583,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -8209,15 +8227,17 @@
    "title": "Явление восьмое",
    "act": "Действие третье",
    "participants": [
-    "Глафира",
-    "Лыняев"
+    "Глафира 1",
+    "Лыняев",
+    "Глафира 2"
    ],
    "per_role": {
-    "Глафира": 17,
-    "Лыняев": 18
+    "Глафира 1": 17,
+    "Лыняев": 18,
+    "Глафира 2": 12
    },
-   "n_lines": 35,
-   "preview": "Глафира: Ну, довольны вы?"
+   "n_lines": 47,
+   "preview": "Глафира 1: Ну, довольны вы?"
   },
   {
    "type": "stage",
@@ -8227,8 +8247,8 @@
   },
   {
    "type": "line",
-   "id": 582,
-   "speaker": "Глафира",
+   "id": 584,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8239,7 +8259,7 @@
   },
   {
    "type": "line",
-   "id": 583,
+   "id": 585,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8251,8 +8271,8 @@
   },
   {
    "type": "line",
-   "id": 584,
-   "speaker": "Глафира",
+   "id": 586,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8275,7 +8295,7 @@
   },
   {
    "type": "line",
-   "id": 585,
+   "id": 587,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8287,8 +8307,8 @@
   },
   {
    "type": "line",
-   "id": 586,
-   "speaker": "Глафира",
+   "id": 588,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8298,15 +8318,21 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2. «Папаша, я чувствую потребность помолиться; отпусти меня денька на три на богомолье!»",
+   "type": "line",
+   "id": 589,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "«Папаша, я чувствую потребность помолиться; отпусти меня денька на три на богомолье!»",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
   {
    "type": "line",
-   "id": 587,
-   "speaker": "Глафира",
+   "id": 590,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8316,15 +8342,21 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2.Без меня начинается в доме ералаш: то не так, – другое не по вас; то кофей горек, то обед опоздал; то у вас в кабинете не убрано, а если убрано, так на столе бумаги и книги не на том месте, где им нужно. Вы начинаете выходить из себя, часто вздыхать, то бегать по комнате, то останавливаться, разводить руками, говорить с собой; начинаете прислушиваться, не едут ли, часто выбегать на крыльцо; а я нарочно промедлю дня два, три. Наконец уж вам не сидится, вы теряете терпение и начинаете ходить по дороге версты за две от дому.",
+   "type": "line",
+   "id": 591,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Без меня начинается в доме ералаш: то не так, – другое не по вас; то кофей горек, то обед опоздал; то у вас в кабинете не убрано, а если убрано, так на столе бумаги и книги не на том месте, где им нужно. Вы начинаете выходить из себя, часто вздыхать, то бегать по комнате, то останавливаться, разводить руками, говорить с собой; начинаете прислушиваться, не едут ли, часто выбегать на крыльцо; а я нарочно промедлю дня два, три. Наконец уж вам не сидится, вы теряете терпение и начинаете ходить по дороге версты за две от дому.",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
   {
    "type": "line",
-   "id": 588,
-   "speaker": "Глафира",
+   "id": 592,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8341,7 +8373,7 @@
   },
   {
    "type": "line",
-   "id": 589,
+   "id": 593,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8353,8 +8385,8 @@
   },
   {
    "type": "line",
-   "id": 590,
-   "speaker": "Глафира",
+   "id": 594,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8364,8 +8396,14 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2. «Милый папаша, мне стыдно своих родных, своих знакомых, мне стыдно людям в глаза глядеть. Я должна прятаться от всех, заживо",
+   "type": "line",
+   "id": 595,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "«Милый папаша, мне стыдно своих родных, своих знакомых, мне стыдно людям в глаза глядеть. Я должна прятаться от всех, заживо",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
@@ -8376,116 +8414,14 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2 . Прощай, милый папаша! Не нужно мне никаких твоих сокровищ.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "line",
-   "id": 591,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Ах, черт возьми, как это скверно!",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира 2. Я выхожу замуж.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "line",
-   "id": 592,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "За кого?",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира2 . Ну, хоть за Горецкого.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "line",
-   "id": 593,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Отличная партия!",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира 2 . Да, он беден, но я все-таки буду иметь хоть какое-нибудь положение в обществе. Да уж кончено, я решилась.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "line",
-   "id": 594,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Но нельзя же так вдруг, ни с того ни с сего бросить человека! Надо было прежде думать и заранее предупредить.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира2 . Я боялась, милый папаша. Разве ты не видишь, я худею, сохну день ото дня, я могу захворать серьезно, умереть.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "line",
-   "id": 595,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
-   "chorus": false,
-   "action": "",
-   "inline_actions": [],
-   "text": "Это бессовестно! Все это притворство!",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира2 . Если ты не веришь, как тебе угодно; я готова пожертвовать для тебя даже жизнию.",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
    "type": "line",
    "id": 596,
-   "speaker": "Лыняев",
-   "speaker_raw": "Лыняев",
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Ну вот то-то же!",
-   "act": "Действие третье",
-   "scene": "Явление восьмое"
-  },
-  {
-   "type": "stage",
-   "text": "Глафира2 . Что делать, у мужчин такие твердые характеры.",
+   "text": "Прощай, милый папаша! Не нужно мне никаких твоих сокровищ.",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
@@ -8497,14 +8433,158 @@
    "chorus": false,
    "action": "",
    "inline_actions": [],
-   "text": "Все-таки я поставил на своем.",
+   "text": "Ах, черт возьми, как это скверно!",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
   {
    "type": "line",
    "id": 598,
-   "speaker": "Глафира",
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира 2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Я выхожу замуж.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 599,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "За кого?",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 600,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Ну, хоть за Горецкого.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 601,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Отличная партия!",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 602,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира 2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Да, он беден, но я все-таки буду иметь хоть какое-нибудь положение в обществе. Да уж кончено, я решилась.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 603,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Но нельзя же так вдруг, ни с того ни с сего бросить человека! Надо было прежде думать и заранее предупредить.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 604,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Я боялась, милый папаша. Разве ты не видишь, я худею, сохну день ото дня, я могу захворать серьезно, умереть.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 605,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Это бессовестно! Все это притворство!",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 606,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Если ты не веришь, как тебе угодно; я готова пожертвовать для тебя даже жизнию.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 607,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Ну вот то-то же!",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 608,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Что делать, у мужчин такие твердые характеры.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 609,
+   "speaker": "Лыняев",
+   "speaker_raw": "Лыняев",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "Все-таки я поставил на своем.",
+   "act": "Действие третье",
+   "scene": "Явление восьмое"
+  },
+  {
+   "type": "line",
+   "id": 610,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8514,15 +8594,21 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2. «Милый папаша, ты любишь холостую жизнь, ты не можешь жить иначе, – сделаем вот что! Обвенчаемся потихоньку, так что никто не будет знать; ты опять будешь вести холостую жизнь, все пойдет по-прежнему, ничто не изменится, – только я буду покойна, не буду страдать».",
+   "type": "line",
+   "id": 611,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "«Милый папаша, ты любишь холостую жизнь, ты не можешь жить иначе, – сделаем вот что! Обвенчаемся потихоньку, так что никто не будет знать; ты опять будешь вести холостую жизнь, все пойдет по-прежнему, ничто не изменится, – только я буду покойна, не буду страдать».",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
   {
    "type": "line",
-   "id": 599,
-   "speaker": "Глафира",
+   "id": 612,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8533,7 +8619,7 @@
   },
   {
    "type": "line",
-   "id": 600,
+   "id": 613,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8545,8 +8631,8 @@
   },
   {
    "type": "line",
-   "id": 601,
-   "speaker": "Глафира",
+   "id": 614,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8557,7 +8643,7 @@
   },
   {
    "type": "line",
-   "id": 602,
+   "id": 615,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8569,8 +8655,8 @@
   },
   {
    "type": "line",
-   "id": 603,
-   "speaker": "Глафира",
+   "id": 616,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8586,15 +8672,21 @@
    "scene": "Явление восьмое"
   },
   {
-   "type": "stage",
-   "text": "Глафира2. «Мишель, сбегай, я забыла в саду на скамейке мой платок!»",
+   "type": "line",
+   "id": 617,
+   "speaker": "Глафира 2",
+   "speaker_raw": "Глафира2",
+   "chorus": false,
+   "action": "",
+   "inline_actions": [],
+   "text": "«Мишель, сбегай, я забыла в саду на скамейке мой платок!»",
    "act": "Действие третье",
    "scene": "Явление восьмое"
   },
   {
    "type": "line",
-   "id": 604,
-   "speaker": "Глафира",
+   "id": 618,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8605,7 +8697,7 @@
   },
   {
    "type": "line",
-   "id": 605,
+   "id": 619,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8617,8 +8709,8 @@
   },
   {
    "type": "line",
-   "id": 606,
-   "speaker": "Глафира",
+   "id": 620,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8629,7 +8721,7 @@
   },
   {
    "type": "line",
-   "id": 607,
+   "id": 621,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8643,8 +8735,8 @@
   },
   {
    "type": "line",
-   "id": 608,
-   "speaker": "Глафира",
+   "id": 622,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8655,7 +8747,7 @@
   },
   {
    "type": "line",
-   "id": 609,
+   "id": 623,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8667,8 +8759,8 @@
   },
   {
    "type": "line",
-   "id": 610,
-   "speaker": "Глафира",
+   "id": 624,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8679,7 +8771,7 @@
   },
   {
    "type": "line",
-   "id": 611,
+   "id": 625,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8691,8 +8783,8 @@
   },
   {
    "type": "line",
-   "id": 612,
-   "speaker": "Глафира",
+   "id": 626,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8703,7 +8795,7 @@
   },
   {
    "type": "line",
-   "id": 613,
+   "id": 627,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8717,8 +8809,8 @@
   },
   {
    "type": "line",
-   "id": 614,
-   "speaker": "Глафира",
+   "id": 628,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8729,7 +8821,7 @@
   },
   {
    "type": "line",
-   "id": 615,
+   "id": 629,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8741,8 +8833,8 @@
   },
   {
    "type": "line",
-   "id": 616,
-   "speaker": "Глафира",
+   "id": 630,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "со вздохом",
@@ -8763,12 +8855,12 @@
    "act": "Действие третье",
    "participants": [
     "Анфуса",
-    "Глафира",
+    "Глафира 1",
     "Лыняев"
    ],
    "per_role": {
     "Анфуса": 2,
-    "Глафира": 1,
+    "Глафира 1": 1,
     "Лыняев": 1
    },
    "n_lines": 4,
@@ -8782,7 +8874,7 @@
   },
   {
    "type": "line",
-   "id": 617,
+   "id": 631,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -8794,7 +8886,7 @@
   },
   {
    "type": "line",
-   "id": 618,
+   "id": 632,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -8806,8 +8898,8 @@
   },
   {
    "type": "line",
-   "id": 619,
-   "speaker": "Глафира",
+   "id": 633,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "Лыняеву",
@@ -8818,7 +8910,7 @@
   },
   {
    "type": "line",
-   "id": 620,
+   "id": 634,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -8862,12 +8954,12 @@
    "act": "Действие четвертое",
    "participants": [
     "Купавина",
-    "Глафира",
+    "Глафира 1",
     "Влас"
    ],
    "per_role": {
     "Купавина": 7,
-    "Глафира": 6,
+    "Глафира 1": 6,
     "Влас": 2
    },
    "n_lines": 15,
@@ -8881,7 +8973,7 @@
   },
   {
    "type": "line",
-   "id": 621,
+   "id": 635,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -8893,8 +8985,8 @@
   },
   {
    "type": "line",
-   "id": 622,
-   "speaker": "Глафира",
+   "id": 636,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8905,7 +8997,7 @@
   },
   {
    "type": "line",
-   "id": 623,
+   "id": 637,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -8917,8 +9009,8 @@
   },
   {
    "type": "line",
-   "id": 624,
-   "speaker": "Глафира",
+   "id": 638,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8929,7 +9021,7 @@
   },
   {
    "type": "line",
-   "id": 625,
+   "id": 639,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -8947,7 +9039,7 @@
   },
   {
    "type": "line",
-   "id": 626,
+   "id": 640,
    "speaker": "Влас",
    "speaker_raw": "Влас",
    "chorus": false,
@@ -8967,8 +9059,8 @@
   },
   {
    "type": "line",
-   "id": 627,
-   "speaker": "Глафира",
+   "id": 641,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -8979,7 +9071,7 @@
   },
   {
    "type": "line",
-   "id": 628,
+   "id": 642,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -8993,7 +9085,7 @@
   },
   {
    "type": "line",
-   "id": 629,
+   "id": 643,
    "speaker": "Влас",
    "speaker_raw": "Влас",
    "chorus": false,
@@ -9005,8 +9097,8 @@
   },
   {
    "type": "line",
-   "id": 630,
-   "speaker": "Глафира",
+   "id": 644,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -9017,7 +9109,7 @@
   },
   {
    "type": "line",
-   "id": 631,
+   "id": 645,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9029,8 +9121,8 @@
   },
   {
    "type": "line",
-   "id": 632,
-   "speaker": "Глафира",
+   "id": 646,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -9041,7 +9133,7 @@
   },
   {
    "type": "line",
-   "id": 633,
+   "id": 647,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9055,8 +9147,8 @@
   },
   {
    "type": "line",
-   "id": 634,
-   "speaker": "Глафира",
+   "id": 648,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -9067,7 +9159,7 @@
   },
   {
    "type": "line",
-   "id": 635,
+   "id": 649,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9106,7 +9198,7 @@
   },
   {
    "type": "line",
-   "id": 636,
+   "id": 650,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -9118,7 +9210,7 @@
   },
   {
    "type": "line",
-   "id": 637,
+   "id": 651,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9130,7 +9222,7 @@
   },
   {
    "type": "line",
-   "id": 638,
+   "id": 652,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -9142,7 +9234,7 @@
   },
   {
    "type": "line",
-   "id": 639,
+   "id": 653,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9154,7 +9246,7 @@
   },
   {
    "type": "line",
-   "id": 640,
+   "id": 654,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -9166,7 +9258,7 @@
   },
   {
    "type": "line",
-   "id": 641,
+   "id": 655,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9178,7 +9270,7 @@
   },
   {
    "type": "line",
-   "id": 642,
+   "id": 656,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -9190,7 +9282,7 @@
   },
   {
    "type": "line",
-   "id": 643,
+   "id": 657,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9208,7 +9300,7 @@
   },
   {
    "type": "line",
-   "id": 644,
+   "id": 658,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -9249,7 +9341,7 @@
   },
   {
    "type": "line",
-   "id": 645,
+   "id": 659,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9261,7 +9353,7 @@
   },
   {
    "type": "line",
-   "id": 646,
+   "id": 660,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -9273,7 +9365,7 @@
   },
   {
    "type": "line",
-   "id": 647,
+   "id": 661,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9285,7 +9377,7 @@
   },
   {
    "type": "line",
-   "id": 648,
+   "id": 662,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -9297,7 +9389,7 @@
   },
   {
    "type": "line",
-   "id": 649,
+   "id": 663,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9309,7 +9401,7 @@
   },
   {
    "type": "line",
-   "id": 650,
+   "id": 664,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -9323,7 +9415,7 @@
   },
   {
    "type": "line",
-   "id": 651,
+   "id": 665,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9335,7 +9427,7 @@
   },
   {
    "type": "line",
-   "id": 652,
+   "id": 666,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9347,7 +9439,7 @@
   },
   {
    "type": "line",
-   "id": 653,
+   "id": 667,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9359,7 +9451,7 @@
   },
   {
    "type": "line",
-   "id": 654,
+   "id": 668,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9371,7 +9463,7 @@
   },
   {
    "type": "line",
-   "id": 655,
+   "id": 669,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9383,7 +9475,7 @@
   },
   {
    "type": "line",
-   "id": 656,
+   "id": 670,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9395,7 +9487,7 @@
   },
   {
    "type": "line",
-   "id": 657,
+   "id": 671,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9407,7 +9499,7 @@
   },
   {
    "type": "line",
-   "id": 658,
+   "id": 672,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9419,7 +9511,7 @@
   },
   {
    "type": "line",
-   "id": 659,
+   "id": 673,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9431,7 +9523,7 @@
   },
   {
    "type": "line",
-   "id": 660,
+   "id": 674,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9449,7 +9541,7 @@
   },
   {
    "type": "line",
-   "id": 661,
+   "id": 675,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9461,7 +9553,7 @@
   },
   {
    "type": "line",
-   "id": 662,
+   "id": 676,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9473,7 +9565,7 @@
   },
   {
    "type": "line",
-   "id": 663,
+   "id": 677,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9485,7 +9577,7 @@
   },
   {
    "type": "line",
-   "id": 664,
+   "id": 678,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9497,7 +9589,7 @@
   },
   {
    "type": "line",
-   "id": 665,
+   "id": 679,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9509,7 +9601,7 @@
   },
   {
    "type": "line",
-   "id": 666,
+   "id": 680,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9521,7 +9613,7 @@
   },
   {
    "type": "line",
-   "id": 667,
+   "id": 681,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9533,7 +9625,7 @@
   },
   {
    "type": "line",
-   "id": 668,
+   "id": 682,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9545,7 +9637,7 @@
   },
   {
    "type": "line",
-   "id": 669,
+   "id": 683,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9557,7 +9649,7 @@
   },
   {
    "type": "line",
-   "id": 670,
+   "id": 684,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9569,7 +9661,7 @@
   },
   {
    "type": "line",
-   "id": 671,
+   "id": 685,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9581,7 +9673,7 @@
   },
   {
    "type": "line",
-   "id": 672,
+   "id": 686,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9622,7 +9714,7 @@
   },
   {
    "type": "line",
-   "id": 673,
+   "id": 687,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9634,7 +9726,7 @@
   },
   {
    "type": "line",
-   "id": 674,
+   "id": 688,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9646,7 +9738,7 @@
   },
   {
    "type": "line",
-   "id": 675,
+   "id": 689,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9658,7 +9750,7 @@
   },
   {
    "type": "line",
-   "id": 676,
+   "id": 690,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9670,7 +9762,7 @@
   },
   {
    "type": "line",
-   "id": 677,
+   "id": 691,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9682,7 +9774,7 @@
   },
   {
    "type": "line",
-   "id": 678,
+   "id": 692,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9694,7 +9786,7 @@
   },
   {
    "type": "line",
-   "id": 679,
+   "id": 693,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9706,7 +9798,7 @@
   },
   {
    "type": "line",
-   "id": 680,
+   "id": 694,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9718,7 +9810,7 @@
   },
   {
    "type": "line",
-   "id": 681,
+   "id": 695,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9730,7 +9822,7 @@
   },
   {
    "type": "line",
-   "id": 682,
+   "id": 696,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9742,7 +9834,7 @@
   },
   {
    "type": "line",
-   "id": 683,
+   "id": 697,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9754,7 +9846,7 @@
   },
   {
    "type": "line",
-   "id": 684,
+   "id": 698,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9766,7 +9858,7 @@
   },
   {
    "type": "line",
-   "id": 685,
+   "id": 699,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9778,7 +9870,7 @@
   },
   {
    "type": "line",
-   "id": 686,
+   "id": 700,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9790,7 +9882,7 @@
   },
   {
    "type": "line",
-   "id": 687,
+   "id": 701,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9802,7 +9894,7 @@
   },
   {
    "type": "line",
-   "id": 688,
+   "id": 702,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9814,7 +9906,7 @@
   },
   {
    "type": "line",
-   "id": 689,
+   "id": 703,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9826,7 +9918,7 @@
   },
   {
    "type": "line",
-   "id": 690,
+   "id": 704,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9838,7 +9930,7 @@
   },
   {
    "type": "line",
-   "id": 691,
+   "id": 705,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -9875,7 +9967,7 @@
   },
   {
    "type": "line",
-   "id": 692,
+   "id": 706,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9887,7 +9979,7 @@
   },
   {
    "type": "line",
-   "id": 693,
+   "id": 707,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9899,7 +9991,7 @@
   },
   {
    "type": "line",
-   "id": 694,
+   "id": 708,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9911,7 +10003,7 @@
   },
   {
    "type": "line",
-   "id": 695,
+   "id": 709,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9923,7 +10015,7 @@
   },
   {
    "type": "line",
-   "id": 696,
+   "id": 710,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9935,7 +10027,7 @@
   },
   {
    "type": "line",
-   "id": 697,
+   "id": 711,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9949,7 +10041,7 @@
   },
   {
    "type": "line",
-   "id": 698,
+   "id": 712,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9961,7 +10053,7 @@
   },
   {
    "type": "line",
-   "id": 699,
+   "id": 713,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9973,7 +10065,7 @@
   },
   {
    "type": "line",
-   "id": 700,
+   "id": 714,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -9987,7 +10079,7 @@
   },
   {
    "type": "line",
-   "id": 701,
+   "id": 715,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -9999,7 +10091,7 @@
   },
   {
    "type": "line",
-   "id": 702,
+   "id": 716,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10011,7 +10103,7 @@
   },
   {
    "type": "line",
-   "id": 703,
+   "id": 717,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10023,7 +10115,7 @@
   },
   {
    "type": "line",
-   "id": 704,
+   "id": 718,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10035,7 +10127,7 @@
   },
   {
    "type": "line",
-   "id": 705,
+   "id": 719,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10047,7 +10139,7 @@
   },
   {
    "type": "line",
-   "id": 706,
+   "id": 720,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10065,7 +10157,7 @@
   },
   {
    "type": "line",
-   "id": 707,
+   "id": 721,
    "speaker": "Влас",
    "speaker_raw": "Влас",
    "chorus": false,
@@ -10077,7 +10169,7 @@
   },
   {
    "type": "line",
-   "id": 708,
+   "id": 722,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10089,7 +10181,7 @@
   },
   {
    "type": "line",
-   "id": 709,
+   "id": 723,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10148,7 +10240,7 @@
   },
   {
    "type": "line",
-   "id": 710,
+   "id": 724,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -10160,7 +10252,7 @@
   },
   {
    "type": "line",
-   "id": 711,
+   "id": 725,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10172,7 +10264,7 @@
   },
   {
    "type": "line",
-   "id": 712,
+   "id": 726,
    "speaker": "Горецкий",
    "speaker_raw": "Горецкий",
    "chorus": false,
@@ -10184,7 +10276,7 @@
   },
   {
    "type": "line",
-   "id": 713,
+   "id": 727,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10223,7 +10315,7 @@
   },
   {
    "type": "line",
-   "id": 714,
+   "id": 728,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10235,7 +10327,7 @@
   },
   {
    "type": "line",
-   "id": 715,
+   "id": 729,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10247,7 +10339,7 @@
   },
   {
    "type": "line",
-   "id": 716,
+   "id": 730,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10259,7 +10351,7 @@
   },
   {
    "type": "line",
-   "id": 717,
+   "id": 731,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10271,7 +10363,7 @@
   },
   {
    "type": "line",
-   "id": 718,
+   "id": 732,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10283,7 +10375,7 @@
   },
   {
    "type": "line",
-   "id": 719,
+   "id": 733,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10295,7 +10387,7 @@
   },
   {
    "type": "line",
-   "id": 720,
+   "id": 734,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10307,7 +10399,7 @@
   },
   {
    "type": "line",
-   "id": 721,
+   "id": 735,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10319,7 +10411,7 @@
   },
   {
    "type": "line",
-   "id": 722,
+   "id": 736,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10331,7 +10423,7 @@
   },
   {
    "type": "line",
-   "id": 723,
+   "id": 737,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10343,7 +10435,7 @@
   },
   {
    "type": "line",
-   "id": 724,
+   "id": 738,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10355,7 +10447,7 @@
   },
   {
    "type": "line",
-   "id": 725,
+   "id": 739,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10367,7 +10459,7 @@
   },
   {
    "type": "line",
-   "id": 726,
+   "id": 740,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10379,7 +10471,7 @@
   },
   {
    "type": "line",
-   "id": 727,
+   "id": 741,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10391,7 +10483,7 @@
   },
   {
    "type": "line",
-   "id": 728,
+   "id": 742,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10403,7 +10495,7 @@
   },
   {
    "type": "line",
-   "id": 729,
+   "id": 743,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10415,7 +10507,7 @@
   },
   {
    "type": "line",
-   "id": 730,
+   "id": 744,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10427,7 +10519,7 @@
   },
   {
    "type": "line",
-   "id": 731,
+   "id": 745,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10439,7 +10531,7 @@
   },
   {
    "type": "line",
-   "id": 732,
+   "id": 746,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10451,7 +10543,7 @@
   },
   {
    "type": "line",
-   "id": 733,
+   "id": 747,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10463,7 +10555,7 @@
   },
   {
    "type": "line",
-   "id": 734,
+   "id": 748,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10475,7 +10567,7 @@
   },
   {
    "type": "line",
-   "id": 735,
+   "id": 749,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10487,7 +10579,7 @@
   },
   {
    "type": "line",
-   "id": 736,
+   "id": 750,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10499,7 +10591,7 @@
   },
   {
    "type": "line",
-   "id": 737,
+   "id": 751,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10511,7 +10603,7 @@
   },
   {
    "type": "line",
-   "id": 738,
+   "id": 752,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10523,7 +10615,7 @@
   },
   {
    "type": "line",
-   "id": 739,
+   "id": 753,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10535,7 +10627,7 @@
   },
   {
    "type": "line",
-   "id": 740,
+   "id": 754,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10547,7 +10639,7 @@
   },
   {
    "type": "line",
-   "id": 741,
+   "id": 755,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10586,7 +10678,7 @@
   },
   {
    "type": "line",
-   "id": 742,
+   "id": 756,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10598,7 +10690,7 @@
   },
   {
    "type": "line",
-   "id": 743,
+   "id": 757,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10610,7 +10702,7 @@
   },
   {
    "type": "line",
-   "id": 744,
+   "id": 758,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10622,7 +10714,7 @@
   },
   {
    "type": "line",
-   "id": 745,
+   "id": 759,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10634,7 +10726,7 @@
   },
   {
    "type": "line",
-   "id": 746,
+   "id": 760,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10679,15 +10771,15 @@
    "title": "Явление девятое",
    "act": "Действие четвертое",
    "participants": [
-    "Глафира",
+    "Глафира 1",
     "Лыняев"
    ],
    "per_role": {
-    "Глафира": 9,
+    "Глафира 1": 9,
     "Лыняев": 9
    },
    "n_lines": 18,
-   "preview": "Глафира: Что вы со мной сделали?"
+   "preview": "Глафира 1: Что вы со мной сделали?"
   },
   {
    "type": "stage",
@@ -10697,8 +10789,8 @@
   },
   {
    "type": "line",
-   "id": 747,
-   "speaker": "Глафира",
+   "id": 761,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "поднося платок к глазам",
@@ -10715,7 +10807,7 @@
   },
   {
    "type": "line",
-   "id": 748,
+   "id": 762,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10727,8 +10819,8 @@
   },
   {
    "type": "line",
-   "id": 749,
-   "speaker": "Глафира",
+   "id": 763,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10739,7 +10831,7 @@
   },
   {
    "type": "line",
-   "id": 750,
+   "id": 764,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10751,7 +10843,7 @@
   },
   {
    "type": "line",
-   "id": 751,
+   "id": 765,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10763,8 +10855,8 @@
   },
   {
    "type": "line",
-   "id": 752,
-   "speaker": "Глафира",
+   "id": 766,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "с отчаяньем",
@@ -10775,7 +10867,7 @@
   },
   {
    "type": "line",
-   "id": 753,
+   "id": 767,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10793,8 +10885,8 @@
   },
   {
    "type": "line",
-   "id": 754,
-   "speaker": "Глафира",
+   "id": 768,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10805,7 +10897,7 @@
   },
   {
    "type": "line",
-   "id": 755,
+   "id": 769,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10819,8 +10911,8 @@
   },
   {
    "type": "line",
-   "id": 756,
-   "speaker": "Глафира",
+   "id": 770,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10833,7 +10925,7 @@
   },
   {
    "type": "line",
-   "id": 757,
+   "id": 771,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10845,8 +10937,8 @@
   },
   {
    "type": "line",
-   "id": 758,
-   "speaker": "Глафира",
+   "id": 772,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "открыв глаза",
@@ -10857,7 +10949,7 @@
   },
   {
    "type": "line",
-   "id": 759,
+   "id": 773,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10869,8 +10961,8 @@
   },
   {
    "type": "line",
-   "id": 760,
-   "speaker": "Глафира",
+   "id": 774,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10881,7 +10973,7 @@
   },
   {
    "type": "line",
-   "id": 761,
+   "id": 775,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10893,8 +10985,8 @@
   },
   {
    "type": "line",
-   "id": 762,
-   "speaker": "Глафира",
+   "id": 776,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10905,7 +10997,7 @@
   },
   {
    "type": "line",
-   "id": 763,
+   "id": 777,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -10917,8 +11009,8 @@
   },
   {
    "type": "line",
-   "id": 764,
-   "speaker": "Глафира",
+   "id": 778,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -10944,14 +11036,14 @@
     "Купавина",
     "Лыняев",
     "Влас",
-    "Глафира"
+    "Глафира 1"
    ],
    "per_role": {
     "Беркутов": 2,
     "Купавина": 2,
     "Лыняев": 2,
     "Влас": 1,
-    "Глафира": 1
+    "Глафира 1": 1
    },
    "n_lines": 8,
    "preview": "Беркутов: Что я вижу? Друг мой!"
@@ -10964,7 +11056,7 @@
   },
   {
    "type": "line",
-   "id": 765,
+   "id": 779,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -10976,7 +11068,7 @@
   },
   {
    "type": "line",
-   "id": 766,
+   "id": 780,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -10988,7 +11080,7 @@
   },
   {
    "type": "line",
-   "id": 767,
+   "id": 781,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -11006,7 +11098,7 @@
   },
   {
    "type": "line",
-   "id": 768,
+   "id": 782,
    "speaker": "Влас",
    "speaker_raw": "Влас",
    "chorus": false,
@@ -11018,8 +11110,8 @@
   },
   {
    "type": "line",
-   "id": 769,
-   "speaker": "Глафира",
+   "id": 783,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -11030,7 +11122,7 @@
   },
   {
    "type": "line",
-   "id": 770,
+   "id": 784,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -11042,7 +11134,7 @@
   },
   {
    "type": "line",
-   "id": 771,
+   "id": 785,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11054,7 +11146,7 @@
   },
   {
    "type": "line",
-   "id": 772,
+   "id": 786,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -11113,7 +11205,7 @@
   },
   {
    "type": "line",
-   "id": 773,
+   "id": 787,
    "speaker": "Столяр",
    "speaker_raw": "Столяр",
    "chorus": false,
@@ -11125,7 +11217,7 @@
   },
   {
    "type": "line",
-   "id": 774,
+   "id": 788,
    "speaker": "Маляр",
    "speaker_raw": "Маляр",
    "chorus": false,
@@ -11137,7 +11229,7 @@
   },
   {
    "type": "line",
-   "id": 775,
+   "id": 789,
    "speaker": "Подрядчик",
    "speaker_raw": "Подрячик",
    "chorus": false,
@@ -11149,7 +11241,7 @@
   },
   {
    "type": "line",
-   "id": 776,
+   "id": 790,
    "speaker": "Садовник",
    "speaker_raw": "Садовник",
    "chorus": false,
@@ -11161,7 +11253,7 @@
   },
   {
    "type": "line",
-   "id": 777,
+   "id": 791,
    "speaker": "Маляр",
    "speaker_raw": "Маляр",
    "chorus": false,
@@ -11173,7 +11265,7 @@
   },
   {
    "type": "line",
-   "id": 778,
+   "id": 792,
    "speaker": "Староста",
    "speaker_raw": "Староста",
    "chorus": false,
@@ -11185,7 +11277,7 @@
   },
   {
    "type": "line",
-   "id": 779,
+   "id": 793,
    "speaker": "Столяр",
    "speaker_raw": "Столяр",
    "chorus": false,
@@ -11197,7 +11289,7 @@
   },
   {
    "type": "line",
-   "id": 780,
+   "id": 794,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11221,7 +11313,7 @@
   },
   {
    "type": "line",
-   "id": 781,
+   "id": 795,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11233,7 +11325,7 @@
   },
   {
    "type": "line",
-   "id": 782,
+   "id": 796,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11245,7 +11337,7 @@
   },
   {
    "type": "line",
-   "id": 783,
+   "id": 797,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11257,7 +11349,7 @@
   },
   {
    "type": "line",
-   "id": 784,
+   "id": 798,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11296,7 +11388,7 @@
   },
   {
    "type": "line",
-   "id": 785,
+   "id": 799,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11308,7 +11400,7 @@
   },
   {
    "type": "line",
-   "id": 786,
+   "id": 800,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11320,7 +11412,7 @@
   },
   {
    "type": "line",
-   "id": 787,
+   "id": 801,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11332,7 +11424,7 @@
   },
   {
    "type": "line",
-   "id": 788,
+   "id": 802,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11344,7 +11436,7 @@
   },
   {
    "type": "line",
-   "id": 789,
+   "id": 803,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11391,7 +11483,7 @@
   },
   {
    "type": "line",
-   "id": 790,
+   "id": 804,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11409,7 +11501,7 @@
   },
   {
    "type": "line",
-   "id": 791,
+   "id": 805,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11421,7 +11513,7 @@
   },
   {
    "type": "line",
-   "id": 792,
+   "id": 806,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -11433,7 +11525,7 @@
   },
   {
    "type": "line",
-   "id": 793,
+   "id": 807,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11445,7 +11537,7 @@
   },
   {
    "type": "line",
-   "id": 794,
+   "id": 808,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -11465,7 +11557,7 @@
   },
   {
    "type": "line",
-   "id": 795,
+   "id": 809,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11506,7 +11598,7 @@
   },
   {
    "type": "line",
-   "id": 796,
+   "id": 810,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11518,7 +11610,7 @@
   },
   {
    "type": "line",
-   "id": 797,
+   "id": 811,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11530,7 +11622,7 @@
   },
   {
    "type": "line",
-   "id": 798,
+   "id": 812,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11542,7 +11634,7 @@
   },
   {
    "type": "line",
-   "id": 799,
+   "id": 813,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11554,7 +11646,7 @@
   },
   {
    "type": "line",
-   "id": 800,
+   "id": 814,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11566,7 +11658,7 @@
   },
   {
    "type": "line",
-   "id": 801,
+   "id": 815,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11578,7 +11670,7 @@
   },
   {
    "type": "line",
-   "id": 802,
+   "id": 816,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11590,7 +11682,7 @@
   },
   {
    "type": "line",
-   "id": 803,
+   "id": 817,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11604,7 +11696,7 @@
   },
   {
    "type": "line",
-   "id": 804,
+   "id": 818,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11616,7 +11708,7 @@
   },
   {
    "type": "line",
-   "id": 805,
+   "id": 819,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11630,7 +11722,7 @@
   },
   {
    "type": "line",
-   "id": 806,
+   "id": 820,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11642,7 +11734,7 @@
   },
   {
    "type": "line",
-   "id": 807,
+   "id": 821,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11654,7 +11746,7 @@
   },
   {
    "type": "line",
-   "id": 808,
+   "id": 822,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11666,7 +11758,7 @@
   },
   {
    "type": "line",
-   "id": 809,
+   "id": 823,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -11678,7 +11770,7 @@
   },
   {
    "type": "line",
-   "id": 810,
+   "id": 824,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11698,7 +11790,7 @@
   },
   {
    "type": "line",
-   "id": 811,
+   "id": 825,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -11710,7 +11802,7 @@
   },
   {
    "type": "line",
-   "id": 812,
+   "id": 826,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11749,7 +11841,7 @@
   },
   {
    "type": "line",
-   "id": 813,
+   "id": 827,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11761,7 +11853,7 @@
   },
   {
    "type": "line",
-   "id": 814,
+   "id": 828,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11785,7 +11877,7 @@
   },
   {
    "type": "line",
-   "id": 815,
+   "id": 829,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11797,7 +11889,7 @@
   },
   {
    "type": "line",
-   "id": 816,
+   "id": 830,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11809,7 +11901,7 @@
   },
   {
    "type": "line",
-   "id": 817,
+   "id": 831,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11821,7 +11913,7 @@
   },
   {
    "type": "line",
-   "id": 818,
+   "id": 832,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11833,7 +11925,7 @@
   },
   {
    "type": "line",
-   "id": 819,
+   "id": 833,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11845,7 +11937,7 @@
   },
   {
    "type": "line",
-   "id": 820,
+   "id": 834,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11857,7 +11949,7 @@
   },
   {
    "type": "line",
-   "id": 821,
+   "id": 835,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11869,7 +11961,7 @@
   },
   {
    "type": "line",
-   "id": 822,
+   "id": 836,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11887,7 +11979,7 @@
   },
   {
    "type": "line",
-   "id": 823,
+   "id": 837,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11899,7 +11991,7 @@
   },
   {
    "type": "line",
-   "id": 824,
+   "id": 838,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11911,7 +12003,7 @@
   },
   {
    "type": "line",
-   "id": 825,
+   "id": 839,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11931,7 +12023,7 @@
   },
   {
    "type": "line",
-   "id": 826,
+   "id": 840,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11943,7 +12035,7 @@
   },
   {
    "type": "line",
-   "id": 827,
+   "id": 841,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11955,7 +12047,7 @@
   },
   {
    "type": "line",
-   "id": 828,
+   "id": 842,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11967,7 +12059,7 @@
   },
   {
    "type": "line",
-   "id": 829,
+   "id": 843,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -11979,7 +12071,7 @@
   },
   {
    "type": "line",
-   "id": 830,
+   "id": 844,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -11991,7 +12083,7 @@
   },
   {
    "type": "line",
-   "id": 831,
+   "id": 845,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12003,7 +12095,7 @@
   },
   {
    "type": "line",
-   "id": 832,
+   "id": 846,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12015,7 +12107,7 @@
   },
   {
    "type": "line",
-   "id": 833,
+   "id": 847,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12027,7 +12119,7 @@
   },
   {
    "type": "line",
-   "id": 834,
+   "id": 848,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12039,7 +12131,7 @@
   },
   {
    "type": "line",
-   "id": 835,
+   "id": 849,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12051,7 +12143,7 @@
   },
   {
    "type": "line",
-   "id": 836,
+   "id": 850,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12063,7 +12155,7 @@
   },
   {
    "type": "line",
-   "id": 837,
+   "id": 851,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12075,7 +12167,7 @@
   },
   {
    "type": "line",
-   "id": 838,
+   "id": 852,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12087,7 +12179,7 @@
   },
   {
    "type": "line",
-   "id": 839,
+   "id": 853,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12099,7 +12191,7 @@
   },
   {
    "type": "line",
-   "id": 840,
+   "id": 854,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12111,7 +12203,7 @@
   },
   {
    "type": "line",
-   "id": 841,
+   "id": 855,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12123,7 +12215,7 @@
   },
   {
    "type": "line",
-   "id": 842,
+   "id": 856,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12135,7 +12227,7 @@
   },
   {
    "type": "line",
-   "id": 843,
+   "id": 857,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12147,7 +12239,7 @@
   },
   {
    "type": "line",
-   "id": 844,
+   "id": 858,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12168,7 +12260,7 @@
   },
   {
    "type": "line",
-   "id": 845,
+   "id": 859,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12180,7 +12272,7 @@
   },
   {
    "type": "line",
-   "id": 846,
+   "id": 860,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12192,7 +12284,7 @@
   },
   {
    "type": "line",
-   "id": 847,
+   "id": 861,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12204,7 +12296,7 @@
   },
   {
    "type": "line",
-   "id": 848,
+   "id": 862,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12216,7 +12308,7 @@
   },
   {
    "type": "line",
-   "id": 849,
+   "id": 863,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12228,7 +12320,7 @@
   },
   {
    "type": "line",
-   "id": 850,
+   "id": 864,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12240,7 +12332,7 @@
   },
   {
    "type": "line",
-   "id": 851,
+   "id": 865,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12252,7 +12344,7 @@
   },
   {
    "type": "line",
-   "id": 852,
+   "id": 866,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12264,7 +12356,7 @@
   },
   {
    "type": "line",
-   "id": 853,
+   "id": 867,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12276,7 +12368,7 @@
   },
   {
    "type": "line",
-   "id": 854,
+   "id": 868,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12288,7 +12380,7 @@
   },
   {
    "type": "line",
-   "id": 855,
+   "id": 869,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12300,7 +12392,7 @@
   },
   {
    "type": "line",
-   "id": 856,
+   "id": 870,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12312,7 +12404,7 @@
   },
   {
    "type": "line",
-   "id": 857,
+   "id": 871,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12324,7 +12416,7 @@
   },
   {
    "type": "line",
-   "id": 858,
+   "id": 872,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12336,7 +12428,7 @@
   },
   {
    "type": "line",
-   "id": 859,
+   "id": 873,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12348,7 +12440,7 @@
   },
   {
    "type": "line",
-   "id": 860,
+   "id": 874,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12360,7 +12452,7 @@
   },
   {
    "type": "line",
-   "id": 861,
+   "id": 875,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12372,7 +12464,7 @@
   },
   {
    "type": "line",
-   "id": 862,
+   "id": 876,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12384,7 +12476,7 @@
   },
   {
    "type": "line",
-   "id": 863,
+   "id": 877,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12396,7 +12488,7 @@
   },
   {
    "type": "line",
-   "id": 864,
+   "id": 878,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12408,7 +12500,7 @@
   },
   {
    "type": "line",
-   "id": 865,
+   "id": 879,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12447,7 +12539,7 @@
   },
   {
    "type": "line",
-   "id": 866,
+   "id": 880,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12461,7 +12553,7 @@
   },
   {
    "type": "line",
-   "id": 867,
+   "id": 881,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12473,7 +12565,7 @@
   },
   {
    "type": "line",
-   "id": 868,
+   "id": 882,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12485,7 +12577,7 @@
   },
   {
    "type": "line",
-   "id": 869,
+   "id": 883,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12497,7 +12589,7 @@
   },
   {
    "type": "line",
-   "id": 870,
+   "id": 884,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12509,7 +12601,7 @@
   },
   {
    "type": "line",
-   "id": 871,
+   "id": 885,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12521,7 +12613,7 @@
   },
   {
    "type": "line",
-   "id": 872,
+   "id": 886,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12533,7 +12625,7 @@
   },
   {
    "type": "line",
-   "id": 873,
+   "id": 887,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12545,7 +12637,7 @@
   },
   {
    "type": "line",
-   "id": 874,
+   "id": 888,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12557,7 +12649,7 @@
   },
   {
    "type": "line",
-   "id": 875,
+   "id": 889,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12569,7 +12661,7 @@
   },
   {
    "type": "line",
-   "id": 876,
+   "id": 890,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12581,7 +12673,7 @@
   },
   {
    "type": "line",
-   "id": 877,
+   "id": 891,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12593,7 +12685,7 @@
   },
   {
    "type": "line",
-   "id": 878,
+   "id": 892,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12605,7 +12697,7 @@
   },
   {
    "type": "line",
-   "id": 879,
+   "id": 893,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12617,7 +12709,7 @@
   },
   {
    "type": "line",
-   "id": 880,
+   "id": 894,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12629,7 +12721,7 @@
   },
   {
    "type": "line",
-   "id": 881,
+   "id": 895,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12647,7 +12739,7 @@
   },
   {
    "type": "line",
-   "id": 882,
+   "id": 896,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12659,7 +12751,7 @@
   },
   {
    "type": "line",
-   "id": 883,
+   "id": 897,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12673,7 +12765,7 @@
   },
   {
    "type": "line",
-   "id": 884,
+   "id": 898,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12685,7 +12777,7 @@
   },
   {
    "type": "line",
-   "id": 885,
+   "id": 899,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12697,7 +12789,7 @@
   },
   {
    "type": "line",
-   "id": 886,
+   "id": 900,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12711,7 +12803,7 @@
   },
   {
    "type": "line",
-   "id": 887,
+   "id": 901,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12723,7 +12815,7 @@
   },
   {
    "type": "line",
-   "id": 888,
+   "id": 902,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12735,7 +12827,7 @@
   },
   {
    "type": "line",
-   "id": 889,
+   "id": 903,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12747,7 +12839,7 @@
   },
   {
    "type": "line",
-   "id": 890,
+   "id": 904,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12759,7 +12851,7 @@
   },
   {
    "type": "line",
-   "id": 891,
+   "id": 905,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12771,7 +12863,7 @@
   },
   {
    "type": "line",
-   "id": 892,
+   "id": 906,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12783,7 +12875,7 @@
   },
   {
    "type": "line",
-   "id": 893,
+   "id": 907,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12795,7 +12887,7 @@
   },
   {
    "type": "line",
-   "id": 894,
+   "id": 908,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12807,7 +12899,7 @@
   },
   {
    "type": "line",
-   "id": 895,
+   "id": 909,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12819,7 +12911,7 @@
   },
   {
    "type": "line",
-   "id": 896,
+   "id": 910,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12831,7 +12923,7 @@
   },
   {
    "type": "line",
-   "id": 897,
+   "id": 911,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12843,7 +12935,7 @@
   },
   {
    "type": "line",
-   "id": 898,
+   "id": 912,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12855,7 +12947,7 @@
   },
   {
    "type": "line",
-   "id": 899,
+   "id": 913,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -12900,7 +12992,7 @@
   },
   {
    "type": "line",
-   "id": 900,
+   "id": 914,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12912,7 +13004,7 @@
   },
   {
    "type": "line",
-   "id": 901,
+   "id": 915,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -12924,7 +13016,7 @@
   },
   {
    "type": "line",
-   "id": 902,
+   "id": 916,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12936,7 +13028,7 @@
   },
   {
    "type": "line",
-   "id": 903,
+   "id": 917,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12948,7 +13040,7 @@
   },
   {
    "type": "line",
-   "id": 904,
+   "id": 918,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -12960,7 +13052,7 @@
   },
   {
    "type": "line",
-   "id": 905,
+   "id": 919,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -12972,7 +13064,7 @@
   },
   {
    "type": "line",
-   "id": 906,
+   "id": 920,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -12984,7 +13076,7 @@
   },
   {
    "type": "line",
-   "id": 907,
+   "id": 921,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -12996,7 +13088,7 @@
   },
   {
    "type": "line",
-   "id": 908,
+   "id": 922,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13008,7 +13100,7 @@
   },
   {
    "type": "line",
-   "id": 909,
+   "id": 923,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13022,7 +13114,7 @@
   },
   {
    "type": "line",
-   "id": 910,
+   "id": 924,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -13034,7 +13126,7 @@
   },
   {
    "type": "line",
-   "id": 911,
+   "id": 925,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -13073,7 +13165,7 @@
   },
   {
    "type": "line",
-   "id": 912,
+   "id": 926,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13091,7 +13183,7 @@
   },
   {
    "type": "line",
-   "id": 913,
+   "id": 927,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13103,7 +13195,7 @@
   },
   {
    "type": "line",
-   "id": 914,
+   "id": 928,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13115,7 +13207,7 @@
   },
   {
    "type": "line",
-   "id": 915,
+   "id": 929,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13127,7 +13219,7 @@
   },
   {
    "type": "line",
-   "id": 916,
+   "id": 930,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13139,7 +13231,7 @@
   },
   {
    "type": "line",
-   "id": 917,
+   "id": 931,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13151,7 +13243,7 @@
   },
   {
    "type": "line",
-   "id": 918,
+   "id": 932,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13163,7 +13255,7 @@
   },
   {
    "type": "line",
-   "id": 919,
+   "id": 933,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13175,7 +13267,7 @@
   },
   {
    "type": "line",
-   "id": 920,
+   "id": 934,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13187,7 +13279,7 @@
   },
   {
    "type": "line",
-   "id": 921,
+   "id": 935,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13199,7 +13291,7 @@
   },
   {
    "type": "line",
-   "id": 922,
+   "id": 936,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13211,7 +13303,7 @@
   },
   {
    "type": "line",
-   "id": 923,
+   "id": 937,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13223,7 +13315,7 @@
   },
   {
    "type": "line",
-   "id": 924,
+   "id": 938,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13235,7 +13327,7 @@
   },
   {
    "type": "line",
-   "id": 925,
+   "id": 939,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13247,7 +13339,7 @@
   },
   {
    "type": "line",
-   "id": 926,
+   "id": 940,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13259,7 +13351,7 @@
   },
   {
    "type": "line",
-   "id": 927,
+   "id": 941,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13271,7 +13363,7 @@
   },
   {
    "type": "line",
-   "id": 928,
+   "id": 942,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13285,7 +13377,7 @@
   },
   {
    "type": "line",
-   "id": 929,
+   "id": 943,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13297,7 +13389,7 @@
   },
   {
    "type": "line",
-   "id": 930,
+   "id": 944,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13338,7 +13430,7 @@
   },
   {
    "type": "line",
-   "id": 931,
+   "id": 945,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13350,7 +13442,7 @@
   },
   {
    "type": "line",
-   "id": 932,
+   "id": 946,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13362,7 +13454,7 @@
   },
   {
    "type": "line",
-   "id": 933,
+   "id": 947,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13374,7 +13466,7 @@
   },
   {
    "type": "line",
-   "id": 934,
+   "id": 948,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13386,7 +13478,7 @@
   },
   {
    "type": "line",
-   "id": 935,
+   "id": 949,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13398,7 +13490,7 @@
   },
   {
    "type": "line",
-   "id": 936,
+   "id": 950,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13410,7 +13502,7 @@
   },
   {
    "type": "line",
-   "id": 937,
+   "id": 951,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13430,7 +13522,7 @@
   },
   {
    "type": "line",
-   "id": 938,
+   "id": 952,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13442,7 +13534,7 @@
   },
   {
    "type": "line",
-   "id": 939,
+   "id": 953,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13454,7 +13546,7 @@
   },
   {
    "type": "line",
-   "id": 940,
+   "id": 954,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13468,7 +13560,7 @@
   },
   {
    "type": "line",
-   "id": 941,
+   "id": 955,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13499,7 +13591,7 @@
   },
   {
    "type": "line",
-   "id": 942,
+   "id": 956,
    "speaker": "Павлин",
    "speaker_raw": "Павлин",
    "chorus": false,
@@ -13523,7 +13615,7 @@
    "act": "Действие пятое",
    "participants": [
     "Мурзавецкая",
-    "Глафира",
+    "Глафира 1",
     "Лыняев",
     "Купавина",
     "Беркутов",
@@ -13531,7 +13623,7 @@
    ],
    "per_role": {
     "Мурзавецкая": 6,
-    "Глафира": 8,
+    "Глафира 1": 8,
     "Лыняев": 8,
     "Купавина": 3,
     "Беркутов": 3,
@@ -13548,7 +13640,7 @@
   },
   {
    "type": "line",
-   "id": 943,
+   "id": 957,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13560,8 +13652,8 @@
   },
   {
    "type": "line",
-   "id": 944,
-   "speaker": "Глафира",
+   "id": 958,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13574,7 +13666,7 @@
   },
   {
    "type": "line",
-   "id": 945,
+   "id": 959,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13586,8 +13678,8 @@
   },
   {
    "type": "line",
-   "id": 946,
-   "speaker": "Глафира",
+   "id": 960,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13604,7 +13696,7 @@
   },
   {
    "type": "line",
-   "id": 947,
+   "id": 961,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13616,7 +13708,7 @@
   },
   {
    "type": "line",
-   "id": 948,
+   "id": 962,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13628,7 +13720,7 @@
   },
   {
    "type": "line",
-   "id": 949,
+   "id": 963,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13640,8 +13732,8 @@
   },
   {
    "type": "line",
-   "id": 950,
-   "speaker": "Глафира",
+   "id": 964,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "Купавиной",
@@ -13652,7 +13744,7 @@
   },
   {
    "type": "line",
-   "id": 951,
+   "id": 965,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13664,7 +13756,7 @@
   },
   {
    "type": "line",
-   "id": 952,
+   "id": 966,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13676,8 +13768,8 @@
   },
   {
    "type": "line",
-   "id": 953,
-   "speaker": "Глафира",
+   "id": 967,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "принимая чашку",
@@ -13690,7 +13782,7 @@
   },
   {
    "type": "line",
-   "id": 954,
+   "id": 968,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13702,7 +13794,7 @@
   },
   {
    "type": "line",
-   "id": 955,
+   "id": 969,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13714,7 +13806,7 @@
   },
   {
    "type": "line",
-   "id": 956,
+   "id": 970,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13726,7 +13818,7 @@
   },
   {
    "type": "line",
-   "id": 957,
+   "id": 971,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13738,8 +13830,8 @@
   },
   {
    "type": "line",
-   "id": 958,
-   "speaker": "Глафира",
+   "id": 972,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13750,7 +13842,7 @@
   },
   {
    "type": "line",
-   "id": 959,
+   "id": 973,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13762,7 +13854,7 @@
   },
   {
    "type": "line",
-   "id": 960,
+   "id": 974,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13774,7 +13866,7 @@
   },
   {
    "type": "line",
-   "id": 961,
+   "id": 975,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13786,8 +13878,8 @@
   },
   {
    "type": "line",
-   "id": 962,
-   "speaker": "Глафира",
+   "id": 976,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13798,7 +13890,7 @@
   },
   {
    "type": "line",
-   "id": 963,
+   "id": 977,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13810,7 +13902,7 @@
   },
   {
    "type": "line",
-   "id": 964,
+   "id": 978,
    "speaker": "Беркутов",
    "speaker_raw": "Беркутов",
    "chorus": false,
@@ -13822,7 +13914,7 @@
   },
   {
    "type": "line",
-   "id": 965,
+   "id": 979,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13836,7 +13928,7 @@
   },
   {
    "type": "line",
-   "id": 966,
+   "id": 980,
    "speaker": "Купавина",
    "speaker_raw": "Купавина",
    "chorus": false,
@@ -13848,7 +13940,7 @@
   },
   {
    "type": "line",
-   "id": 967,
+   "id": 981,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13860,8 +13952,8 @@
   },
   {
    "type": "line",
-   "id": 968,
-   "speaker": "Глафира",
+   "id": 982,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13878,7 +13970,7 @@
   },
   {
    "type": "line",
-   "id": 969,
+   "id": 983,
    "speaker": "Анфуса",
    "speaker_raw": "Анфуса",
    "chorus": false,
@@ -13890,7 +13982,7 @@
   },
   {
    "type": "line",
-   "id": 970,
+   "id": 984,
    "speaker": "Анфуса",
    "speaker_raw": "Анфиса",
    "chorus": false,
@@ -13902,7 +13994,7 @@
   },
   {
    "type": "line",
-   "id": 971,
+   "id": 985,
    "speaker": "Лыняев",
    "speaker_raw": "Лыняев",
    "chorus": false,
@@ -13914,8 +14006,8 @@
   },
   {
    "type": "line",
-   "id": 972,
-   "speaker": "Глафира",
+   "id": 986,
+   "speaker": "Глафира 1",
    "speaker_raw": "Глафира",
    "chorus": false,
    "action": "",
@@ -13955,7 +14047,7 @@
   },
   {
    "type": "line",
-   "id": 973,
+   "id": 987,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -13967,7 +14059,7 @@
   },
   {
    "type": "line",
-   "id": 974,
+   "id": 988,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -13979,7 +14071,7 @@
   },
   {
    "type": "line",
-   "id": 975,
+   "id": 989,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -13991,7 +14083,7 @@
   },
   {
    "type": "line",
-   "id": 976,
+   "id": 990,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -14003,7 +14095,7 @@
   },
   {
    "type": "line",
-   "id": 977,
+   "id": 991,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
@@ -14021,7 +14113,7 @@
   },
   {
    "type": "line",
-   "id": 978,
+   "id": 992,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -14033,7 +14125,7 @@
   },
   {
    "type": "line",
-   "id": 979,
+   "id": 993,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -14045,7 +14137,7 @@
   },
   {
    "type": "line",
-   "id": 980,
+   "id": 994,
    "speaker": "Мурзавецкий",
    "speaker_raw": "Мурзавецкий",
    "chorus": false,
@@ -14057,7 +14149,7 @@
   },
   {
    "type": "line",
-   "id": 981,
+   "id": 995,
    "speaker": "Мурзавецкая",
    "speaker_raw": "Мурзавецкая",
    "chorus": false,
@@ -14069,7 +14161,7 @@
   },
   {
    "type": "line",
-   "id": 982,
+   "id": 996,
    "speaker": "Чугунов",
    "speaker_raw": "Чугунов",
    "chorus": false,
