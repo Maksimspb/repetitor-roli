@@ -81,8 +81,8 @@
   .sc-top{display:flex;align-items:center;gap:8px}
   .sc-name{font-weight:650;font-size:15px}
   .sc-meta{color:var(--dim);font-size:13px;margin-top:3px}
-  .sc-prev{color:var(--cue);font-size:13px;font-style:italic;margin-top:2px;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sc-prev{color:var(--dim);font-size:13.5px;margin-top:4px;line-height:1.4}
+  .sc-about{color:var(--cue);font-size:13px;margin-top:4px;letter-spacing:0;line-height:1.4}
   .badge{margin-left:auto;font-size:12px;font-weight:650;padding:4px 9px;border-radius:9px;
     white-space:nowrap;font-variant-numeric:tabular-nums}
   .b-part{background:#3a2f14;color:var(--warn)}
@@ -242,7 +242,7 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const BUILD='2026-08-14-11';     // видно в настройках и в журнале: что реально крутится на устройстве
+const BUILD='2026-08-14-12';     // видно в настройках и в журнале: что реально крутится на устройстве
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
   role:null, reveal:'hidden', voice:'', rate:1, stageSize:18, settle:320,
@@ -979,9 +979,11 @@ function renderSetup(){
 
     mine.forEach(s=>{
       const others=s.u.participants.filter(p=>p!==PREFS.role).slice(0,4).join(', ')||'—';
+      // описание «про что» вспоминается лучше цитаты; цитата — запасной вариант
+      const about = s.u.summary || ('«'+(s.u.preview||'').slice(0,70)+'…»');
       list.appendChild(sceneCard(s.id, s.label,
         s.u.per_role[PREFS.role]+' твоих · с: '+others,
-        '«'+(s.u.preview||'').slice(0,70)+'…»', [[s.i,s.end]]));
+        about, [[s.i,s.end]]));
     });
     cSc.appendChild(list);
   }
@@ -1270,7 +1272,8 @@ function renderPrompter(){
 
   RUN.units.forEach(u=>{
     if(u.type==='act'||u.type==='scene'){
-      stage.appendChild(el('div','divider',(u.type==='act'?'▬ ':'')+esc(u.title))); return;
+      stage.appendChild(el('div','divider',(u.type==='act'?'▬ ':'')+esc(u.title)+
+        (u.summary?'<div class="sc-about">'+esc(u.summary)+'</div>':''))); return;
     }
     if(u.type==='meta') return;
     if(u.type==='stage'||u.type==='song'){
@@ -1376,7 +1379,8 @@ async function step(){
   const u=RUN.units[RUN.idx];
 
   if(u.type==='act'||u.type==='scene'){
-    $('#stage').appendChild(el('div','divider',(u.type==='act'?'▬ ':'')+esc(u.title)));
+    $('#stage').appendChild(el('div','divider',(u.type==='act'?'▬ ':'')+esc(u.title)+
+      (u.summary?'<div class="sc-about">'+esc(u.summary)+'</div>':'')));
     RUN.idx++; return step();
   }
   if(u.type==='meta'){ RUN.idx++; return step(); }

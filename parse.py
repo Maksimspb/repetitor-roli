@@ -25,6 +25,8 @@ from docx import Document
 ROOT = Path(__file__).parent
 DOCX = ROOT / "data" / "play.docx"
 OUT = ROOT / "data" / "play.json"
+# «про что явление» — пишется руками, парсер только подставляет
+NOTES = ROOT / "data" / "scene_notes.json"
 
 # ---- Канонические имена ролей -------------------------------------------------
 # ключ = каноничное имя; значения = все встречающиеся варианты написания (в нижнем регистре)
@@ -175,6 +177,15 @@ def is_continuation(p: str) -> bool:
         if not re.match(r"^[А-ЯЁ][а-яё]+(?:вна|чна|ична|ович|евич|ич)", rest):
             return False
     return True
+
+
+def strip_orphan_action(text: str):
+    """«Открывает сумку и вынимает деньги.)  Вот извольте!» — в docx у ремарки
+    потеряна открывающая скобка. Вернуть (ремарка, чистый текст)."""
+    m = re.match(r"^\s*([^()]{3,}?)\)\s+(?=\S)", text)
+    if m:
+        return m.group(1).strip().rstrip("."), text[m.end():].strip()
+    return "", text
 
 
 def manual_line(p: str):
@@ -337,6 +348,9 @@ def parse():
                 continue
             action = paren
             action = action[1:-1].strip() if action.startswith("(") else action
+            orphan, body = strip_orphan_action(body)
+            if orphan and not action:
+                action = orphan
             # ремарки внутри текста реплики вытащим отдельно, но текст оставим целым
             inline_actions = re.findall(r"\(([^)]*)\)", body)
             units.append({
@@ -356,13 +370,14 @@ def parse():
         # абзац без подписи, но с прямой речью — продолжение предыдущего говорящего
         last = next((u for u in reversed(units) if u.get("type") == "line"), None)
         if last and is_continuation(p):
+            orphan, body = strip_orphan_action(p)
             units.append({
                 "type": "line",
                 "id": len([u for u in units if u.get("type") == "line"]),
                 "speaker": last["speaker"], "speaker_raw": last["speaker"],
-                "chorus": False, "action": "",
-                "inline_actions": re.findall(r"\(([^)]*)\)", p),
-                "text": p, "act": act, "scene": scene,
+                "chorus": False, "action": orphan,
+                "inline_actions": re.findall(r"\(([^)]*)\)", body),
+                "text": body, "act": act, "scene": scene,
                 "continued": True,
             })
             continue
@@ -379,6 +394,24 @@ def parse():
         if u["type"] == "line" and not u["chorus"]:
             roles[u["speaker"]] = roles.get(u["speaker"], 0) + 1
     roles_sorted = sorted(roles.items(), key=lambda kv: -kv[1])
+
+    # --- «про что явление»: короткое описание из scene_notes.json
+    notes = {}
+    if NOTES.exists():
+        notes = json.loads(NOTES.read_text(encoding="utf-8"))
+    missing_notes = []
+    for u in units:
+        if u["type"] != "scene":
+            continue
+        key = f"{u.get('act') or ''}|{u['title']}"
+        if key in notes:
+            u["summary"] = notes[key]
+        else:
+            missing_notes.append(key)
+    if missing_notes:
+        print(f"Без описания: {len(missing_notes)} явлений")
+        for k in missing_notes[:10]:
+            print("   ", k)
 
     # --- метаданные сцен: участники, число реплик, превью, счётчик по ролям ---
     # проходим по units, для каждого scene смотрим блок реплик до следующего scene
