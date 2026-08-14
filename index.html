@@ -152,6 +152,8 @@
   .hint:empty{display:none}
   .bar{border-top:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;align-items:stretch}
   .bar .big{flex:1;min-height:54px;font-size:16px}
+  /* суфлёр: назад и вперёд равновелики — к местам приходится возвращаться */
+  .bar .arrow{font-size:22px;font-weight:700;line-height:1;padding:0 8px}
   kbd{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px}
 
   /* ---------- mic chip ---------- */
@@ -242,7 +244,7 @@ const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-const BUILD='2026-08-14-12';     // видно в настройках и в журнале: что реально крутится на устройстве
+const BUILD='2026-08-14-13';     // видно в настройках и в журнале: что реально крутится на устройстве
 const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K_LOG='rr.miclog.v1';
 const PREFS = Object.assign({
   role:null, reveal:'hidden', voice:'', rate:1, stageSize:18, settle:320,
@@ -1295,29 +1297,35 @@ function renderPrompter(){
   if(PROMPT_LINES.length) jumpTo(0);
 }
 
+/* Ход в обе стороны, без закольцовки: на репетиции возвращаются к месту
+   и переигрывают его, а прыжок с первой реплики в конец сцены только сбивает. */
 function jumpTo(i){
-  if(!PROMPT_LINES.length) return;
-  PROMPT_AT=(i+PROMPT_LINES.length)%PROMPT_LINES.length;
+  const n=PROMPT_LINES.length; if(!n) return;
+  PROMPT_AT=Math.max(0,Math.min(n-1,i));
   const b=PROMPT_LINES[PROMPT_AT];
   PROMPT_LINES.forEach(x=>x.classList.remove('here'));
   b.classList.add('here');
   b.scrollIntoView({behavior:'smooth',block:'center'});
-  $('#trackFill').style.width=Math.round((PROMPT_AT+1)/PROMPT_LINES.length*100)+'%';
-  const c=$('#promptAt'); if(c) c.textContent=(PROMPT_AT+1)+' / '+PROMPT_LINES.length;
+  $('#trackFill').style.width=Math.round((PROMPT_AT+1)/n*100)+'%';
+  const c=$('#promptAt'); if(c) c.textContent=(PROMPT_AT+1)+' / '+n;
+  const p=$('#pPrev'), x=$('#pNext');
+  if(p) p.disabled = PROMPT_AT<=0;
+  if(x) x.disabled = PROMPT_AT>=n-1;
 }
 
 function promptBar(){
   const bar=$('#bar'), hint=$('#hint');
   hint.textContent = PROMPT_LINES.length
-    ? 'Твои реплики подсвечены — прыгай между ними'
+    ? 'Твои реплики подсвечены — прыгай между ними в обе стороны'
     : 'В этой сцене у тебя нет реплик';
   bar.innerHTML='';
-  const prev=btn('↑','ghost',()=>jumpTo(PROMPT_AT-1));
+  const prev=btn('↑','big arrow',()=>jumpTo(PROMPT_AT-1)); prev.id='pPrev';
   prev.setAttribute('aria-label','Предыдущая моя реплика');
-  const next=btn('↓','primary big',()=>jumpTo(PROMPT_AT+1));
+  const next=btn('↓','primary big arrow',()=>jumpTo(PROMPT_AT+1)); next.id='pNext';
   next.setAttribute('aria-label','Следующая моя реплика');
   const at=el('div','mic'); at.id='promptAt'; at.style.cursor='default';
   at.textContent=PROMPT_LINES.length?'1 / '+PROMPT_LINES.length:'—';
+  prev.disabled = next.disabled = PROMPT_LINES.length<2;
   bar.append(prev, at, next);
 }
 
@@ -2112,6 +2120,9 @@ $('#btnSize').onclick=()=>{
 document.addEventListener('keydown',e=>{
   if(e.target.matches('input,select,textarea')) return;
   if(e.code==='Escape' && RUN){ e.preventDefault(); exitRun(); return; }
+  if(RUN && RUN.mode==='stage' && (e.code==='ArrowUp'||e.code==='ArrowDown')){
+    e.preventDefault(); jumpTo(PROMPT_AT+(e.code==='ArrowUp'?-1:1)); return;
+  }
   if(e.code==='Space'||e.code==='ArrowRight'){
     const p=$('#bar').querySelector('.primary');
     if(p&&!p.disabled){ e.preventDefault(); p.click(); }
