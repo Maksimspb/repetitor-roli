@@ -164,8 +164,17 @@ pip3 install python-docx
 Сначала прочитай [`docs/DEVLOG.md`](docs/DEVLOG.md) — там текущее состояние, принятые
 решения и приоритетные задачи. Технику смотри в [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
-**Сменить пьесу:** положи новый файл в `data/play.docx`, при необходимости поправь
-канонический словарь имён в [`parse.py`](parse.py) (`CANON`), запусти `python3 parse.py`.
+**Несколько пьес.** Пьесы перечислены в [`plays.json`](plays.json); наверху экрана настройки —
+переключатель (если пьес больше одной). «Волки» лежат в `data/` + `audio/`, остальные — в
+`plays/<slug>/`. Прогресс и рекорды хранятся отдельно по каждой пьесе.
+
+**Добавить пьесу:**
+1. Положи docx в `plays/<slug>/play.docx`.
+2. В [`parse.py`](parse.py) добавь запись в `PLAY_CONFIGS[<slug>]` (канон имён, пути), при
+   странностях исходника — `real_start` и т.п.; в [`build_audio.py`](build_audio.py) — карту
+   голосов в `VOICE_CONFIGS[<slug>]`.
+3. `python3 parse.py --play <slug>` → `.venv-tts/bin/python build_audio.py --play <slug>`.
+4. Допиши пьесу в `plays.json`.
 
 ---
 

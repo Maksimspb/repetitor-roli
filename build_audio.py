@@ -17,29 +17,60 @@ from pathlib import Path
 import edge_tts
 
 ROOT = Path(__file__).parent
-PLAY = ROOT / "data" / "play.json"
-OUT = ROOT / "audio"
-OUT.mkdir(exist_ok=True)
 
 SVET = "ru-RU-SvetlanaNeural"   # женский нейро
 DMIT = "ru-RU-DmitryNeural"     # мужской нейро
 
 # персонаж -> (голос, темп, высота). Сдвиги дают разные тембры из двух голосов.
-VOICE_MAP = {
-    "Мурзавецкая": (SVET, "-8%",  "-8Hz"),   # властная, пожилая
-    "Купавина":    (SVET, "+0%",  "+12Hz"),  # молодая
-    "Глафира 1":   (SVET, "+0%",  "+0Hz"),
-    "Глафира 2":   (SVET, "-4%",  "+7Hz"),   # вторая Глафира — другая актриса, другой тембр
-    "Анфуса":      (SVET, "-8%",  "-3Hz"),    # приживалка, комична
-    "Лыняев":      (DMIT, "+0%",  "+0Hz"),
-    "Беркутов":    (DMIT, "-5%",  "-6Hz"),    # солидный
-    "Чугунов":     (DMIT, "-6%",  "-10Hz"),   # вкрадчивый
-    "Мурзавецкий": (DMIT, "+8%",  "+14Hz"),   # молодой шалопай
-    "Горецкий":    (DMIT, "+3%",  "+8Hz"),
-    "Павлин":      (DMIT, "-3%",  "+4Hz"),    # чинный слуга
-    "Влас":        (DMIT, "+0%",  "+2Hz"),
+VOICE_CONFIGS = {
+    "volki": {
+        "dir": ROOT / "data" / "play.json", "out": ROOT / "audio",
+        "voices": {
+            "Мурзавецкая": (SVET, "-8%",  "-8Hz"),
+            "Купавина":    (SVET, "+0%",  "+12Hz"),
+            "Глафира 1":   (SVET, "+0%",  "+0Hz"),
+            "Глафира 2":   (SVET, "-4%",  "+7Hz"),
+            "Анфуса":      (SVET, "-8%",  "-3Hz"),
+            "Лыняев":      (DMIT, "+0%",  "+0Hz"),
+            "Беркутов":    (DMIT, "-5%",  "-6Hz"),
+            "Чугунов":     (DMIT, "-6%",  "-10Hz"),
+            "Мурзавецкий": (DMIT, "+8%",  "+14Hz"),
+            "Горецкий":    (DMIT, "+3%",  "+8Hz"),
+            "Павлин":      (DMIT, "-3%",  "+4Hz"),
+            "Влас":        (DMIT, "+0%",  "+2Hz"),
+        },
+        "female": {"Мурзавецкая", "Купавина", "Глафира 1", "Глафира 2", "Анфуса"},
+    },
+    "gadanie": {
+        "dir": ROOT / "plays" / "gadanie" / "play.json", "out": ROOT / "plays" / "gadanie" / "audio",
+        "voices": {
+            "Устинья Наумовна":      (SVET, "-4%", "-2Hz"),   # сваха, бойкая
+            "Матрена Савишна":       (SVET, "+0%", "+8Hz"),   # жена, 25
+            "Марья Антиповна":       (SVET, "+2%", "+15Hz"),  # девица, 19
+            "Степанида Трофимовна":  (SVET, "-8%", "-8Hz"),   # мать, 60
+            "Аграфена Кондратьевна": (SVET, "-6%", "-4Hz"),   # купчиха
+            "Липочка":               (SVET, "+3%", "+16Hz"),  # дочь, юная
+            "Фоминишна":             (SVET, "-8%", "-6Hz"),   # ключница
+            "Дарья":                 (SVET, "+0%", "+6Hz"),   # горничная
+            "Антип Антипыч":         (DMIT, "+0%", "+0Hz"),   # купец, 35
+            "Ширялов":               (DMIT, "-6%", "-10Hz"),  # купец, 60
+        },
+        "female": {"Устинья Наумовна", "Матрена Савишна", "Марья Антиповна",
+                   "Степанида Трофимовна", "Аграфена Кондратьевна", "Липочка",
+                   "Фоминишна", "Дарья"},
+    },
 }
-FEMALE = {"Мурзавецкая", "Купавина", "Глафира 1", "Глафира 2", "Анфуса"}
+
+_ap0 = argparse.ArgumentParser(add_help=False)
+_ap0.add_argument("--play", default="volki", choices=list(VOICE_CONFIGS))
+_PRE, _ = _ap0.parse_known_args()
+_VC = VOICE_CONFIGS[_PRE.play]
+PLAY = _VC["dir"]
+OUT = _VC["out"]
+OUT.mkdir(parents=True, exist_ok=True)
+VOICE_MAP = _VC["voices"]
+FEMALE = _VC["female"]
+PREFIX = OUT.relative_to(ROOT).as_posix() + "/"   # путь в индексе — от корня репо
 
 
 def voice_for(speaker: str):
@@ -72,6 +103,7 @@ async def synth(sem, line, force):
 
 async def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--play", default="volki")   # уже разобран выше, здесь — чтобы не ругался
     ap.add_argument("--role", help="только реплики партнёров этой роли (не её собственные)")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--force", action="store_true")
@@ -113,7 +145,7 @@ async def main():
             print(f"  {i}/{len(lines)}  ok={done['ok']} skip={done['skip']} err={done['err']}")
 
     # индекс: id -> файл (для приложения)
-    idx = {str(l["id"]): f"audio/{l['id']}.mp3"
+    idx = {str(l["id"]): f"{PREFIX}{l['id']}.mp3"
            for l in [u for u in units if u["type"] == "line"]
            if (OUT / f"{l['id']}.mp3").exists()}
     (OUT / "index.json").write_text(json.dumps(idx, ensure_ascii=False), encoding="utf-8")

@@ -1,0 +1,6 @@
+[
+  { "slug": "volki",   "title": "Волки и овцы",     "author": "А. Н. Островский",
+    "data": "data/play.json",           "audio": "audio" },
+  { "slug": "gadanie", "title": "Станешь гадать…",  "author": "Г. Соколова (по Островскому)",
+    "data": "plays/gadanie/play.json",  "audio": "plays/gadanie/audio" }
+]

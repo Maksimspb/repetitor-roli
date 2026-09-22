@@ -249,6 +249,7 @@ const K_PREFS='rr.prefs.v1', K_PROG='rr.progress.v1', K_LINE='rr.linebest.v1', K
 const PREFS = Object.assign({
   role:null, reveal:'hidden', voice:'', rate:1, stageSize:18, settle:320,
   asrUrl:'', ondevice:false, ptt:'auto',
+  play:null, byPlay:{},          // выбранная пьеса и роль/сцена по каждой пьесе
   // два глобальных режима: 'learn' — заучивание за столом, 'stage' — подсказка на сцене.
   // check — как разбирается твоя реплика при заучивании: сам / микрофоном / без рук
   mode:'learn', check:'self', voicePartner:false
@@ -281,12 +282,14 @@ const voicingOn = () => PREFS.check==='hands' || PREFS.voicePartner;
 const savePrefs=()=>LS.set(K_PREFS,PREFS);
 const saveProg =()=>LS.set(K_PROG,PROG);
 const saveBest =()=>LS.set(K_LINE,LINEBEST);
-const progKey=(role,sceneId)=>role+'::'+sceneId;
+const progKey=(role,sceneId)=>(PLAY_SLUG||'')+'::'+role+'::'+sceneId;
+const lbk=id=>(PLAY_SLUG||'v')+':'+id;      // ключ рекорда реплики с неймспейсом пьесы
 
 /* ==================================================================
    ГЛОБАЛЬНОЕ СОСТОЯНИЕ
    ================================================================== */
 let PLAY=null, SCENES=[], AUDIO_INDEX={}, VOICE=null;
+let PLAYS=[], PLAY_SLUG=null;          // реестр пьес и текущая
 let SELECTION=null;                    // {sceneId,label,ranges}
 let RUN=null;                          // текущий прогон
 let runToken=0;                        // отменяет «зависшие» async-шаги после выхода
@@ -297,9 +300,28 @@ const sharedAudio=new Audio();         // один элемент — разбл
 sharedAudio.preload='auto';
 
 /* ---------- загрузка данных ---------- */
-fetch('data/play.json').then(r=>r.json()).then(d=>{ PLAY=d; buildScenes(); renderSetup(); });
+function currentPlay(){ return PLAYS.find(p=>p.slug===PLAY_SLUG)||PLAYS[0]; }
+async function loadPlay(slug){
+  // запомнить роль/сцену уходящей пьесы, восстановить — входящей
+  if(PLAY_SLUG && PLAY_SLUG!==slug) PREFS.byPlay[PLAY_SLUG]={role:PREFS.role,lastScene:PREFS.lastScene};
+  PLAY_SLUG=slug; PREFS.play=slug;
+  const saved=PREFS.byPlay[slug];
+  if(saved){ PREFS.role=saved.role||null; PREFS.lastScene=saved.lastScene||null; }
+  savePrefs();
+  const p=currentPlay();
+  PLAY=await fetch(p.data).then(r=>r.json());
+  AUDIO_INDEX=await fetch(p.audio+'/index.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
+  if(PREFS.role && !PLAY.meta.roles.some(r=>r.name===PREFS.role)) PREFS.role=null;
+  buildScenes();
+}
+async function loadPlays(){
+  try{ PLAYS=await fetch('plays.json',{cache:'no-store'}).then(r=>r.json()); }
+  catch(e){ PLAYS=[{slug:'volki',title:'Волки и овцы',data:'data/play.json',audio:'audio'}]; }
+  const want=(PREFS.play && PLAYS.some(p=>p.slug===PREFS.play)) ? PREFS.play : PLAYS[0].slug;
+  await loadPlay(want);
+}
+loadPlays().then(renderSetup);
 setTimeout(initASR, 0);  // после инициализации Mic/MicWhisper: подключить Whisper, если бэкенд жив
-fetch('audio/index.json').then(r=>r.ok?r.json():{}).then(d=>{AUDIO_INDEX=d;}).catch(()=>{});
 
 /* ---------- PWA ---------- */
 (function(){
@@ -904,6 +926,7 @@ function lastUnfinished(role){
   let best=null;
   Object.keys(PROG).forEach(k=>{
     const p=PROG[k];
+    if(p.play && p.play!==PLAY_SLUG) return;   // только текущая пьеса
     if(p.role!==role||p.done||!p.pos) return;
     if(!best||p.ts>best.ts) best=p;
   });
@@ -929,6 +952,18 @@ function renderSetup(){
   $('#hdrTitle').textContent='🎭 Репетитор роли';
   $('#hdrSub').textContent=PLAY.meta.title;
   const box=$('#setup'); box.innerHTML='';
+
+  /* --- пьеса (верхний уровень) --- */
+  if(PLAYS.length>1){
+    const cP=el('div','card','<h2>Пьеса</h2>');
+    const ch=el('div','chips');
+    PLAYS.forEach(p=>{
+      const b=el('button','chip'+(p.slug===PLAY_SLUG?' on':''), esc(p.title));
+      b.onclick=()=>{ if(p.slug!==PLAY_SLUG) loadPlay(p.slug).then(renderSetup); };
+      ch.appendChild(b);
+    });
+    cP.appendChild(ch); box.appendChild(cP);
+  }
 
   /* --- продолжить прерванное --- */
   const un = PREFS.role && lastUnfinished(PREFS.role);
@@ -1356,6 +1391,7 @@ function saveRun(done){
   const scores=RUN.results.map(r=>r.score);
   const avg=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):null;
   PROG[key]={
+    play:PLAY_SLUG,
     role:RUN.role, sceneId:RUN.sceneId, label:RUN.label, ranges:RUN.ranges,
     len:RUN.units.length, myLines:RUN.myLines, doneLines:RUN.results.length,
     pos: done?0:RUN.idx, done:!!done,
@@ -1419,7 +1455,7 @@ async function step(){
 
   /* самопроверка: пауза на вспоминание, потом честная оценка себе */
   if(RUN.check==='self'){
-    const best=LINEBEST[u.id];
+    const best=LINEBEST[lbk(u.id)];
     const recTag = best ? '<span class="rec">рекорд '+best+'%</span>' : '';
     const b=render('me active','<div class="who">'+who+' · ты'+recTag+'</div>'+action+
       '<div class="mytext"><span class="cue">— вспомни свою реплику —</span></div>');
@@ -1447,7 +1483,7 @@ async function step(){
   if(PREFS.reveal==='full') body=esc(u.text);
   else if(PREFS.reveal==='firstletters') body='<span class="cue">'+esc(maskFirst(u.text))+'</span>';
   else body='<span class="cue">— твоя реплика —</span>';
-  const best=LINEBEST[u.id];
+  const best=LINEBEST[lbk(u.id)];
   const recTag = best ? '<span class="rec">рекорд '+best+'%</span>' : '';
   const b=render('me active','<div class="who">🎤 '+who+' · ты'+recTag+'</div>'+action+
     '<div class="mytext">'+body+'</div><div class="heard"></div>');
@@ -1555,9 +1591,9 @@ const SELF_LABEL = {0:'забыл', 60:'почти', 100:'точно'};
 
 function finalizeSelf(bubble, u, score){
   RUN.results.push({id:u.id, speaker:u.speaker, orig:u.text, said:'', score, self:true});
-  const prevBest = LINEBEST[u.id];
+  const prevBest = LINEBEST[lbk(u.id)];
   const isRecord = prevBest==null || score>prevBest;
-  if(isRecord){ LINEBEST[u.id]=score; saveBest(); }
+  if(isRecord){ LINEBEST[lbk(u.id)]=score; saveBest(); }
   const who=bubble.querySelector('.who');
   if(who){
     const rec=who.querySelector('.rec'); if(rec) rec.remove();
@@ -1573,10 +1609,10 @@ function finalizeMe(bubble, u, said){
 
   // не записывать рекорд, если микрофон не услышал вообще ничего:
   // это отказ техники, а не результат — иначе на реплике повиснет «рекорд 0%»
-  const prevBest = LINEBEST[u.id];
+  const prevBest = LINEBEST[lbk(u.id)];
   const heardAnything = !!String(said||'').trim();
   const isRecord = heardAnything && (prevBest==null || d.score>prevBest);
-  if(isRecord){ LINEBEST[u.id]=d.score; saveBest(); }
+  if(isRecord){ LINEBEST[lbk(u.id)]=d.score; saveBest(); }
 
   const mt=bubble.querySelector('.mytext');
   if(mt) mt.innerHTML=tokHtml(d.tokens);
@@ -1736,7 +1772,7 @@ async function finish(){
 
     // худшие сверху — это и есть список того, что надо доучить
     [...RUN.results].sort((a,b)=>a.score-b.score).forEach(r=>{
-      const best=LINEBEST[r.id];
+      const best=LINEBEST[lbk(r.id)];
       if(r.self){
         stage.appendChild(el('div','sumrow',
           '<div><span class="scoreTag '+scoreCls(r.score)+'">'+SELF_LABEL[r.score]+'</span> '+

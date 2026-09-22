@@ -1,7 +1,10 @@
 // Service worker: офлайн-кеш приложения (партнёр по репликам работает без интернета).
-const CACHE = "repetitor-v13";
+const CACHE = "repetitor-v14";
 const ASSETS = [
-  './', './index.html', './data/play.json', './audio/index.json', './manifest.webmanifest',
+  './', './index.html', './plays.json',
+  './data/play.json', './audio/index.json',
+  './plays/gadanie/play.json', './plays/gadanie/audio/index.json',
+  './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-180.png'
 ];
 // mp3-реплики кешируются на лету при первом проигрывании сцены (network-first ниже),
