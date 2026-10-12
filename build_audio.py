@@ -60,6 +60,21 @@ VOICE_CONFIGS = {
                    "Степанида Трофимовна", "Аграфена Кондратьевна", "Липочка",
                    "Фоминишна", "Дарья", "Гувернантка"},
     },
+    "pikovaya": {
+        "dir": ROOT / "plays" / "pikovaya" / "play.json", "out": ROOT / "plays" / "pikovaya" / "audio",
+        "voices": {
+            "Герман":      (DMIT, "+0%", "+0Hz"),   # герой
+            "Пушкин":      (DMIT, "-4%", "-4Hz"),   # рассказчик, ровно
+            "Томский":     (DMIT, "+4%", "+8Hz"),
+            "Чекалинский": (DMIT, "-6%", "-8Hz"),
+            "Гость 1":     (DMIT, "+2%", "+4Hz"),
+            "Гость 2":     (DMIT, "-2%", "-2Hz"),
+            "Гости":       (DMIT, "+0%", "+0Hz"),
+            "Графиня":     (SVET, "-8%", "-8Hz"),   # старуха графиня
+            "Лиза":        (SVET, "+3%", "+14Hz"),  # юная Лизавета
+        },
+        "female": {"Графиня", "Лиза"},
+    },
 }
 
 _ap0 = argparse.ArgumentParser(add_help=False)
@@ -148,7 +163,7 @@ async def main():
     # индекс: id -> файл (для приложения)
     idx = {str(l["id"]): f"{PREFIX}{l['id']}.mp3"
            for l in [u for u in units if u["type"] == "line"]
-           if (OUT / f"{l['id']}.mp3").exists()}
+           if (OUT / f"{l['id']}.mp3").exists() and (OUT / f"{l['id']}.mp3").stat().st_size > 0}
     (OUT / "index.json").write_text(json.dumps(idx, ensure_ascii=False), encoding="utf-8")
     print(f"\nГотово: ok={done['ok']} skip={done['skip']} empty={done['empty']} err={done['err']}")
     print(f"Всего файлов в индексе: {len(idx)}  →  audio/index.json")

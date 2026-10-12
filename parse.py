@@ -89,6 +89,27 @@ PLAY_CONFIGS = {
         },
         "manual": {},
     },
+    "pikovaya": {
+        "title": "Пиковая дама",
+        "author": "А. С. Пушкин (сценарий Анны)",
+        "dir": ROOT / "plays" / "pikovaya",
+        "glue": False,                              # чистый текст, одна реплика на абзац
+        "caps_speakers": True,                      # подписи ЗАГЛАВНЫМИ: «ПУШКИН:» → «Пушкин:»
+        "implicit_act1": True,                      # 1-е действие без заголовка
+        "scene_words": ["Явление", "Сцена", "Картина"],  # сцены помечены «СЦЕНА …»
+        "canon": {
+            "Герман":       ["герман", "германн"],
+            "Пушкин":       ["пушкин", "рассказчик"],
+            "Томский":      ["томский"],
+            "Чекалинский":  ["чекалинский"],
+            "Графиня":      ["графиня"],
+            "Лиза":         ["лиза", "лизавета", "лизавета ивановна"],
+            "Гость 1":      ["гость 1", "гость1"],
+            "Гость 2":      ["гость 2", "гость2"],
+            "Гости":        ["гости"],
+        },
+        "manual": {},
+    },
 }
 
 _ap = argparse.ArgumentParser()
@@ -117,7 +138,8 @@ STAGE_STARTS = (
 )
 
 ROMAN_ACT = re.compile(r"^(Действие|ДЕЙСТВИЕ)\b", re.I)
-SCENE = re.compile(r"^(Явление|ЯВЛЕНИЕ)\b", re.I)
+# слова-заголовки сцены (по умолчанию «Явление»; у некоторых пьес — «Сцена», «Картина»)
+SCENE = re.compile(r"^(" + "|".join(_CFG.get("scene_words", ["Явление"])) + r")\b", re.I)
 
 
 def is_act_header(p: str) -> bool:
@@ -125,6 +147,19 @@ def is_act_header(p: str) -> bool:
     В некоторых исходниках список действующих лиц подписан «Действие первое
     Действующие ЛИЦА:» — такой заголовок актом не считаем."""
     return bool(ROMAN_ACT.match(p)) and "лиц" not in p.lower() and "действующие" not in p.lower()
+
+
+def titlecase_caps_speaker(p: str) -> str:
+    """«ПУШКИН: текст» → «Пушкин: текст». Подписи ЗАГЛАВНЫМИ приводим к обычному виду,
+    чтобы их узнал SPEAKER_RE. Срабатывает, только если часть до двоеточия — вся заглавная
+    и короткая (не предложение с двоеточием внутри)."""
+    m = re.match(r"^\s*([А-ЯЁ][А-ЯЁ0-9 .\-]*?)\s*:\s*(.*)$", p, re.S)
+    if not m:
+        return p
+    lab, rest = m.group(1), m.group(2)
+    if re.search(r"[а-яё]", lab) or len(lab) > 22 or not rest.strip():
+        return p
+    return " ".join(w.capitalize() for w in lab.split()) + ": " + rest
 
 # «Имя (ремарка) . текст»  или  «Имя: текст»
 # имя = 1-3 слова с большой буквы (или «1-й Крестьянин»)
@@ -211,6 +246,9 @@ def is_continuation(p: str) -> bool:
         return False
     words = re.findall(r"[А-Яа-яЁё]+", bare)
     if not words:
+        return False
+    # ремарка-указание КАПСОМ в начале («РАССКАЗЧИК МОЛЧИТ. ДАЛЕЕ сцена…») — не речь
+    if len(words) >= 2 and len(words[0]) > 1 and words[0].isupper() and words[1].isupper():
         return False
     caps = [w for w in words if w[:1].isupper()]
     # список участников / заголовок — но в них не бывает вопросов и восклицаний,
@@ -322,6 +360,9 @@ def parse():
     # точечные замены говорящих-сокращений («ПФ-» → «Ширялов.»)
     for pat, rep in _CFG.get("subs", []):
         paras = [re.sub(pat, rep, p) for p in paras]
+    # подписи ЗАГЛАВНЫМИ («ПУШКИН:») → обычный вид, чтобы узнал SPEAKER_RE
+    if _CFG.get("caps_speakers"):
+        paras = [titlecase_caps_speaker(p) for p in paras]
     # отрезать преамбулу (титул + дублированный список действующих лиц), если задан
     # маркер реального начала: берём ближайший заголовок «Действие…» перед ним.
     real_start = _CFG.get("real_start")
@@ -362,11 +403,15 @@ def parse():
                 # песня идёт до строки «Действие первое»
                 song_lines.append(p)
                 continue
-            if title is None and ("островский" not in low and "комедия" not in low
-                                  and "имя/роль" not in low and "волки и овцы" not in low):
-                pass
-            units.append({"type": "meta", "text": p})
-            continue
+            # первое действие без заголовка: как только пошла реплика — открываем его
+            if _CFG.get("implicit_act1") and (SPEAKER_RE.match(p) or NOSEP_SPEAKER.match(p)
+                                              or manual_line(p)[0]):
+                act = "Действие первое"
+                units.append({"type": "act", "title": act, "synthetic": True})
+                # не continue: ниже разберём абзац как реплику
+            else:
+                units.append({"type": "meta", "text": p})
+                continue
 
         if is_act_header(p):
             if in_song and song_lines:
