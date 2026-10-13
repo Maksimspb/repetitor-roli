@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Сброс кеша</title>
+<style>body{font:18px/1.5 system-ui,sans-serif;max-width:30em;margin:3em auto;padding:0 1em;background:#111;color:#eee}</style>
+</head><body>
+<h2>Сбрасываю кеш…</h2>
+<p id="s">Подождите секунду.</p>
+<script>
+(async()=>{
+  const s=document.getElementById('s');
+  try{
+    if('serviceWorker' in navigator){
+      for(const r of await navigator.serviceWorker.getRegistrations()) await r.unregister();
+    }
+    if(window.caches){
+      for(const k of await caches.keys()) await caches.delete(k);
+    }
+    s.textContent='Готово. Открываю приложение…';
+  }catch(e){ s.textContent='Не вышло очистить автоматически: '+e; return; }
+  setTimeout(()=>location.replace('./?fresh='+Date.now()),800);
+})();
+</script></body></html>
