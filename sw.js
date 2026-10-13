@@ -1,5 +1,5 @@
 // Service worker: офлайн-кеш приложения (партнёр по репликам работает без интернета).
-const CACHE = "repetitor-v16";
+const CACHE = "repetitor-v17";
 const ASSETS = [
   './', './index.html', './plays.json',
   './data/play.json', './audio/index.json',
